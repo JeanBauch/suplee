@@ -16,6 +16,6 @@
         <molecules-action-user-header />
       </div>
     </div>
-    <molecules-search-product-header />
+    <molecules-search-product />
   </div>
 </template>
