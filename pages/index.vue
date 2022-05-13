@@ -5,3 +5,30 @@
     <organisms-call-to-action-home-page />
   </div>
 </template>
+
+<script>
+export default {
+  setup () {
+    useHead({
+      titleTemplate: "%s",
+      htmlAttrs: {
+        lang: "en"
+      },
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Ecommerce de suplementos alimentares."
+        }
+      ]
+      // bodyAttrs: {
+      //   class: "test"
+      // }
+    });
+    return { dynamic: ref(49) };
+  },
+  head: {
+    title: "Suplee"
+  }
+};
+</script>

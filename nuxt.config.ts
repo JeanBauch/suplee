@@ -4,7 +4,10 @@ import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
   head: {
     meta: [
-      { name: "viewport", content: "width=device-width, initial-scale=1" }
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      }
     ],
     link: [
       { rel: "stylesheet", href: "https://awesome-lib.css" },
@@ -22,7 +25,8 @@ export default defineNuxtConfig({
           autoprefixer: {}
         }
       }
-    }
+    },
+    transpile: ["@heroicons/vue"]
   },
   css: [
     "@/assets/css/main.css",

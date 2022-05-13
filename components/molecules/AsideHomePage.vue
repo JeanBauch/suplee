@@ -11,12 +11,12 @@
     <div class="hidden md:block">
       <div class="absolute -bottom-24 left-0 xl:left-36 z-[2] select-none">
         <div>
-          <img src="/bg-complement/suplemento-example.svg" class="drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="">
+          <img src="/bg-complement/suplemento-example.svg" width="410" height="479" class="drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="Ilustração de um suplemento alimentar">
         </div>
       </div>
       <div class="absolute bottom-8 right-0 xl:left-72 z-[1] select-none">
         <div>
-          <img src="/bg-complement/suplemento-example.svg" class="md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
+          <img src="/bg-complement/suplemento-example.svg" width="400" height="400" class="md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="absolute bottom-0 left-0 md:-bottom-60 md:-left-[21rem] z-[1] hidden md:block select-none">
       <div>
-        <img src="/bg-complement/hand.svg" class="drop-shadow-2xl shadow-primary-green-dark" alt="">
+        <img src="/bg-complement/hand.svg" width="955" height="262" class="drop-shadow-2xl shadow-primary-green-dark" alt="">
       </div>
     </div>
   </aside>
