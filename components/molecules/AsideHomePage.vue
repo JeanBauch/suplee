@@ -1,5 +1,5 @@
 <template>
-  <aside class="flex justify-center md:justify-center items-center md:items-start md:w-[50%] relative">
+  <aside class="flex flex-row md:flex-col justify-center items-center md:justify-center md:w-[50%] relative">
     <div class="px-12 md:px-0">
       <h2 class="font-semibold text-5xl xl:text-6xl leading-tight text-primary-olivia-dark drop-shadow-sm text-center hidden md:block">
         All-in-one<br>Suplement for<br> Your Strength
@@ -8,30 +8,24 @@
         Imunize-se!
       </h3>
     </div>
-    <div class="hidden md:block">
-      <div class="absolute -bottom-24 left-0 xl:left-36 z-[2] select-none">
-        <div>
-          <img src="/bg-complement/suplemento-example.svg" width="410" height="479" class="drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="Ilustração de um suplemento alimentar">
-        </div>
+    <div class="hidden md:block relative">
+      <div class="relative z-[2] select-none">
+        <img src="/bg-complement/suplemento-exemplo-img.webp" width="450" height="450" class="aspect-square drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="Ilustração de um suplemento alimentar">
       </div>
-      <div class="absolute bottom-8 right-0 xl:left-72 z-[1] select-none">
-        <div>
-          <img src="/bg-complement/suplemento-example.svg" width="400" height="400" class="md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
-        </div>
+      <div class="absolute -top-10 -right-28 z-[1] select-none">
+        <img src="/bg-complement/suplemento-exemplo-img.webp" width="400" height="400" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
       </div>
     </div>
     <div class="block md:hidden relative pr-10">
       <div class="relative z-[2]">
-        <img src="/bg-complement/suplemento-example-mobile.svg" class="drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="">
+        <img src="/bg-complement/suplemento-example-mobile.svg" width="120" height="120" class="aspect-square drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="">
       </div>
       <div class="absolute -top-8 -right-6 z-[1]">
-        <img src="/bg-complement/suplemento-example-mobile.svg" class="md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
+        <img src="/bg-complement/suplemento-example-mobile.svg" width="120" height="120" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
       </div>
     </div>
-    <div class="absolute bottom-0 left-0 md:-bottom-60 md:-left-[21rem] z-[1] hidden md:block select-none">
-      <div>
-        <img src="/bg-complement/hand.svg" width="955" height="262" class="drop-shadow-2xl shadow-primary-green-dark" alt="">
-      </div>
+    <div class="absolute -bottom-32 -left-2 z-[1] hidden md:block select-none">
+      <img src="/bg-complement/hand.webp" width="600" height="262" class="aspect-auto drop-shadow-2xl shadow-primary-green-dark" alt="">
     </div>
   </aside>
 </template>
@@ -45,7 +39,7 @@
   }
   50%{
     /* box-shadow:0 25px 15px 0 rgba(0,0,0,.2); */
-    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+    filter: drop-shadow(0 100px 100px rgb(0 0 0 / 0.15));
     transform:translatey(-20px)
   }
 }
