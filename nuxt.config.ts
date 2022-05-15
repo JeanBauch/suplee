@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       }
     ],
     link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "stylesheet", href: "https://awesome-lib.css" },
       { rel: "preconnect", href: "https://fonts.gstatic.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
