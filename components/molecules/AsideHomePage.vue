@@ -13,19 +13,19 @@
         <img src="/bg-complement/suplemento-exemplo-img.webp" width="450" height="450" class="aspect-square drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="Ilustração de um suplemento alimentar">
       </div>
       <div class="absolute -top-10 -right-28 z-[1] select-none">
-        <img src="/bg-complement/suplemento-exemplo-img.webp" width="400" height="400" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
+        <img src="/bg-complement/suplemento-exemplo-img.webp" width="400" height="400" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="Imagem ilustrativa de um suplemento">
       </div>
     </div>
     <div class="block md:hidden relative pr-10">
       <div class="relative z-[2]">
-        <img src="/bg-complement/suplemento-example-mobile.svg" width="120" height="120" class="aspect-square drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="">
+        <img src="/bg-complement/suplemento-exemplo-img.webp" width="120" height="120" class="aspect-square drop-shadow-2xl shadow-primary-green-dark img-flutante" alt="Imagem ilustrativa de um suplemento">
       </div>
-      <div class="absolute -top-8 -right-6 z-[1]">
-        <img src="/bg-complement/suplemento-example-mobile.svg" width="120" height="120" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="">
+      <div class="absolute -top-8 -right-2 z-[1]">
+        <img src="/bg-complement/suplemento-exemplo-img.webp" width="120" height="120" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="Imagem ilustrativa de um suplemento">
       </div>
     </div>
     <div class="absolute -bottom-32 -left-2 z-[1] hidden md:block select-none">
-      <img src="/bg-complement/hand.webp" width="600" height="262" class="aspect-auto drop-shadow-2xl shadow-primary-green-dark" alt="">
+      <img src="/bg-complement/hand.webp" width="600" height="262" class="md:aspect-auto drop-shadow-2xl shadow-primary-green-dark" alt="Imagem de background - Mão">
     </div>
   </aside>
 </template>
