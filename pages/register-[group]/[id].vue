@@ -5,43 +5,66 @@
     <pre class="flex self-start fixed top-0 left-0">
       {{ produto }}
     </pre>
+    <pre class="flex self-start fixed bottom-0 left-0">
+      {{ compostoNutricionalInput }}
+    </pre>
     <div class="flex flex-1 flex-col min-h-screen justify-center items-center gap-4">
-      <div class="flex justify-between items-center gap-4">
-        <label for="nome-produto">Nome do produto: </label>
-        <input id="nome-produto" v-model="produto.nome" class="border rounded-sm" type="text" name="nome-produto">
+      <div class="flex flex-col gap-4 items-end">
+        <div class="flex justify-between items-center gap-4">
+          <label for="nome-produto">Nome do produto: </label>
+          <input id="nome-produto" v-model="produto.nome" class="border rounded-sm" type="text" name="nome-produto">
+        </div>
+
+        <div class="flex justify-between items-center gap-4">
+          <label for="descricao-produto">Descrição do produto: </label>
+          <textarea id="descricao-produto" v-model="produto.descricao" class="border rounded-sm" type="text" name="descricao-produto" />
+        </div>
+
+        <div class="flex justify-between items-center gap-4">
+          <label for="composicao-produto">Composição do produto: </label>
+          <textarea id="composicao-produto" v-model="produto.composicao" class="border rounded-sm" type="text" name="composicao-produto" />
+        </div>
+
+        <div class="flex justify-between items-center gap-4">
+          <label for="quantidade-disponivel">Quantidade disponivel: </label>
+          <input id="quantidade-disponivel" v-model="produto.quantidadeDisponivel" class="border rounded-sm" type="number" name="quantidade-disponivel">
+        </div>
+
+        <div class="flex justify-between items-center gap-4">
+          <label for="preco-produto">Preço do produto: </label>
+          <input id="preco-produto" v-model="produto.preco" class="border rounded-sm" type="text" name="preco-produto">
+        </div>
+
+        <div class="flex justify-between items-center gap-4">
+          <label for="profundidade-produto">Profundidade: </label>
+          <input id="profundidade-produto" v-model="produto.profundidade" class="border rounded-sm" type="number" name="profundidade-produto">
+        </div>
+        <div class="flex justify-between items-center gap-4">
+          <label for="altura-produto">Altura: </label>
+          <input id="altura-produto" v-model="produto.altura" class="border rounded-sm" type="number" name="altura-produto">
+        </div>
+        <div class="flex justify-between items-center gap-4">
+          <label for="Largura-produto">Largura: </label>
+          <input id="Largura-produto" v-model="produto.largura" class="border rounded-sm" type="number" name="Largura-produto">
+        </div>
       </div>
 
-      <div class="flex justify-between items-center gap-4">
-        <label for="descricao-produto">Descrição do produto: </label>
-        <textarea id="descricao-produto" v-model="produto.descricao" class="border rounded-sm" type="text" name="descricao-produto" />
-      </div>
-
-      <div class="flex justify-between items-center gap-4">
-        <label for="composicao-produto">Composição do produto: </label>
-        <textarea id="composicao-produto" v-model="produto.composicao" class="border rounded-sm" type="text" name="composicao-produto" />
-      </div>
-
-      <div class="flex justify-between items-center gap-4">
-        <label for="quantidade-disponivel">Quantidade disponivel: </label>
-        <input id="quantidade-disponivel" v-model="produto.quantidadeDisponivel" class="border rounded-sm" type="number" name="quantidade-disponivel">
-      </div>
-
-      <div class="flex justify-between items-center gap-4">
-        <label for="preco-produto">Preço do produto: </label>
-        <input id="preco-produto" v-model="produto.preco" class="border rounded-sm" type="text" name="preco-produto">
-      </div>
-
-      <div class="flex justify-between items-center gap-4">
-        <label for="profundidade-produto">Profundidade: </label>
-        <input id="profundidade-produto" v-model="produto.profundidade" class="border rounded-sm" type="number" name="profundidade-produto">
-      </div>
-      <div class="flex justify-between items-center gap-4">
-        <label for="altura-produto">Altura: </label>
-        <input id="altura-produto" v-model="produto.altura" class="border rounded-sm" type="number" name="altura-produto">
-      </div>
-      <div class="flex justify-between items-center gap-4">
-        <label for="Largura-produto">Largura: </label>
-        <input id="Largura-produto" v-model="produto.largura" class="border rounded-sm" type="number" name="Largura-produto">
+      <div class="flex flex-col gap-2">
+        <span>Categorias: </span>
+        <select id="input-select-category" v-model="produto.categoriaId" name="input-select-category" class="py-2 px-3 rounded-md appearance-none">
+          <option value="ID_CAT_MINERAL">
+            Minerais
+          </option>
+          <option value="ID_CAT_PROTEINA">
+            Proteinas
+          </option>
+          <option value="ID_CAT_VITAMINAS">
+            Vitaminas
+          </option>
+          <option value="ID_CAT_OMEGA3">
+            Ômega 3
+          </option>
+        </select>
       </div>
 
       <div class="flex flex-col justify-between items-start gap-4">
@@ -76,18 +99,14 @@
 
       <div class="flex flex-col justify-between items-start gap-4">
         <span>Efeitos: </span>
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-2">
           <div class="flex gap-2 items-center">
             <input id="input-efeito-imunidade" v-model="produto.efeitos" type="checkbox" value="ID_EFEITO_1" name="registrar-efeito-imunidade">
             <label for="input-efeito-imunidade">Imunidade </label>
-          </div>
 
-          <div class="flex gap-2 items-center">
             <input id="input-efeito-muscular" v-model="produto.efeitos" type="checkbox" value="ID_EFEITO_2" name="registrar-efeito-muscular">
             <label for="input-efeito-muscular">Fortificação Muscular </label>
-          </div>
 
-          <div class="flex gap-2 items-center">
             <input id="input-efeito-relaxante" v-model="produto.efeitos" type="checkbox" value="ID_EFEITO_3" name="registrar-efeito-relaxante">
             <label for="input-efeito-relaxante">Relaxante </label>
           </div>
@@ -95,14 +114,10 @@
           <div class="flex gap-2 items-center">
             <input id="input-efeito-ossea" v-model="produto.efeitos" type="checkbox" value="ID_CATEGORIA_4" name="registrar-efeito-ossea">
             <label for="input-efeito-ossea">Fortificação ossea </label>
-          </div>
 
-          <div class="flex gap-2 items-center">
             <input id="input-efeito-vitaminaD" v-model="produto.efeitos" type="checkbox" value="ID_EFEITO_5" name="registrar-efeito-vitamaniaD">
             <label for="input-efeito-vitaminaD">Vitamina D </label>
-          </div>
 
-          <div class="flex gap-2 items-center">
             <input id="input-efeito-cerebral" v-model="produto.efeitos" type="checkbox" value="ID_EFEITO_6" name="registrar-efeito-cerebral">
             <label for="input-efeito-cerebral">Memoria </label>
           </div>
@@ -120,18 +135,57 @@
         <input id="legenda-tabela-nutricional" v-model="produto.informacaoNutricional.legenda" class="border rounded-sm" type="text" name="legenda-tabela-nutricional">
       </div>
 
-      <h3>Composto nutricional:</h3>
-      <div class="flex justify-between items-center gap-4">
-        <label for="composto-nutricional">Composto: </label>
-        <input id="composto-nutricional" v-model="produto.informacaoNutricional.compostosNutricionais[0]" class="border rounded-sm" type="text" name="composto-nutricional">
+      <div>
+        <div v-for="(index, p) in produto.informacaoNutricional.compostosNutricionais" :key="index">
+          <div class="flex flex-col gap-2 items-end">
+            <h3 class="flex flex-1 self-center">
+              Item {{ index }}:{{ p }}
+            </h3>
+            <div class="flex justify-between items-center gap-4">
+              <label for="composto-nutricional">Composto: </label>
+              <input
+                :id="`composto-nutricional-`+index"
+                v-model="produto.informacaoNutricional.compostosNutricionais[index].composto"
+                :placeholder="p.composto"
+                class="border rounded-sm"
+                type="text"
+                :name="`composto-nutricional-`+index"
+              >
+            </div>
+            <div class="flex justify-between items-center gap-4">
+              <label for="porcao-nutricional">Porção: </label>
+              <input id="porcao-nutricional" v-model="compostoNutricionalInput.porcao" class="border rounded-sm" type="text" name="porcao-nutricional">
+            </div>
+            <div class="flex justify-between items-center gap-4">
+              <label for="valor-diario-nutricional">Valor Diário: </label>
+              <input id="valor-diario-nutricional" v-model="compostoNutricionalInput.valorDiario" class="border rounded-sm" type="text" name="valor-diario-nutricional">
+            </div>
+            <button class="px-4 py-2 border border-primary-olivia-dark rounded-md" @click="addComposto">
+              Adicionar composto
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="flex justify-between items-center gap-4">
-        <label for="porcao-nutricional">Porção: </label>
-        <input id="porcao-nutricional" v-model="produto.informacaoNutricional.compostosNutricionais[0]" class="border rounded-sm" type="text" name="porcao-nutricional">
-      </div>
-      <div class="flex justify-between items-center gap-4">
-        <label for="valor-diario-nutricional">Valor Diário: </label>
-        <input id="valor-diario-nutricional" v-model="produto.informacaoNutricional.compostosNutricionais[0]" class="border rounded-sm" type="text" name="valor-diario-nutricional">
+
+      <div class="flex flex-col gap-2 items-end">
+        <h3 class="flex flex-1 self-center">
+          Composto nutricional:
+        </h3>
+        <div class="flex justify-between items-center gap-4">
+          <label for="composto-nutricional">Composto: </label>
+          <input id="composto-nutricional" v-model="compostoNutricionalInput.composto" class="border rounded-sm" type="text" name="composto-nutricional">
+        </div>
+        <div class="flex justify-between items-center gap-4">
+          <label for="porcao-nutricional">Porção: </label>
+          <input id="porcao-nutricional" v-model="compostoNutricionalInput.porcao" class="border rounded-sm" type="text" name="porcao-nutricional">
+        </div>
+        <div class="flex justify-between items-center gap-4">
+          <label for="valor-diario-nutricional">Valor Diário: </label>
+          <input id="valor-diario-nutricional" v-model="compostoNutricionalInput.valorDiario" class="border rounded-sm" type="text" name="valor-diario-nutricional">
+        </div>
+        <button class="px-4 py-2 border border-primary-olivia-dark rounded-md" @click="addComposto">
+          Adicionar composto
+        </button>
       </div>
     </div>
   </div>
@@ -140,24 +194,36 @@
 <script setup lang="ts">
 const route = useRoute();
 const isAdmin = ref(false);
-type Product = {
-    nome: string,
-    descricao: string,
-    composicao: string,
-    quantidadeDisponivel:number,
-    preco:number,
-    profundidade:number,
-    altura:number,
-    largura:number,
-    categoriaId: string,
-    efeitos: string[],
-    informacaoNutricional: {
-      cabecalho: string,
-      legenda: string,
-      compostosNutricionais: string[]
-    }
 
+type compNutricional = {
+  composto: string,
+  porcao: string,
+  valorDiario: string,
+};
+type Product = {
+  nome: string,
+  descricao: string,
+  composicao: string,
+  quantidadeDisponivel:number,
+  preco:number,
+  profundidade:number,
+  altura:number,
+  largura:number,
+  categoriaId: string,
+  efeitos: string[],
+  informacaoNutricional: {
+    cabecalho: string,
+    legenda: string,
+    compostosNutricionais: compNutricional[]
+  }
 }
+const compostoNutricionalInput = reactive<compNutricional>(
+  {
+    composto: "",
+    porcao: "",
+    valorDiario: ""
+  }
+);
 const produto = reactive<Product>(
   {
     nome: "",
@@ -173,10 +239,20 @@ const produto = reactive<Product>(
     informacaoNutricional: {
       cabecalho: "",
       legenda: "",
-      compostosNutricionais: []
+      compostosNutricionais: [
+
+      ]
     }
   }
 );
+
+const addComposto = () => {
+  produto.informacaoNutricional.compostosNutricionais = [...produto.informacaoNutricional.compostosNutricionais, { composto: compostoNutricionalInput.composto, porcao: compostoNutricionalInput.porcao, valorDiario: compostoNutricionalInput.valorDiario }];
+
+  compostoNutricionalInput.composto = "";
+  compostoNutricionalInput.porcao = "";
+  compostoNutricionalInput.valorDiario = "";
+};
 
 if (route.params.group === "admins" && route.params.id === "123") {
   isAdmin.value = true;

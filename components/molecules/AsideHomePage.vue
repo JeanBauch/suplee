@@ -24,7 +24,7 @@
         <img src="/bg-complement/suplemento-exemplo-img.webp" width="120" height="120" class="aspect-square md:hidden lg:block drop-shadow-2xl shadow-primary-green-dark rotate-[50deg] scale-[0.65] img-flutante-invertido" alt="Imagem ilustrativa de um suplemento">
       </div>
     </div>
-    <div class="absolute -bottom-32 -left-2 z-[1] hidden md:block select-none">
+    <div class="absolute -bottom-40 -left-2 z-[1] hidden md:block select-none">
       <img src="/bg-complement/hand.webp" width="600" height="262" class="md:aspect-auto drop-shadow-2xl shadow-primary-green-dark" alt="Imagem de background - Mão">
     </div>
   </aside>
