@@ -12,7 +12,7 @@ export default {
     useHead({
       titleTemplate: "%s",
       htmlAttrs: {
-        lang: "en"
+        lang: "pt-br"
       },
       meta: [
         {
@@ -21,9 +21,6 @@ export default {
           content: "Ecommerce de suplementos alimentares."
         }
       ]
-      // bodyAttrs: {
-      //   class: "test"
-      // }
     });
     return { dynamic: ref(49) };
   },
