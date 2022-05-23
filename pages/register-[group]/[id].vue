@@ -11,11 +11,6 @@
           {{ compostoNutricionalInput }}
         </code>
       </pre> -->
-      <div class="flex self-start fixed top-0 left-0 w-72">
-        <code>
-          {{ produto }}
-        </code>
-      </div>
       <div class="flex flex-col flex-1 max-w-5xl pt-9 pb-36 px-40 bg-complement-background-white rounded-2xl shadow-lg relative my-16">
         <div class="flex flex-col flex-1 gap-4 items-center justify-center pt-4 border border-secondary-green-gray-dark rounded-lg">
           <h1 class="font-medium text-3xl text-dark-normal">
@@ -46,7 +41,7 @@
 
               <div class="flex flex-col w-1/2 justify-center items-center gap-3">
                 <label for="preco-produto"><b>Preço do produto:</b> </label>
-                <input id="preco-produto" v-model="produto.preco" class="border rounded-md px-2 py-1 max-w-[80px]" type="text" name="preco-produto">
+                <input id="preco-produto" v-model="produto.preco" class="border rounded-md px-2 py-1 max-w-[80px]" type="number" name="preco-produto">
               </div>
             </div>
 
@@ -70,16 +65,16 @@
             <div class="flex w-full justify-center items-center gap-4">
               <span><b>Categorias:</b> </span>
               <select id="input-select-category" v-model="produto.categoriaId" name="input-select-category" class="py-2 px-3 rounded-md border appearance-none">
-                <option value="ID_CAT_MINERAL">
+                <option value="64daa805-e4c7-415f-bc00-cda9d6f3308e">
                   Minerais
                 </option>
-                <option value="ID_CAT_PROTEINA">
+                <option value="19070c6d-2f5f-4baa-8812-06d8a37545c9">
                   Proteinas
                 </option>
-                <option value="ID_CAT_VITAMINAS">
+                <option value="af1c6fbf-368d-4023-81bf-30b38b457238">
                   Vitaminas
                 </option>
-                <option value="ID_CAT_OMEGA3">
+                <option value="4f38fc46-975e-48af-be97-9fd0d353d81c">
                   Ômega 3
                 </option>
               </select>
@@ -87,7 +82,7 @@
 
             <div class="flex flex-col justify-between items-center gap-2 max-w-full overflow-hidden">
               <label for="imagens-produto"><b>Imagens:</b> </label>
-              <input id="imagens-produto" type="file" name="imagens-produto" multiple>
+              <input id="imagens-produto" type="file" name="imagens-produto" multiple @change="getImage">
             </div>
 
             <div class="flex flex-col justify-between items-start gap-4">
@@ -99,7 +94,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="ID_EFEITO_1"
+                    value="4dcb6c21-5241-420b-8a60-c1b17937ee95"
                     name="registrar-efeito-imunidade"
                   >
                   <label for="input-efeito-imunidade">Imunidade </label>
@@ -109,7 +104,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="ID_EFEITO_2"
+                    value="6c81a778-61a0-439c-a634-385659d82054"
                     name="registrar-efeito-muscular"
                   >
                   <label for="input-efeito-muscular">Fortificação Muscular </label>
@@ -119,7 +114,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="ID_EFEITO_3"
+                    value="4906be23-116e-4ee0-bc13-6699f59bebec"
                     name="registrar-efeito-relaxante"
                   >
                   <label for="input-efeito-relaxante">Relaxante </label>
@@ -131,7 +126,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="ID_CATEGORIA_4"
+                    value="b78603ac-13bb-4132-b0de-b4f4aa433baa"
                     name="registrar-efeito-ossea"
                   >
                   <label for="input-efeito-ossea">Fortificação ossea </label>
@@ -141,7 +136,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="ID_EFEITO_5"
+                    value="a45e387b-ab50-430d-9fa7-7821dda2dab1"
                     name="registrar-efeito-vitamaniaD"
                   >
                   <label for="input-efeito-vitaminaD">Vitamina D </label>
@@ -151,7 +146,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="ID_EFEITO_6"
+                    value="f029befd-6cb9-4814-ae9e-f881d021aee5"
                     name="registrar-efeito-cerebral"
                   >
                   <label for="input-efeito-cerebral">Memoria </label>
@@ -246,10 +241,20 @@
             </div>
           </div>
         </div>
-        <div class="absolute bottom-8 right-40 py-4 px-9 bg-primary-green-dark rounded-lg hover:opacity-80 group cursor-pointer">
-          <h1 class="font-bold text-complement-background-white">
+        <button :class="statusProgress.progress === 'progress' ? 'cursor-progress' : 'cursor-pointer' " class="absolute bottom-8 right-40 py-4 px-9 bg-primary-green-dark rounded-lg hover:opacity-80 group" @click="postProduto">
+          <h3 class="font-bold text-complement-background-white">
             Cadastrar produto
-          </h1>
+          </h3>
+        </button>
+        <div v-if="postDone" class="absolute bottom-8 left-40 py-4 px-9 group">
+          <p class="font-bold text-xl text-primary-olivia-dark">
+            Produto cadastrado com sucesso!
+          </p>
+        </div>
+        <div v-if="!postDone && statusProgress.progress === 'done'" class="absolute bottom-8 left-40 py-4 px-9 group">
+          <p class="font-bold text-xl text-[#912f3c]">
+            Erro ao cadastrar os produtos!
+          </p>
         </div>
       </div>
     </div>
@@ -257,6 +262,10 @@
 </template>
 
 <script setup lang="ts">
+import { normalizeURL } from "ufo";
+
+const baseURL = normalizeURL("https://supleeapiv1.herokuapp.com");
+
 useHead({
   title: "Cadastro de Produto",
   // or, instead:
@@ -269,9 +278,9 @@ useHead({
   ]
 });
 
-const route = useRoute();
-const isAdmin = ref(false);
-
+type progressPostProduct = {
+  progress: "waiting" | "progress" | "done"
+};
 type compNutricional = {
   composto: string,
   porcao: string,
@@ -287,13 +296,24 @@ type Product = {
   altura:number,
   largura:number,
   categoriaId: string,
+  imagens: string[],
   efeitos: string[],
   informacaoNutricional: {
     cabecalho: string,
     legenda: string,
     compostosNutricionais: compNutricional[]
   }
-}
+};
+
+const route = useRoute();
+const isAdmin = ref(false);
+const postDone = ref<boolean>(false);
+
+const statusProgress = reactive<progressPostProduct>(
+  {
+    progress: "waiting"
+  }
+);
 const compostoNutricionalInput = reactive<compNutricional>(
   {
     composto: "",
@@ -312,6 +332,7 @@ const produto = reactive<Product>(
     altura: 0,
     largura: 0,
     categoriaId: "",
+    imagens: [],
     efeitos: [],
     informacaoNutricional: {
       cabecalho: "",
@@ -335,8 +356,45 @@ const removeComposto = (index: number) => {
   produto.informacaoNutricional.compostosNutricionais.splice(index, 1);
 };
 
+const getImage = (e:Event) => {
+  const target = e.target as HTMLInputElement;
+  const file = target.files;
+  const test = file ? file[0] : null;
+  getBase64(test as File);
+};
+
+const getBase64 = (file: File) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    const resultString = reader.result as string;
+    if (resultString) {
+      produto.imagens.push(resultString.substring(23, resultString.length));
+    }
+  };
+  reader.onerror = function (error) {
+    console.log("Error: ", error);
+  };
+};
+
+async function postProduto () {
+  statusProgress.progress = "progress";
+  await $fetch("/api/Catalogo/produto", {
+    baseURL,
+    headers: {
+      Accept: "application/json",
+      "Cache-Control": "no-cache"
+    },
+    method: "POST",
+    body: produto
+  }).then(() => {
+    postDone.value = true;
+    statusProgress.progress = "done";
+  });
+  // .catch(error => console.log(error.data));
+}
+
 if (route.params.group === "admins" && route.params.id === "123") {
   isAdmin.value = true;
-  // console.log("Warning! Make sure user is authenticated!");
 }
 </script>
