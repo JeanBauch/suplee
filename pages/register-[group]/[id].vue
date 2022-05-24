@@ -262,10 +262,7 @@
 </template>
 
 <script setup lang="ts">
-import { normalizeURL } from "ufo";
-
-const baseURL = normalizeURL("https://supleeapiv1.herokuapp.com");
-
+const baseURL:string = useBaseURL();
 useHead({
   title: "Cadastro de Produto",
   // or, instead:
@@ -376,6 +373,13 @@ const getBase64 = (file: File) => {
     console.log("Error: ", error);
   };
 };
+
+onMounted(() => { getCategorias(); });
+
+async function getCategorias () {
+  // console.log(apiURL.public.apiBase);
+  const { data } = await $fetch("/Catalogo/categorias", { baseURL });
+}
 
 async function postProduto () {
   statusProgress.progress = "progress";
