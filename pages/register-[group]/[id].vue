@@ -160,7 +160,7 @@
             <div class="flex items-center justify-center w-full relative before:content-[''] before:w-[30%] before:h-[2px] before:absolute before:left-0 before:top-1/2 before:bg-secondary-green-gray-dark after:content-[''] after:w-[30%] after:h-[2px] after:absolute after:right-0 after:bottom-1/2 after:bg-secondary-green-gray-dark">
               <div class="flex items-center justify-center py-2 px-7 rounded-full bg-primary-olivia-dark">
                 <h2 class="text-complement-background-white font-semibold">
-                  Informações Nutricionais:
+                  Informações Nutricionais
                 </h2>
               </div>
             </div>
@@ -181,7 +181,7 @@
           <div class="flex flex-col items-center justify-center w-full bg-complement-background-soft">
             <div class="flex w-full">
               <h3 class="flex py-2 px-9 text-complement-background-white font-semibold bg-primary-olivia-dark rounded-br-3xl">
-                Composto nutricional:
+                Composto nutricional
               </h3>
             </div>
             <div class="flex flex-col gap-4 items-end my-4">
@@ -262,10 +262,7 @@
 </template>
 
 <script setup lang="ts">
-import { normalizeURL } from "ufo";
-
-const baseURL = normalizeURL("https://supleeapiv1.herokuapp.com");
-
+const baseURL:string = useBaseURL();
 useHead({
   title: "Cadastro de Produto",
   // or, instead:
@@ -278,10 +275,10 @@ useHead({
   ]
 });
 
-type progressPostProduct = {
+type ProgressPostProduct = {
   progress: "waiting" | "progress" | "done"
 };
-type compNutricional = {
+type CompNutricional = {
   composto: string,
   porcao: string,
   valorDiario: string,
@@ -301,20 +298,21 @@ type Product = {
   informacaoNutricional: {
     cabecalho: string,
     legenda: string,
-    compostosNutricionais: compNutricional[]
+    compostosNutricionais: CompNutricional[]
   }
 };
 
-const route = useRoute();
+const route = useRoute()
+;
 const isAdmin = ref(false);
 const postDone = ref<boolean>(false);
 
-const statusProgress = reactive<progressPostProduct>(
+const statusProgress = reactive<ProgressPostProduct>(
   {
     progress: "waiting"
   }
 );
-const compostoNutricionalInput = reactive<compNutricional>(
+const compostoNutricionalInput = reactive<CompNutricional>(
   {
     composto: "",
     porcao: "",
@@ -356,42 +354,79 @@ const removeComposto = (index: number) => {
   produto.informacaoNutricional.compostosNutricionais.splice(index, 1);
 };
 
-const getImage = (e:Event) => {
+const getImage = async (e:Event) => {
+  // const test = file ? file[0] : null;
   const target = e.target as HTMLInputElement;
-  const file = target.files;
-  const test = file ? file[0] : null;
-  getBase64(test as File);
+  const files = target.files;
+  const arrFiles = Array.from(files as FileList);
+  const arrFiles64 = await Promise.all(arrFiles.map(async (file) => {
+    return await getBase64(file as Blob);
+  })) as string[];
+  produto.imagens.push(...arrFiles64.map((file: string) => {
+    return file.substring(23, file.length);
+  }));
 };
 
-const getBase64 = (file: File) => {
+function getBase64 (file: Blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
+/*
+const getBase64 = (files: FileList) => {
+  const ArrFiles = Array.from(files);
   const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    const resultString = reader.result as string;
-    if (resultString) {
-      produto.imagens.push(resultString.substring(23, resultString.length));
-    }
-  };
-  reader.onerror = function (error) {
-    console.log("Error: ", error);
-  };
-};
+
+  ArrFiles.forEach((file) => {
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      const resultString = reader.result as string;
+      if (resultString) {
+        produto.imagens.push(resultString.substring(23, resultString.length));
+        console.log(resultString);
+      }
+    };
+    reader.onerror = function () {
+      // console.log("Error: ", error);
+    };
+  });
+}; */
+/*
+onMounted(() => { getCategorias(); });
+
+async function getCategorias () {
+  // console.log(apiURL.public.apiBase);
+  const { data } = await $fetch("/Catalogo/categorias", { baseURL });
+}
+*/
 
 async function postProduto () {
   statusProgress.progress = "progress";
-  await $fetch("/api/Catalogo/produto", {
-    baseURL,
-    headers: {
-      Accept: "application/json",
-      "Cache-Control": "no-cache"
-    },
-    method: "POST",
-    body: produto
-  }).then(() => {
+
+  try {
+    await $fetch("/api/Catalogo/produto", {
+      baseURL,
+      headers: {
+        Accept: "application/json",
+        "Cache-Control": "no-cache"
+      },
+      method: "POST",
+      body: produto
+    });
+
     postDone.value = true;
     statusProgress.progress = "done";
-  });
-  // .catch(error => console.log(error.data));
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
+
+  // .catch(error =>);
 }
 
 if (route.params.group === "admins" && route.params.id === "123") {
