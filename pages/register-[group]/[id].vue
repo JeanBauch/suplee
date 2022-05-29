@@ -355,15 +355,16 @@ const removeComposto = (index: number) => {
 };
 
 const getImage = async (e:Event) => {
-  // const test = file ? file[0] : null;
   const target = e.target as HTMLInputElement;
   const files = target.files;
   const arrFiles = Array.from(files as FileList);
   const arrFiles64 = await Promise.all(arrFiles.map(async (file) => {
     return await getBase64(file as Blob);
   })) as string[];
+
   produto.imagens.push(...arrFiles64.map((file: string) => {
-    return file.substring(23, file.length);
+    const fileFormat = file.split(",");
+    return fileFormat[1];
   }));
 };
 
@@ -376,39 +377,11 @@ function getBase64 (file: Blob) {
   });
 }
 
-/*
-const getBase64 = (files: FileList) => {
-  const ArrFiles = Array.from(files);
-  const reader = new FileReader();
-
-  ArrFiles.forEach((file) => {
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      const resultString = reader.result as string;
-      if (resultString) {
-        produto.imagens.push(resultString.substring(23, resultString.length));
-        console.log(resultString);
-      }
-    };
-    reader.onerror = function () {
-      // console.log("Error: ", error);
-    };
-  });
-}; */
-/*
-onMounted(() => { getCategorias(); });
-
-async function getCategorias () {
-  // console.log(apiURL.public.apiBase);
-  const { data } = await $fetch("/Catalogo/categorias", { baseURL });
-}
-*/
-
 async function postProduto () {
   statusProgress.progress = "progress";
 
   try {
-    await $fetch("/api/Catalogo/produto", {
+    await $fetch("/Catalogo/produto", {
       baseURL,
       headers: {
         Accept: "application/json",
@@ -422,7 +395,8 @@ async function postProduto () {
     statusProgress.progress = "done";
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
+      postDone.value = false;
+      statusProgress.progress = "done";
     }
   }
 
