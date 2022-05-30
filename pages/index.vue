@@ -30,20 +30,27 @@
           </div>
         </div>
       </div>
-      <main class="px-4 sm:px-8 py-5 grid grid-cols-2 grid-rows-4 gap-4 md:hidden">
-        <organisms-card-product />
-        <organisms-card-product />
-
-        <organisms-card-product />
-        <organisms-card-product />
+      <div v-if="pending">
+        <p>Loading...</p>
+      </div>
+      <main v-else class="px-4 sm:px-8 py-5 grid grid-cols-2 grid-rows-4 gap-4 md:hidden">
+        <div v-for="(produto, index) in allProducts" :key="index">
+          <organisms-card-product :produto="produto" />
+        </div>
       </main>
     </section>
+    <div id="modal" />
   </div>
 </template>
 
 <script>
 export default {
   setup () {
+    const { pending, data: allProducts } = useLazyFetch("https://supleeapiv1.herokuapp.com/api/Catalogo/produtos");
+    // watch(allProducts, (newProducts) => {
+    //   console.log("passou por aqui!");
+    // });
+
     useHead({
       titleTemplate: "%s",
       htmlAttrs: {
@@ -57,7 +64,8 @@ export default {
         }
       ]
     });
-    return { dynamic: ref(49) };
+
+    return { dynamic: ref(49), allProducts, pending };
   },
   head: {
     title: "Suplee"
