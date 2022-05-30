@@ -65,16 +65,16 @@
             <div class="flex w-full justify-center items-center gap-4">
               <span><b>Categorias:</b> </span>
               <select id="input-select-category" v-model="produto.categoriaId" name="input-select-category" class="py-2 px-3 rounded-md border appearance-none">
-                <option value="64daa805-e4c7-415f-bc00-cda9d6f3308e">
+                <option value="083a4576-f55b-4766-bf50-eb86db16b766">
                   Minerais
                 </option>
-                <option value="19070c6d-2f5f-4baa-8812-06d8a37545c9">
+                <option value="8a11a207-806b-4381-a66d-312380079800">
                   Proteinas
                 </option>
-                <option value="af1c6fbf-368d-4023-81bf-30b38b457238">
+                <option value="13da56cc-5122-4392-8766-de930231f770">
                   Vitaminas
                 </option>
-                <option value="4f38fc46-975e-48af-be97-9fd0d353d81c">
+                <option value="06c8e04e-6186-4348-b2b3-c92956593d94">
                   Ômega 3
                 </option>
               </select>
@@ -94,7 +94,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="4dcb6c21-5241-420b-8a60-c1b17937ee95"
+                    value="8ebad980-9591-41f3-9d87-d4ef541899f5"
                     name="registrar-efeito-imunidade"
                   >
                   <label for="input-efeito-imunidade">Imunidade </label>
@@ -104,7 +104,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="6c81a778-61a0-439c-a634-385659d82054"
+                    value="fd02f052-3595-4609-8b5b-7a92fb653454"
                     name="registrar-efeito-muscular"
                   >
                   <label for="input-efeito-muscular">Fortificação Muscular </label>
@@ -114,7 +114,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="4906be23-116e-4ee0-bc13-6699f59bebec"
+                    value="fc63bca1-9229-4d6d-a47a-f963f665f1d2"
                     name="registrar-efeito-relaxante"
                   >
                   <label for="input-efeito-relaxante">Relaxante </label>
@@ -126,7 +126,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="b78603ac-13bb-4132-b0de-b4f4aa433baa"
+                    value="a6e4f847-ae7d-4d82-84d4-74e5fcaa8057"
                     name="registrar-efeito-ossea"
                   >
                   <label for="input-efeito-ossea">Fortificação ossea </label>
@@ -136,7 +136,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="a45e387b-ab50-430d-9fa7-7821dda2dab1"
+                    value="ce648c1c-c4be-42be-a523-1d3eb73e531c"
                     name="registrar-efeito-vitamaniaD"
                   >
                   <label for="input-efeito-vitaminaD">Vitamina D </label>
@@ -146,7 +146,7 @@
                     v-model="produto.efeitos"
                     class="accent-primary-olivia-dark"
                     type="checkbox"
-                    value="f029befd-6cb9-4814-ae9e-f881d021aee5"
+                    value="fe9ff416-74cc-4deb-b19e-af2a0fe5617e"
                     name="registrar-efeito-cerebral"
                   >
                   <label for="input-efeito-cerebral">Memoria </label>
