@@ -10,8 +10,8 @@
       <molecules-search-product call-to-action />
     </div>
 
-    <div class="w-full px-6 sm:px-8 md:px-0 md:w-[90%] lg:w-[80%] xl:w-2/3 flex flex-col gap-4 xl:gap-6 2xl:gap-8 relative">
-      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-secondary-orange-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg">
+    <div class="w-full mb-8 px-6 sm:px-8 md:px-0 md:w-[90%] lg:w-[80%] xl:w-2/3 flex flex-col gap-4 xl:gap-6 2xl:gap-8 relative">
+      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-secondary-orange-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg" @click="$emit('selectCategoryFilter', 'Minerais')">
         <div class="relative flex items-center h-full py-3 px-5">
           <div class="relative min-w-[48px]">
             <svg
@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-primary-lemon-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg">
+      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-primary-lemon-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg" @click="$emit('selectCategoryFilter', 'Proteínas')">
         <div class="relative flex items-center h-full py-3 px-5">
           <div class="relative min-w-[48px] text-[#FFF]">
             <svg
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-primary-green-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg">
+      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-primary-green-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg" @click="$emit('selectCategoryFilter', 'Vitaminas')">
         <div class="relative flex items-center h-full py-3 px-5">
           <div class="relative min-w-[48px] text-[#FFF]">
             <svg
@@ -104,7 +104,7 @@
         </div>
       </div>
 
-      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-primary-olivia-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg">
+      <div class="group relative cursor-pointer shadow-green-perso rounded-lg bg-[#FBFFFA] before:content-[''] before:absolute before:transition-all before:duration-500 before:w-2 before:h-full before:bg-primary-olivia-dark before:rounded-tl-lg before:rounded-bl-lg hover:before:w-full hover:before:rounded-lg" @click="$emit('selectCategoryFilter', 'Ômega-3')">
         <div class="relative flex items-center h-full py-3 px-5">
           <div class="relative min-w-[48px] text-[#FFF]">
             <svg
@@ -138,3 +138,7 @@
     </div>
   </main>
 </template>
+
+<script setup>
+defineEmits(["selectCategoryFilter"]);
+</script>

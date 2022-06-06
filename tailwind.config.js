@@ -5,6 +5,13 @@ module.exports = {
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}"
   ],
+  safelist: [
+    "border-primary-green-dark",
+    "text-primary-green-dark",
+    "border-primary-lemon-dark",
+    "border-secondary-orange-medium",
+    "border-primary-olivia-dark"
+  ],
   theme: {
     colors: {
       transparent: "transparent",
