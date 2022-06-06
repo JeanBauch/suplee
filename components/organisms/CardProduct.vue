@@ -14,7 +14,7 @@
 
         <div class="flex flex-col gap-2 w-[85%]">
           <div class="flex justify-between text-sm">
-            <span class="text-secondary-green-gray-dark font-normal">Caterogia:</span>
+            <span class="text-secondary-green-gray-dark font-normal">Categoria:</span>
             <p class="text-dark-normal font-light">
               {{ produto.nomeCategoria }}
             </p>
@@ -67,15 +67,20 @@ const classObject = computed(() => ({
       ? "bg-primary-lemon-dark"
       : propsValue.produto.nomeCategoria === "Minerais" ? "bg-secondary-orange-medium" : propsValue.produto.nomeCategoria === "Ômega-3" && "bg-primary-olivia-dark",
 
-  icons: propsValue.produto.nomeCategoria === "Vitaminas"
+  icons: propsValue.produto.nomeEfeito === "Imunidade"
     ? "icon-imunity.svg"
-    : propsValue.produto.nomeCategoria === "Proteínas"
+    : propsValue.produto.nomeEfeito === "Fortalecimento Muscular"
       ? "icon-muscle.svg"
-      : propsValue.produto.nomeCategoria === "Minerais" ? "icon-bone.svg" : propsValue.produto.nomeCategoria === "Ômega-3" && "icon-brain.svg"
+      : propsValue.produto.nomeEfeito === "Fortificação Óssea"
+        ? "icon-bone.svg"
+        : propsValue.produto.nomeEfeito === "Memória"
+          ? "icon-brain.svg"
+          : propsValue.produto.nomeEfeito === "Vitamina D" && "icon-imunity.svg"
 }));
 
 const accountBRL = computed(() => {
-  return "R$ " + propsValue.produto.preco.toFixed(2);
+  const valor = propsValue.produto.preco.toFixed(2).toString();
+  return "R$ " + valor.replace(".", ",");
 });
 
 </script>

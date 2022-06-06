@@ -1,24 +1,42 @@
 <template>
-  <div>
-    <h1>Vue 3 Modal</h1>
-    <button @click="isModalOpen = true">
-      Open Modal
-    </button>
-    <Transition>
-      <div v-if="isModalOpen" class="modal-bg">
-        <div class="modal">
-          <button class="close-btn" @click="isModalOpen = false">
-            x
-          </button>
-          Click outside this modal to close it
-        </div>
+  <ClientOnly>
+    <Teleport to="body">
+      <div>
+        <Transition>
+          <div v-if="isModalOpen" class="modal-bg">
+            <div ref="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+              <!-- Header -->
+              <div class="p-7 border-b-[1px] border-b-secondary-green-gray-light">
+                <slot name="header-modal" />
+              </div>
+              <!-- Close Modal -->
+              <div class="absolute top-5 right-3 bg-none border-none cursor-pointer">
+                <slot name="btn-close-modal" />
+              </div>
+              <!-- Content -->
+              <slot name="content-modal-category">
+                I'm empty inside category
+              </slot>
+              <slot />
+            </div>
+          </div>
+        </Transition>
       </div>
-    </Transition>
-  </div>
+    </Teleport>
+  </ClientOnly>
 </template>
 
-<script setup>
+<script setup lang="ts">
+
+const propsModal = defineProps<{
+  show: boolean
+}>();
 const isModalOpen = ref(false);
+
+watch(() => propsModal.show, (show) => {
+  isModalOpen.value = show;
+});
+
 </script>
 
 <style scoped>
@@ -48,20 +66,8 @@ const isModalOpen = ref(false);
 }
 .modal {
   position: relative;
-
   background: white;
-  padding: 50px 100px;
   border-radius: 5px;
   box-shadow: 0 10px 5px 2px rgba(0,0,0,0.1);
-}
-.modal .close-btn {
-  position: absolute;
-
-  top: 10px;
-  right: 10px;
-
-  background: none;
-  border: none;
-  cursor: pointer;
 }
 </style>
