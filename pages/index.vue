@@ -1,9 +1,9 @@
 <template>
   <div class="relative">
-    <organisms-nav-bar-footer-mobile @select-scroll-section="scrollPageToListProducts" />
+    <organisms-nav-bar-footer-mobile @select-scroll-section="scrollToSection" />
     <section class="bg-complement-background-soft relative z-0 min-h-screen overflow-hidden">
       <atoms-bg-hero />
-      <organisms-header />
+      <organisms-header @search-product="searchProductName" />
       <organisms-call-to-action-home-page @select-category-filter="filterCategoryCallToAction" @search-product="searchProductName" />
     </section>
     <section class="bg-complement-background-normal min-h-screen">
@@ -13,7 +13,7 @@
           <h2 class="font-semibold text-2xl md:font-bold lg:text-3xl text-dark-normal">
             Todos os produtos
           </h2>
-          <div class="flex flex-1 justify-center items-center">
+          <div class="hidden lg:flex flex-1 justify-center items-center">
             <div class="relative w-[28rem] flex flex-col gap-2">
               <molecules-search-product product-listing @search-product="searchProductName" />
               <h3 v-if="currentProductNameToSearch != '' " class="text-center font-light pr-16">
@@ -119,7 +119,7 @@
           <div v-if="pending">
             <p>Loading...</p>
           </div>
-          <main v-else class="w-full lg:max-w-6xl px-4 sm:px-8 py-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 grid-rows-4 gap-8 lg:gap-16 pb-28 relative">
+          <main v-else class="w-full lg:max-w-6xl px-4 sm:px-8 py-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 grid-rows-4 gap-4 lg:gap-16 pb-28 relative">
             <atoms-loader-label :show="loaderProduct">
               <template #content-label>
                 <span>Buscando seus produtos...</span>
@@ -274,6 +274,14 @@ export default {
       toggleProductNameToSearch(productName);
     }
 
+    function scrollToSection (section) {
+      if (section === "ViewTopPage") {
+        scrollPageToTop();
+      } else if (section === "ViewListProduct") {
+        scrollPageToListProducts();
+      }
+    }
+
     function scrollPageToListProducts () {
       let element;
       if (window.screen.height > 1024) {
@@ -281,6 +289,11 @@ export default {
       } else {
         element = document.querySelector("#productsFiltered");
       }
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function scrollPageToTop () {
+      const element = document.querySelector("body");
       element.scrollIntoView({ behavior: "smooth" });
     }
 
@@ -327,7 +340,7 @@ export default {
       ]
     });
 
-    return { dynamic: ref(49), allProducts: listProducts, loaderProduct, pending, showModal, currentCategorySelected, currentProductNameToSearch, currentCountProductSearch, toggleSelectedCategory, filterCategoryCallToAction, searchProductName, isCategorySelected, setBorderCurrentCategoryFilter, removeFilter, scrollPageToListProducts };
+    return { dynamic: ref(49), allProducts: listProducts, loaderProduct, pending, showModal, currentCategorySelected, currentProductNameToSearch, currentCountProductSearch, toggleSelectedCategory, filterCategoryCallToAction, searchProductName, isCategorySelected, setBorderCurrentCategoryFilter, removeFilter, scrollToSection };
   },
   head: {
     title: "Suplee"

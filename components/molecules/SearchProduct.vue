@@ -30,7 +30,15 @@
     </div>
     <div v-else class="flex flex-1 md:hidden px-16 sm:px-24 py-10 mt-6 relative z-10">
       <div class="relative w-full">
-        <input id="search-products" type="text" name="search-products" placeholder="Digite aqui o produto que procura" class="w-full pl-14 pr-2 py-3 border border-primary-green-dark rounded-lg">
+        <input
+          id="search-products"
+          v-model="nameProductToSearch"
+          type="text"
+          name="search-products"
+          placeholder="Digite aqui o produto que procura"
+          class="w-full pl-14 pr-2 py-3 border border-primary-green-dark rounded-lg"
+          @keyup.enter="$emit('searchProduct', nameProductToSearch)"
+        >
         <SearchIcon class="absolute top-2 left-2 w-9 h-9 text-primary-green-dark" />
       </div>
     </div>

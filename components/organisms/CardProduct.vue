@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-80 lg:h-[25rem] flex justify-center items-end mt-6">
+  <div class="w-full h-[19rem] lg:h-[25rem] flex justify-center items-end mt-10 lg:mt-6">
     <div class="w-[95%] h-full px-4 lg:px-5 bg-[#FFF] relative z-20 rounded-xl shadow-md hover:shadow-xl cursor-pointer">
       <div class="flex justify-center relative -top-[15%]">
         <img src="/bg-complement/item-example.svg" class="drop-shadow-xl block lg:hidden" alt="">
@@ -62,7 +62,7 @@
                   alt="Icone imunidade"
                 >
 
-                <span :class="classColorEffectName(effectName)" class="font-bold text-xs">
+                <span :class="classColorEffectName(effectName)" class="font-bold text-[0.625rem] lg:text-xs">
                   {{
                     effectName === 'Fortalecimento Muscular'
                       ? 'Muscular'
@@ -76,18 +76,18 @@
           </div>
         </div>
         <div class="flex justify-between items-center mt-5">
-          <h4 class="text-lg 2xl:text-xl text-dark-normal font-semibold">
+          <h4 class="text-sm lg:text-lg 2xl:text-xl text-dark-normal font-semibold">
             {{ accountBRL }}
           </h4>
           <button
             class="
-              flex items-center justify-center relative overflow-hidden transition-all duration-300 px-6 2xl:px-9 py-2 2xl:py-3 bg-primary-olivia-medium rounded-md
+              flex items-center justify-center relative overflow-hidden transition-all duration-300 px-4 lg:px-6 2xl:px-9 py-2 2xl:py-3 bg-primary-olivia-medium rounded-md
               before:content-[''] before:absolute before:block before:top-0 before:-left-12 before:w-[70%] before:h-full before:bg-[linear-gradient(90deg,transparent,#FFFFFF71,transparent)]
               before:transition-all before:duration-1000 before:z-[2] before:-translate-x-16 before:-skew-x-12
               hover:before:translate-x-[200px] hover:bg-primary-green-dark
             "
           >
-            <p class="text-complement-background-white font-bold text-base 2xl:text-lg">
+            <p class="text-complement-background-white font-bold text-sm lg:text-base 2xl:text-lg">
               Comprar
             </p>
           </button>
