@@ -5,7 +5,7 @@
         <li @click="$emit('selectScrollSection', 'ViewListProduct')">
           <ViewGridIcon class="h-10 w-10 text-current relative z-10" />
         </li>
-        <li>
+        <li @click="$emit('selectScrollSection', 'ViewTopPage')">
           <SearchIcon class="h-10 w-10 text-current relative z-10" />
         </li>
         <li>
