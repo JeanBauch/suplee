@@ -1,47 +1,101 @@
 <template>
-  <div class="w-full h-80 flex items-end">
-    <div class="w-[90%] h-[80%] pl-4 pr-6 bg-[#FFF] relative z-20 rounded-xl shadow-md">
-      <div class="flex justify-center relative -top-1/4">
-        <img src="/bg-complement/item-example.svg" class="drop-shadow-xl" alt="">
+  <div class="w-full h-80 lg:h-[25rem] flex justify-center items-end mt-6">
+    <div class="w-[95%] h-full px-4 lg:px-5 bg-[#FFF] relative z-20 rounded-xl shadow-md hover:shadow-xl cursor-pointer">
+      <div class="flex justify-center relative -top-[15%]">
+        <img src="/bg-complement/item-example.svg" class="drop-shadow-xl block lg:hidden" alt="">
+        <img src="/bg-complement/ImageSuplementDesktop.svg" class="drop-shadow-xl hidden lg:block" alt="">
+        <!-- <img src="/bg-complement/suplemento.webp" class="drop-shadow-xl hidden lg:block" alt=""> -->
       </div>
-      <div class="absolute top-6 left-3">
-        <img :src="`/icons/${classObject.icons}`" class="-rotate-12 opacity-80" width="28" height="28" alt="Icone para representar que o produto selecionado se trate da categoria Imunidade">
-      </div>
-      <article class="relative z-30 -top-1/4">
-        <h4 class="text-base text-dark-normal font-semibold mb-4 truncate ">
+      <article class="relative z-30 -top-[15%] mt-1">
+        <h4 class="text-base lg:text-xl text-dark-normal font-semibold mb-1 truncate">
           {{ produto.nome }}
         </h4>
 
-        <div class="flex flex-col gap-2 w-[85%]">
-          <div class="flex justify-between text-sm">
-            <span class="text-secondary-green-gray-dark font-normal">Categoria:</span>
-            <p class="text-dark-normal font-light">
+        <div class="w-full flex flex-col justify-center items-center gap-3">
+          <div :class="classObject.themeBgPill" class="flex justify-center items-center px-2 py-[1px] bg-[#CCE4CD] rounded-full">
+            <h5 :class="classObject.themeTextPill" class="text-sm font-bold">
               {{ produto.nomeCategoria }}
-            </p>
+            </h5>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-secondary-green-gray-dark font-normal">Efeito:</span>
-            <p v-if="produto.nomeEfeito === 'Fortificação Óssea'" class="text-dark-normal font-light">
-              <abbr title="Fortificação Óssea"> Fort. Óssea</abbr>
-            </p>
-            <p v-else class="text-dark-normal font-light">
-              {{ produto.nomeEfeito }}
-            </p>
+
+          <div :class="produto.nomeEfeito.length < 3 ? 'justify-around' : 'justify-between' " class="flex items-center w-full">
+            <div v-for="(effectName, index) in produto.nomeEfeito" :key="index">
+              <div class="flex flex-col items-center justify-center gap-1">
+                <img
+                  v-if="effectName === 'Imunidade'"
+                  src="/icons/icon-imunity.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Icone imunidade"
+                >
+                <img
+                  v-else-if="effectName === 'Fortalecimento Muscular'"
+                  src="/icons/icon-muscle.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Fortalecimento Muscular"
+                >
+                <img
+                  v-else-if="effectName === 'Fortificação Óssea'"
+                  src="/icons/icon-bone.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Fortificação Óssea"
+                >
+                <img
+                  v-else-if="effectName === 'Memória'"
+                  src="/icons/icon-brain.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Fortificação Óseea"
+                >
+                <img
+                  v-else
+                  src="/icons/icon-imunity.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Icone imunidade"
+                >
+
+                <span :class="classColorEffectName(effectName)" class="font-bold text-xs">
+                  {{
+                    effectName === 'Fortalecimento Muscular'
+                      ? 'Muscular'
+                      : effectName === 'Fortificação Óssea'
+                        ? 'Fort. Óssea'
+                        : effectName
+                  }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="flex justify-center items-center mt-4">
-          <h4 class="text-lg text-dark-normal font-semibold mb-4">
+        <div class="flex justify-between items-center mt-5">
+          <h4 class="text-lg 2xl:text-xl text-dark-normal font-semibold">
             {{ accountBRL }}
           </h4>
+          <button
+            class="
+              flex items-center justify-center relative overflow-hidden transition-all duration-300 px-6 2xl:px-9 py-2 2xl:py-3 bg-primary-olivia-medium rounded-md
+              before:content-[''] before:absolute before:block before:top-0 before:-left-12 before:w-[70%] before:h-full before:bg-[linear-gradient(90deg,transparent,#FFFFFF71,transparent)]
+              before:transition-all before:duration-1000 before:z-[2] before:-translate-x-16 before:-skew-x-12
+              hover:before:translate-x-[200px] hover:bg-primary-green-dark
+            "
+          >
+            <p class="text-complement-background-white font-bold text-base 2xl:text-lg">
+              Comprar
+            </p>
+          </button>
         </div>
       </article>
 
-      <div class="absolute z-20 bottom-2 left-0 w-full h-8 bg-[#FFF] rounded-b-xl" />
-      <div :class="classObject.theme" class="absolute z-10 bottom-0 left-0 w-full h-8 rounded-b-xl" />
-
-      <atoms-button-shopping-cart-product :theme="classObject.theme" />
-      <atoms-button-quick-view-product />
+      <div class="absolute z-20 bottom-[0.375rem] left-0 w-full h-8 bg-[#FFF] rounded-b-xl" />
+      <div class="absolute z-10 bottom-0 left-0 w-full h-8 bg-primary-olivia-dark rounded-b-xl" />
     </div>
   </div>
 </template>
@@ -52,7 +106,7 @@ type ProductCard = {
   imagem: string,
   nome: string,
   nomeCategoria: string,
-  nomeEfeito: string
+  nomeEfeito: string[],
   preco:number,
 };
 
@@ -61,26 +115,34 @@ const propsValue = defineProps<{
 }>();
 
 const classObject = computed(() => ({
-  theme: propsValue.produto.nomeCategoria === "Vitaminas"
-    ? "bg-primary-green-dark"
+  themeBgPill: propsValue.produto.nomeCategoria === "Vitaminas"
+    ? "bg-[#CCE4CD]"
     : propsValue.produto.nomeCategoria === "Proteínas"
-      ? "bg-primary-lemon-dark"
-      : propsValue.produto.nomeCategoria === "Minerais" ? "bg-secondary-orange-medium" : propsValue.produto.nomeCategoria === "Ômega-3" && "bg-primary-olivia-dark",
+      ? "bg-[#D0D5BE]"
+      : propsValue.produto.nomeCategoria === "Minerais" ? "bg-[#F0D0B4]" : propsValue.produto.nomeCategoria === "Ômega-3" && "bg-[#D5D8CF]",
 
-  icons: propsValue.produto.nomeEfeito === "Imunidade"
-    ? "icon-imunity.svg"
-    : propsValue.produto.nomeEfeito === "Fortalecimento Muscular"
-      ? "icon-muscle.svg"
-      : propsValue.produto.nomeEfeito === "Fortificação Óssea"
-        ? "icon-bone.svg"
-        : propsValue.produto.nomeEfeito === "Memória"
-          ? "icon-brain.svg"
-          : propsValue.produto.nomeEfeito === "Vitamina D" && "icon-imunity.svg"
+  themeTextPill: propsValue.produto.nomeCategoria === "Vitaminas"
+    ? "text-primary-green-dark"
+    : propsValue.produto.nomeCategoria === "Proteínas"
+      ? "text-primary-lemon-dark"
+      : propsValue.produto.nomeCategoria === "Minerais" ? "text-secondary-orange-dark" : propsValue.produto.nomeCategoria === "Ômega-3" && "text-primary-olivia-dark"
 }));
 
 const accountBRL = computed(() => {
   const valor = propsValue.produto.preco.toFixed(2).toString();
   return "R$ " + valor.replace(".", ",");
 });
+
+function classColorEffectName (effectName: string) {
+  return effectName === "Imunidade"
+    ? "text-primary-green-dark"
+    : effectName === "Fortalecimento Muscular"
+      ? "text-primary-lemon-dark"
+      : effectName === "Fortificação Óssea"
+        ? "text-secondary-orange-dark"
+        : effectName === "Memória"
+          ? "text-primary-olivia-dark"
+          : "text-primary-green-dark";
+}
 
 </script>
