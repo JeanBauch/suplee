@@ -2,8 +2,10 @@
   <div class="w-full h-[19rem] lg:h-[25rem] flex justify-center items-end mt-10 lg:mt-6">
     <div class="w-[95%] h-full px-4 lg:px-5 bg-[#FFF] relative z-20 rounded-xl shadow-md hover:shadow-xl cursor-pointer">
       <div class="flex justify-center relative -top-[15%]">
-        <img src="/bg-complement/item-example.svg" class="drop-shadow-xl block lg:hidden" alt="">
-        <img src="/bg-complement/ImageSuplementDesktop.svg" class="drop-shadow-xl hidden lg:block" alt="">
+        <!-- <img src="/bg-complement/item-example.svg" class="drop-shadow-xl block lg:hidden" alt=""> -->
+        <!-- <img src="/bg-complement/ImageSuplementDesktop.svg" class="drop-shadow-xl hidden lg:block" alt=""> -->
+        <img :src="produto.imagem" width="93" height="142" class="drop-shadow-xl block lg:hidden" alt="">
+        <img :src="produto.imagem" width="155" height="235" class="drop-shadow-xl hidden lg:block" alt="">
         <!-- <img src="/bg-complement/suplemento.webp" class="drop-shadow-xl hidden lg:block" alt=""> -->
       </div>
       <article class="relative z-30 -top-[15%] mt-1">
