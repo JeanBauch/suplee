@@ -119,7 +119,7 @@
           <div v-if="pending">
             <p>Loading...</p>
           </div>
-          <main v-else class="w-full lg:max-w-6xl px-4 sm:px-8 py-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 grid-rows-4 gap-4 lg:gap-16 pb-28 relative">
+          <main v-else class="w-full lg:max-w-6xl px-4 sm:px-8 py-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-16 pb-28 relative">
             <atoms-loader-label :show="loaderProduct">
               <template #content-label>
                 <span>Buscando seus produtos...</span>
