@@ -29,7 +29,7 @@
                   width="28"
                   height="28"
                   class="w-7 h-7 lg:w-9 lg:h-10"
-                  alt="Icone imunidade"
+                  alt="Icone para o efeito imunidade"
                 >
                 <img
                   v-else-if="effectName === 'Fortalecimento Muscular'"
@@ -37,7 +37,7 @@
                   width="28"
                   height="28"
                   class="w-7 h-7 lg:w-9 lg:h-10"
-                  alt="Fortalecimento Muscular"
+                  alt="Icone para o efeito de Fortalecimento Muscular"
                 >
                 <img
                   v-else-if="effectName === 'Fortificação Óssea'"
@@ -45,7 +45,7 @@
                   width="28"
                   height="28"
                   class="w-7 h-7 lg:w-9 lg:h-10"
-                  alt="Fortificação Óssea"
+                  alt="Icone para o efeito de Fortificação Óssea"
                 >
                 <img
                   v-else-if="effectName === 'Memória'"
@@ -53,7 +53,23 @@
                   width="28"
                   height="28"
                   class="w-7 h-7 lg:w-9 lg:h-10"
-                  alt="Fortificação Óseea"
+                  alt="Icone para o efeito Memória"
+                >
+                <img
+                  v-else-if="effectName === 'Vitamina D'"
+                  src="/icons/icon-vit-d.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Icone para o efeito Vitamina D"
+                >
+                <img
+                  v-else-if="effectName === 'Relaxante'"
+                  src="/icons/icon-sleep.svg"
+                  width="28"
+                  height="28"
+                  class="w-7 h-7 lg:w-9 lg:h-10"
+                  alt="Icone para o efeito Relaxante"
                 >
                 <img
                   v-else
@@ -144,7 +160,11 @@ function classColorEffectName (effectName: string) {
         ? "text-secondary-orange-dark"
         : effectName === "Memória"
           ? "text-primary-olivia-dark"
-          : "text-primary-green-dark";
+          : effectName === "Vitamina D"
+            ? "text-[#7A401C]"
+            : effectName === "Relaxante"
+              ? "text-secondary-green-gray-dark"
+              : "text-primary-green-dark";
 }
 
 </script>
