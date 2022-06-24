@@ -8,7 +8,6 @@
           after:content-[''] after:absolute after:rounded-full after:mix-blend-multiply after:bg-secondary-green-yellow-medium after:w-2 after:h-2 after:z-10 after:delay-500
           "
         />
-
         <p class="text-complement-background-white">
           <slot name="content-label" />
         </p>
@@ -20,7 +19,7 @@
 <script setup lang="ts">
 
 const propsLoader = defineProps<{
-  show: boolean
+  show: boolean,
 }>();
 const isLoaderOpen = ref(false);
 

@@ -9,7 +9,7 @@
     <section class="bg-complement-background-normal min-h-screen">
       <div class="md:container mx-auto">
         <!-- Heading -->
-        <div id="titleListProduct" class="flex items-start px-4 sm:px-8 md:px-0 pt-8 pb-4 md:border-none border-b border-secondary-green-gray-medium">
+        <div id="titleListProduct" class="flex items-start px-4 sm:px-8 lg:px-0 pt-8 pb-4 lg:border-none border-b border-secondary-green-gray-medium">
           <h2 class="font-semibold text-2xl md:font-bold lg:text-3xl text-dark-normal">
             Todos os produtos
           </h2>
@@ -30,7 +30,7 @@
         </div>
         <div id="productsFiltered" />
         <!-- Filter Mobile-->
-        <div class="bg-complement-background-normal px-4 sm:px-8 py-5 shadow-lg lg:hidden">
+        <div class="bg-complement-background-normal px-4 sm:px-8 lg:px-0 py-5 shadow-lg lg:hidden">
           <div class="flex flex-wrap items-center justify-start ">
             <div class="mr-8">
               <h3 class="font-semibold text-lg">
@@ -307,9 +307,10 @@
             <div v-for="(produto, index) in allProducts.produtos" :key="index">
               <organisms-card-product :produto="produto" />
             </div>
-            <div v-if="allProducts.produtos.length > 0" class="flex flex-col justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 lg:mt-0">
+            <div v-if="allProducts.produtos.length > 0" class="flex flex-col justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 lg:mt-0 relative">
               <span>Visualizando {{ allProducts.produtos.length }} de {{ allProducts.quantidadeProdutosPeloFiltro }}</span>
               <atoms-button-show-more-products @handle-click-see-more-product="loadMoreProductsPagination(allProducts.produtos.length === allProducts.quantidadeProdutosPeloFiltro)" />
+              <atoms-simple-loader-label :show="loaderProductPagination" />
             </div>
           </main>
         </div>
@@ -556,6 +557,7 @@ export default {
     const currentCountProductFound = ref(0);
     const currentPageNumber = ref(1);
     const loaderProduct = ref(false);
+    const loaderProductPagination = ref(false);
     const originalListProduct = reactive({
       data: [],
       modified: false
@@ -610,6 +612,7 @@ export default {
 
     watch(currentPageNumber, async () => {
       if (currentPageNumber.value === 1) { return; }
+      loaderProductPagination.value = true;
 
       if (currentCategorySelected.value !== "") {
         loaderProduct.value = true;
@@ -621,6 +624,7 @@ export default {
         } catch (error) {
         }
         loaderProduct.value = false;
+        loaderProductPagination.value = false;
         return;
       } else if (currentProductNameToSearch.value !== "") {
         loaderProduct.value = true;
@@ -633,6 +637,7 @@ export default {
         } catch (error) {
         }
         loaderProduct.value = false;
+        loaderProductPagination.value = false;
         return;
       } else if (currentEffectSelected.value !== "") {
         loaderProduct.value = true;
@@ -645,6 +650,7 @@ export default {
         } catch (error) {
         }
         loaderProduct.value = false;
+        loaderProductPagination.value = false;
         return;
       }
 
@@ -657,6 +663,7 @@ export default {
       } catch (error) {
       }
       loaderProduct.value = false;
+      loaderProductPagination.value = false;
     });
 
     function toggleSelectedCategory (category) {
@@ -790,7 +797,7 @@ export default {
       ]
     });
 
-    return { dynamic: ref(49), allProducts: listProducts, loaderProduct, pending, showModal, currentModalFilter, currentCategorySelected, currentEffectSelected, currentProductNameToSearch, currentCountProductSearch: currentCountProductFound, toggleSelectedCategory, toggleSelectedEffect, toggleModalFilter, filterCategoryCallToAction, searchProductName, isCategorySelected, isEffectSelected, setBorderCurrentCategoryFilter, setBorderCurrentEffectFilter, removeFilter, scrollToSection, loadMoreProductsPagination };
+    return { dynamic: ref(49), allProducts: listProducts, loaderProduct, loaderProductPagination, pending, showModal, currentModalFilter, currentCategorySelected, currentEffectSelected, currentProductNameToSearch, currentCountProductSearch: currentCountProductFound, toggleSelectedCategory, toggleSelectedEffect, toggleModalFilter, filterCategoryCallToAction, searchProductName, isCategorySelected, isEffectSelected, setBorderCurrentCategoryFilter, setBorderCurrentEffectFilter, removeFilter, scrollToSection, loadMoreProductsPagination };
   },
   head: {
     title: "Suplee"
