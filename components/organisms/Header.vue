@@ -16,6 +16,14 @@
         <molecules-action-user-header />
       </div>
     </div>
-    <molecules-search-product />
+    <molecules-search-product @search-product="searchProductName" />
   </div>
 </template>
+
+<script setup>
+const emit = defineEmits(["searchProduct"]);
+
+function searchProductName (productName) {
+  emit("searchProduct", productName);
+}
+</script>

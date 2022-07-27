@@ -5,6 +5,13 @@ module.exports = {
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}"
   ],
+  safelist: [
+    "border-primary-green-dark",
+    "text-primary-green-dark",
+    "border-primary-lemon-dark",
+    "border-secondary-orange-medium",
+    "border-primary-olivia-dark"
+  ],
   theme: {
     colors: {
       transparent: "transparent",
@@ -58,7 +65,6 @@ module.exports = {
       "assets-compose-color": "linear-gradient(0deg, rgba(120, 139, 91, 0.2), rgba(120, 139, 91, 0.2)), #F2F2F2;"
     },
     extends: {
-      "shadow-green": "0px 100px 80px rgba(62, 89, 21, 0.07), 0px 30.1471px 24.1177px rgba(62, 89, 21, 0.0456112), 0px 12.5216px 10.0172px rgba(62, 89, 21, 0.035), 0px 4.5288px 3.62304px rgba(62, 89, 21, 0.0243888)"
     }
   },
   plugins: []
