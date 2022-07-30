@@ -305,7 +305,9 @@
               </template>
             </atoms-loader-label>
             <div v-for="(produto, index) in allProducts.produtos" :key="index">
-              <organisms-card-product :produto="produto" />
+              <a :href="`produto/${produto.id}`">
+                <organisms-card-product :produto="produto" />
+              </a>
             </div>
             <div v-if="allProducts.produtos.length > 0" class="flex flex-col justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 lg:mt-0 relative">
               <span>Visualizando {{ allProducts.produtos.length }} de {{ allProducts.quantidadeProdutosPeloFiltro }}</span>
