@@ -5,11 +5,13 @@
     </div>
     <div class="md:container mx-auto 2xl:px-20 py-8">
       <div class="flex flex-1 justify-between items-center relative">
-        <div class="text-5xl md:text-4xl font-semibold text-complement-background-normal md:text-primary-olivia-medium md:w-28 xl:w-36 absolute md:relative md:inset-0 move-logo transition-transform duration-500">
-          <h2 class="drop-shadow-2xl">
-            Suplee
-          </h2>
-        </div>
+        <nuxt-link to="/" aria-label="Voltar para página inicial">
+          <div class="text-5xl md:text-4xl font-semibold text-complement-background-normal md:text-primary-olivia-medium md:w-28 xl:w-36 absolute md:relative md:inset-0 move-logo transition-transform duration-500">
+            <h2 class="drop-shadow-2xl">
+              Suplee
+            </h2>
+          </div>
+        </nuxt-link>
 
         <molecules-list-section-header />
 

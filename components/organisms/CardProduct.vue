@@ -146,10 +146,12 @@ const classObject = computed(() => ({
       : propsValue.produto.nomeCategoria === "Minerais" ? "text-secondary-orange-dark" : propsValue.produto.nomeCategoria === "Ômega-3" && "text-primary-olivia-dark"
 }));
 
-const accountBRL = computed(() => {
-  const valor = propsValue.produto.preco.toFixed(2).toString();
-  return "R$ " + valor.replace(".", ",");
-});
+const accountBRL = useAccountBRL(propsValue.produto.preco);
+
+// computed(() => {
+//   const valor = propsValue.produto.preco.toFixed(2).toString();
+//   return "R$ " + valor.replace(".", ",");
+// });
 
 function classColorEffectName (effectName: string) {
   return effectName === "Imunidade"
