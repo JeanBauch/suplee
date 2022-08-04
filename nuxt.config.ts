@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     },
     transpile: ["@heroicons/vue"]
   },
+  buildModules: ["@pinia/nuxt"],
   css: [
     "@/assets/css/main.css",
     "@/assets/css/tailwind.css"
