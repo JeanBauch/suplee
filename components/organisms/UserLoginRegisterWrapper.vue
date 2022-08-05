@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col justify-between w-full max-w-[39rem] h-full lg:h-[46.875rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
+  <main class="flex flex-col justify-between w-full max-w-[39rem] h-[50rem] lg:h-[46.875rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
     <div class="flex flex-col gap-4 md:gap-9">
       <div class="flex justify-center w-full relative">
         <div>

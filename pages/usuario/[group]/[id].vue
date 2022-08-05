@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen md:min-h-screen bg-complement-background-soft relative z-0 overflow-hidden flex justify-center items-center">
+  <div class="w-screen min-h-screen bg-complement-background-soft relative z-0 overflow-hidden flex justify-center items-center">
     <atoms-bg-hero />
     <Html lang="pt-br">
       <Head>
@@ -7,13 +7,16 @@
         <Meta name="description" content="Página dedicada ao usuário cadastrar ou logar com uma conta existente na Suplee!" />
       </Head>
     </Html>
-    <organisms-user-login-register-wrapper :auth-name="auth.name" @toggle-tab="setRouterParamsId" />
+    <organisms-user-login-register-wrapper :auth-name="auth.name" @toggle-tab="setRouterParamsId" @click="teste" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCounterStore } from "~~/stores/counterStore.js";
+
 const routeAuth = useRoute();
 const routerAuth = useRouter();
+const store = useCounterStore();
 
 const auth = reactive({
   name: ""
@@ -31,5 +34,9 @@ function setRouterParamsId (id: string) {
       id
     }
   });
+}
+
+function teste () {
+  store.increment();
 }
 </script>
