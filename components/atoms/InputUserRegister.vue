@@ -7,12 +7,12 @@
         type="text"
         required
         name="name-register"
-        :class="userRegister.classValidateInputName.nameBorderColor"
+        :class="userRegister.classValidateInputName.borderColor"
         class="w-full py-4 px-14 relative z-20 border rounded-lg bg-transparent mt-4"
       >
       <div class="flex items-center absolute bottom-[0.8125rem] left-4 gap-2">
         <UserIcon
-          :class="userRegister.classValidateInputName.nameIconColor"
+          :class="userRegister.classValidateInputName.iconColor"
           class="h-8 w-8 relative z-[21] stroke-1"
         />
         <label
@@ -58,9 +58,9 @@
         required
         name="cpf-register"
         :class="userRegister.classValidadeInputCpf.borderColor"
-        class="w-full py-4 px-14 relative z-20 border rounded-lg bg-transparent"
+        class="w-full py-4 pl-14 pr-4 relative z-20 border rounded-lg bg-transparent"
       >
-      <div class="flex items-center absolute bottom-[0.8125rem] left-4 gap-2">
+      <div class="flex items-center absolute bottom-[0.8125rem] left-4 gap-1 md:gap-2">
         <UserCircleIcon
           :class="userRegister.classValidadeInputCpf.iconColor"
           class="h-8 w-8 relative z-[21] stroke-1"
@@ -83,9 +83,9 @@
         required
         name="phone-register"
         :class="userRegister.classValidateInputCellPhone.borderColor"
-        class="w-full py-4 px-14 relative z-20 border rounded-lg bg-transparent"
+        class="w-full py-4 pl-14 pr-4 relative z-20 border rounded-lg bg-transparent"
       >
-      <div class="flex items-center absolute bottom-[0.8125rem] left-4 gap-2">
+      <div class="flex items-center absolute bottom-[0.8125rem] left-4 gap-1 md:gap-2">
         <PhoneIcon
           :class="userRegister.classValidateInputCellPhone.iconColor"
           class="h-8 w-8 relative z-[21] stroke-1"

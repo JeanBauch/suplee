@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+// type UserRegisterProps = "name" | "email";
 
 export const useRegisterStore = defineStore("user-register", () => {
   const user = reactive({
@@ -9,15 +10,7 @@ export const useRegisterStore = defineStore("user-register", () => {
     senha: "",
     confirmacaoSenha: ""
   });
-
-  const isValid = reactive({
-    nome: false,
-    email: false,
-    cpf: false,
-    celular: false,
-    senha: false,
-    confirmacaoSenha: false
-  });
+  // const lastModify = reactive<UserRegisterProps>({"name"});
 
   const isValidComputed = computed(() => ({
     name: (user.nome.length > 0 && useNotContainsNumber(user.nome)),
@@ -28,14 +21,30 @@ export const useRegisterStore = defineStore("user-register", () => {
     confirmacaoSenha: (user.confirmacaoSenha.length > 0 && (user.senha === user.confirmacaoSenha))
   }));
 
+  // const classValidateInput = computed(() => {
+  //   return ({
+  //     borderColor: isValidComputed.value[lastModify.value]
+  //       ? "border-primary-green-dark"
+  //       : user.nome.length > 0
+  //         ? "border-[#912f3c]"
+  //         : "border-primary-olivia-dark",
+
+  //     iconColor: isValidComputed.value[lastModify.value]
+  //       ? "text-primary-green-dark"
+  //       : user.nome.length > 0
+  //         ? "text-[#912f3c]"
+  //         : "text-secondary-green-gray-dark"
+  //   });
+  // });
+
   const classValidateInputName = computed(() => ({
-    nameBorderColor: isValidComputed.value.name
+    borderColor: isValidComputed.value.name
       ? "border-primary-green-dark"
       : user.nome.length > 0
         ? "border-[#912f3c]"
         : "border-primary-olivia-dark",
 
-    nameIconColor: isValidComputed.value.name
+    iconColor: isValidComputed.value.name
       ? "text-primary-green-dark"
       : user.nome.length > 0
         ? "text-[#912f3c]"
@@ -122,15 +131,25 @@ export const useRegisterStore = defineStore("user-register", () => {
     return cpf.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
   }
 
+  function validateAllFields () {
+    return isValidComputed.value.name && isValidComputed.value.email && isValidComputed.value.cpf && isValidComputed.value.celular && isValidComputed.value.senha && isValidComputed.value.confirmacaoSenha;
+  }
+
+  // function handleChangeLastModify (attribute: UserRegisterProps) {
+  //   lastModify.value = attribute;
+  // }
+
   return {
     user,
-    isValid,
     isValidComputed,
+    // classValidateInput,
     classValidateInputName,
     classValidateInputEmail,
     classValidadeInputCpf,
     classValidateInputCellPhone,
     classValidateInputPassword,
-    classValidateInputConfirmPassword
+    classValidateInputConfirmPassword,
+    validateAllFields
+    // handleChangeLastModify
   };
 });
