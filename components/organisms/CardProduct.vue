@@ -4,9 +4,11 @@
       <div class="flex justify-center relative -top-[15%]">
         <!-- <img src="/bg-complement/item-example.svg" class="drop-shadow-xl block lg:hidden" alt=""> -->
         <!-- <img src="/bg-complement/ImageSuplementDesktop.svg" class="drop-shadow-xl hidden lg:block" alt=""> -->
-        <img :src="produto.imagem" width="93" height="142" class="drop-shadow-xl block lg:hidden" alt="">
-        <img :src="produto.imagem" width="155" height="235" class="drop-shadow-xl hidden lg:block" alt="">
         <!-- <img src="/bg-complement/suplemento.webp" class="drop-shadow-xl hidden lg:block" alt=""> -->
+
+        <!-- Certos! -->
+        <!-- <img :src="produto.imagem" width="93" height="142" class="drop-shadow-xl block lg:hidden" alt="">
+        <img :src="produto.imagem" width="155" height="235" class="drop-shadow-xl hidden lg:block" alt=""> -->
       </div>
       <article class="relative z-30 -top-[15%] mt-1">
         <h4 class="text-base lg:text-xl text-dark-normal font-semibold mb-1 truncate">
