@@ -3,9 +3,11 @@
     <template v-if="responseRegisterStatus.status === 'waiting'">
       <div class="flex flex-col gap-4 md:gap-9">
         <div class="flex justify-center w-full relative">
-          <div>
-            <img src="/illustration/suplement-suplee.svg" alt="Modelo SVG de suplemento da suplee">
-          </div>
+          <nuxt-link to="/" aria-label="Voltar para tela inicial">
+            <div>
+              <img src="/illustration/suplement-suplee.svg" alt="Modelo SVG de suplemento da suplee">
+            </div>
+          </nuxt-link>
         </div>
         <molecules-tabs-wrapper :current-auth-name="authName" @toggle-tab="handleToggleTab">
           <atoms-content-tab title="logar" :current-auth-name="authName">
@@ -29,16 +31,18 @@
     <div class="absolute top-14 right-2 md:-right-7 w-16 h-16 bg-[#FFF] flex justify-center items-center rounded-xl shadow">
       <img src="/icons/icon-vital.svg" width="36" height="36" class="w-9 h-9" alt="Icone de coração simbolizanção saúde">
     </div>
+    <atoms-custom-toast :show="createToast.show" :type="createToast.type" @is-show-toast="handleIsShowToast">
+      <p>{{ createToast.message }}</p>
+    </atoms-custom-toast>
   </main>
 </template>
 
 <script setup lang="ts">
-import { useToast } from "vue-toastification";
-import "vue-toastification/dist/index.css";
 import { useLoggedUser } from "~~/stores/useLoggedUser.js";
 import { useLoginUserStore } from "~~/stores/useLoginUserStore";
 import { useRegisterStore } from "~~/stores/useRegisterStore";
 import { contentAcessToken } from "~~/types/userLogged.js";
+import { TypeToast } from "~~/types/toast";
 
 type StatusResponseRegisterUser = "waiting" | "success" | "error";
 
@@ -68,7 +72,11 @@ const responseRegisterStatus = reactive({
 });
 const onResponseErrorMessage = ref("");
 const isPending = ref(false);
-const toast = useToast();
+const createToast = reactive({
+  message: "",
+  type: "" as TypeToast,
+  show: false
+});
 
 function handleToggleTab (id: string) {
   emitToggleTabWrapper("toggleTab", id);
@@ -96,12 +104,10 @@ async function handleResendEmail () {
       }
     });
     isPending.value = pending.value;
-    // CREATE TOASTFY
-    toast.success(responseResendEmail.value.data);
+    handleCreateToast("success", responseResendEmail.value.data);
   } catch (error) {
     if (error instanceof Error) {
-      // CREATE TOASTFY ERROR
-      toast.error(onResponseErrorMessage.value);
+      handleCreateToast("error", onResponseErrorMessage.value);
     }
   }
 }
@@ -109,8 +115,7 @@ async function handleResendEmail () {
 async function requestRegisterUser () {
   try {
     if (!((propsUserLoginRegisterWrapper.authName === "registrar") && userRegisterStore.validateAllFields())) {
-      // CREATE TOASTFY ERROR
-      toast.error("Verifique se todos os campos estão corretos!");
+      handleCreateToast("error", "Preencha todos os campos corretamente");
       return;
     }
     isPending.value = true;
@@ -128,13 +133,11 @@ async function requestRegisterUser () {
     isPending.value = pending.value;
     responseRegisterStatus.data = responseRegisterUser.value.data;
     responseRegisterStatus.status = "success";
-    // CREATE TOASTFY SUCESSO
-    toast.success("Sucesso!");
+    handleCreateToast("success", "Sucesso!");
     return;
   } catch (error) {
     if (error instanceof Error) {
-      // CREATE TOASTFY ERROR
-      toast.error(onResponseErrorMessage.value);
+      handleCreateToast("error", onResponseErrorMessage.value);
     }
   }
 }
@@ -142,9 +145,7 @@ async function requestRegisterUser () {
 async function requestLoginUser () {
   try {
     if (!userLoginStore.validateAllFields()) {
-      // CREATE TOASTFY ERROR
-      console.log(toast);
-      toast.error("Verifique se todos os campos estão corretos!");
+      handleCreateToast("error", "Preencha todos os campos");
       return;
     }
     const currentEndPoint = userLoginStore.isValidComputed.email ? "/Autenticacao/login-email" : "/Autenticacao/login-cpf";
@@ -168,20 +169,28 @@ async function requestLoginUser () {
     saveToUserLoggedStore(responseLoginUser.value.data);
     localStorage.setItem("accessToken", responseLoginUser.value.data.accessToken);
     localStorage.setItem("userId", responseLoginUser.value.data.userToken.usuarioId);
-    // CREATE TOASTFY SUCESSO
-    toast.success("Login efetuado com sucesso!");
+    handleCreateToast("success", "sucesso!");
     emitToggleTabWrapper("pushToHome", "/");
     return;
   } catch (error) {
     if (error instanceof Error) {
-      // CREATE TOASTFY ERROR
-      toast.error(onResponseErrorMessage.value);
+      handleCreateToast("error", onResponseErrorMessage.value);
     }
   }
 }
 
 function saveToUserLoggedStore (user: contentAcessToken) {
   currentUserLoggedStore.$patch({ user });
+}
+
+function handleCreateToast (type: TypeToast, message: string) {
+  createToast.show = true;
+  createToast.type = type;
+  createToast.message = message;
+}
+
+function handleIsShowToast (show: boolean) {
+  createToast.show = show;
 }
 
 </script>

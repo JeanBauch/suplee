@@ -62,10 +62,15 @@
     <div class="absolute top-14 right-2 md:-right-7 w-16 h-16 bg-[#FFF] flex justify-center items-center rounded-xl shadow">
       <img src="/icons/icon-vital.svg" width="36" height="36" class="w-9 h-9" alt="Icone de coração simbolizanção saúde">
     </div>
+    <atoms-custom-toast :show="createToast.show" :type="createToast.type" @is-show-toast="handleIsShowToast">
+      <p>{{ createToast.message }}</p>
+    </atoms-custom-toast>
   </main>
 </template>
 
 <script setup lang="ts">
+import { TypeToast } from "~~/types/toast.js";
+
 type ResponseConfirmRegisterUser = {
   success: boolean,
   data: string[]
@@ -85,6 +90,11 @@ const responseConfirmRegisterUserState = reactive({
   data: [] as string[]
 });
 const onResponseErrorMessage = ref("");
+const createToast = reactive({
+  message: "",
+  type: "" as TypeToast,
+  show: false
+});
 
 async function handleAuthConfirmEmail () {
   try {
@@ -102,16 +112,26 @@ async function handleAuthConfirmEmail () {
     isPendingConfirmEmail.value = pending.value;
     isActiveUser.value = true;
     responseConfirmRegisterUserState.data = responseAuthConfirmEmail.value.data;
-    // CREATE TOASTFY SUCESSO
+    handleCreateToast("success", "Sua conta foi ativada com sucesso!");
     return;
   } catch (error) {
     if (error instanceof Error) {
-      // CREATE TOASTFY ERROR
+      handleCreateToast("error", onResponseErrorMessage.value);
     }
   }
 }
 
 function handleEmitLoginAfterActiveUser () {
   emitClickButtonPushToLogin("NextStepUserPushToLogin");
+}
+
+function handleCreateToast (type: TypeToast, message: string) {
+  createToast.show = true;
+  createToast.type = type;
+  createToast.message = message;
+}
+
+function handleIsShowToast (show: boolean) {
+  createToast.show = show;
 }
 </script>

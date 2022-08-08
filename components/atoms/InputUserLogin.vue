@@ -3,7 +3,7 @@
     <div class="w-full relative input-animate">
       <input
         id="email-cpf-login"
-        v-model="userLogin.user.inputLogin"
+        v-model.lazy="inputLogin"
         type="text"
         required
         name="email-cpf-login"
@@ -63,6 +63,7 @@ const propsInput = defineProps<{
   typeInput: TypeInput,
 }>();
 const userLogin = useLoginUserStore();
+const inputLogin = ref("");
 const isRevealPassword = ref(false);
 
 const returnCurrentInput = computed(() => ({
@@ -79,6 +80,17 @@ function handleRevealPassword () {
   }
   element.type = "password";
 }
+
+watch(inputLogin, () => {
+  if (useNotContainsLetter(inputLogin.value)) {
+    userLogin.user.cpf = inputLogin.value;
+    inputLogin.value = userLogin.createMaskCPF(inputLogin.value);
+    userLogin.user.email = "";
+  } else {
+    userLogin.user.email = inputLogin.value;
+    userLogin.user.cpf = "";
+  }
+});
 
 </script>
 
