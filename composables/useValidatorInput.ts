@@ -17,6 +17,10 @@ export const useNotContainsNumber = (string:string) => {
   return !/\d/.test(string);
 };
 
+export const useNotContainsLetter = (string:string) => {
+  return !/[a-z]/i.test(string);
+};
+
 export const useValidateCellPhoneWithDDD = (cellphone:string) => {
   const re = /^\d{2}\d{5}\d{4}$/;
   return re.test(String(cellphone).toLowerCase());

@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 
 export const useLoginUserStore = defineStore("user-login", () => {
   const user = reactive({
-    inputLogin: "",
     email: "",
     cpf: "",
     senha: ""
@@ -15,15 +14,15 @@ export const useLoginUserStore = defineStore("user-login", () => {
   }));
 
   const classValidateInputEmailCpf = computed(() => ({
-    borderColor: ((isValidComputed.value.email || isValidComputed.value.cpf) && user.inputLogin.length > 0)
+    borderColor: ((isValidComputed.value.email || isValidComputed.value.cpf) && (user.email.length > 0 || user.cpf.length > 0))
       ? "border-primary-green-dark"
-      : user.inputLogin.length > 0
+      : (user.email.length > 0 || user.cpf.length > 0)
         ? "border-[#912f3c]"
         : "border-primary-olivia-dark",
 
-    iconColor: ((isValidComputed.value.email || isValidComputed.value.cpf) && user.inputLogin.length > 0)
+    iconColor: ((isValidComputed.value.email || isValidComputed.value.cpf) && (user.email.length > 0 || user.cpf.length > 0))
       ? "text-primary-green-dark"
-      : user.inputLogin.length > 0
+      : (user.email.length > 0 || user.cpf.length > 0)
         ? "text-[#912f3c]"
         : "text-secondary-green-gray-dark"
   }));
@@ -43,10 +42,6 @@ export const useLoginUserStore = defineStore("user-login", () => {
   }));
 
   watch(user, () => {
-    if (user.inputLogin.length > 0) {
-      user.email = user.inputLogin;
-      user.cpf = user.inputLogin;
-    }
     if (isValidComputed.value.cpf || user.cpf.length === 11) {
       user.cpf = createMaskCPF(user.cpf);
     }
@@ -65,6 +60,7 @@ export const useLoginUserStore = defineStore("user-login", () => {
     isValidComputed,
     classValidateInputEmailCpf,
     classValidateInputPassword,
-    validateAllFields
+    validateAllFields,
+    createMaskCPF
   };
 });
