@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
+import { useToast } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 import { useLoggedUser } from "~~/stores/useLoggedUser.js";
 import { useLoginUserStore } from "~~/stores/useLoginUserStore";
 import { useRegisterStore } from "~~/stores/useRegisterStore";
@@ -68,6 +68,7 @@ const responseRegisterStatus = reactive({
 });
 const onResponseErrorMessage = ref("");
 const isPending = ref(false);
+const toast = useToast();
 
 function handleToggleTab (id: string) {
   emitToggleTabWrapper("toggleTab", id);
@@ -95,14 +96,12 @@ async function handleResendEmail () {
       }
     });
     isPending.value = pending.value;
-    createToast(responseResendEmail.value.data, {
-      type: "success"
-    });
+    // CREATE TOASTFY
+    toast.success(responseResendEmail.value.data);
   } catch (error) {
     if (error instanceof Error) {
-      createToast(onResponseErrorMessage.value, {
-        type: "danger"
-      });
+      // CREATE TOASTFY ERROR
+      toast.error(onResponseErrorMessage.value);
     }
   }
 }
@@ -110,9 +109,8 @@ async function handleResendEmail () {
 async function requestRegisterUser () {
   try {
     if (!((propsUserLoginRegisterWrapper.authName === "registrar") && userRegisterStore.validateAllFields())) {
-      createToast("Verifique se todos os campos estão corretos!", {
-        type: "danger"
-      });
+      // CREATE TOASTFY ERROR
+      toast.error("Verifique se todos os campos estão corretos!");
       return;
     }
     isPending.value = true;
@@ -130,15 +128,13 @@ async function requestRegisterUser () {
     isPending.value = pending.value;
     responseRegisterStatus.data = responseRegisterUser.value.data;
     responseRegisterStatus.status = "success";
-    createToast("Sucesso", {
-      type: "success"
-    });
+    // CREATE TOASTFY SUCESSO
+    toast.success("Sucesso!");
     return;
   } catch (error) {
     if (error instanceof Error) {
-      createToast(onResponseErrorMessage.value, {
-        type: "danger"
-      });
+      // CREATE TOASTFY ERROR
+      toast.error(onResponseErrorMessage.value);
     }
   }
 }
@@ -146,9 +142,9 @@ async function requestRegisterUser () {
 async function requestLoginUser () {
   try {
     if (!userLoginStore.validateAllFields()) {
-      createToast("Verifique se todos os campos estão corretos!", {
-        type: "danger"
-      });
+      // CREATE TOASTFY ERROR
+      console.log(toast);
+      toast.error("Verifique se todos os campos estão corretos!");
       return;
     }
     const currentEndPoint = userLoginStore.isValidComputed.email ? "/Autenticacao/login-email" : "/Autenticacao/login-cpf";
@@ -172,16 +168,14 @@ async function requestLoginUser () {
     saveToUserLoggedStore(responseLoginUser.value.data);
     localStorage.setItem("accessToken", responseLoginUser.value.data.accessToken);
     localStorage.setItem("userId", responseLoginUser.value.data.userToken.usuarioId);
-    createToast("Sucesso", {
-      type: "success"
-    });
+    // CREATE TOASTFY SUCESSO
+    toast.success("Login efetuado com sucesso!");
     emitToggleTabWrapper("pushToHome", "/");
     return;
   } catch (error) {
     if (error instanceof Error) {
-      createToast(onResponseErrorMessage.value, {
-        type: "danger"
-      });
+      // CREATE TOASTFY ERROR
+      toast.error(onResponseErrorMessage.value);
     }
   }
 }

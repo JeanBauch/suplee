@@ -52,8 +52,8 @@
         </h1>
       </template>
       <template #content-button>
-        <atoms-button-action-next-step-user v-if="!isActiveUser" :label-button="'Ativar conta'" :pending="isPending" @next-step-user="handleAuthConfirmEmail" />
-        <atoms-button-action-next-step-user v-else :label-button="'Logar'" :pending="false" @next-step-user="handleLoginAfterActiveUser" />
+        <atoms-button-action-next-step-user v-if="!isActiveUser" :label-button="'Ativar conta'" :pending="isPendingConfirmEmail" @next-step-user="handleAuthConfirmEmail" />
+        <atoms-button-action-next-step-user v-else :label-button="'Logar'" :pending="false" @next-step-user="handleEmitLoginAfterActiveUser" />
       </template>
     </molecules-wrapper-register-user-confirm-email>
     <div class="hidden md:flex absolute bottom-14 left-2 md:-left-7 w-16 h-16 bg-[#FFF] justify-center items-center rounded-xl shadow">
@@ -66,9 +66,6 @@
 </template>
 
 <script setup lang="ts">
-import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
-
 type ResponseConfirmRegisterUser = {
   success: boolean,
   data: string[]
@@ -82,7 +79,7 @@ const propsUserLoginConfirmEmailWrapper = defineProps<{
 
 const baseURLConfirmRegister:string = useBaseURL();
 const isActiveUser = ref(false);
-const isPending = ref(false);
+const isPendingConfirmEmail = ref(false);
 const responseConfirmRegisterUserState = reactive({
   success: false as boolean,
   data: [] as string[]
@@ -91,7 +88,7 @@ const onResponseErrorMessage = ref("");
 
 async function handleAuthConfirmEmail () {
   try {
-    isPending.value = true;
+    isPendingConfirmEmail.value = true;
     const { data: responseAuthConfirmEmail, pending } = await useFetch<ResponseConfirmRegisterUser>(`/Identidade/confirmar-cadastro/${propsUserLoginConfirmEmailWrapper.usuarioId}` + `/${propsUserLoginConfirmEmailWrapper.codigoConfirmacao}`, {
       baseURL: baseURLConfirmRegister,
       method: "POST",
@@ -102,23 +99,19 @@ async function handleAuthConfirmEmail () {
         throw new Error(response._data.data[0]);
       }
     });
-    isPending.value = pending.value;
+    isPendingConfirmEmail.value = pending.value;
     isActiveUser.value = true;
     responseConfirmRegisterUserState.data = responseAuthConfirmEmail.value.data;
-    createToast("Sucesso", {
-      type: "success"
-    });
+    // CREATE TOASTFY SUCESSO
     return;
   } catch (error) {
     if (error instanceof Error) {
-      createToast(onResponseErrorMessage.value, {
-        type: "danger"
-      });
+      // CREATE TOASTFY ERROR
     }
   }
 }
 
-function handleLoginAfterActiveUser () {
+function handleEmitLoginAfterActiveUser () {
   emitClickButtonPushToLogin("NextStepUserPushToLogin");
 }
 </script>
