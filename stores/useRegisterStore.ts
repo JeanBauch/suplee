@@ -135,6 +135,10 @@ export const useRegisterStore = defineStore("user-register", () => {
     return isValidComputed.value.name && isValidComputed.value.email && isValidComputed.value.cpf && isValidComputed.value.celular && isValidComputed.value.senha && isValidComputed.value.confirmacaoSenha;
   }
 
+  function validateFieldsPassword () {
+    return (isValidComputed.value.senha && isValidComputed.value.confirmacaoSenha) && (user.senha === user.confirmacaoSenha);
+  }
+
   // function handleChangeLastModify (attribute: UserRegisterProps) {
   //   lastModify.value = attribute;
   // }
@@ -149,7 +153,8 @@ export const useRegisterStore = defineStore("user-register", () => {
     classValidateInputCellPhone,
     classValidateInputPassword,
     classValidateInputConfirmPassword,
-    validateAllFields
+    validateAllFields,
+    validateFieldsPassword
     // handleChangeLastModify
   };
 });

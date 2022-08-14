@@ -11,7 +11,7 @@
         </div>
         <molecules-tabs-wrapper :current-auth-name="authName" @toggle-tab="handleToggleTab">
           <atoms-content-tab title="logar" :current-auth-name="authName">
-            <molecules-forms-user-login />
+            <molecules-forms-user-login @redefine-password="handleIsRedefinePassword" />
           </atoms-content-tab>
           <atoms-content-tab title="registrar" :current-auth-name="authName">
             <molecules-forms-user-register />
@@ -19,7 +19,7 @@
         </molecules-tabs-wrapper>
       </div>
       <div v-show="authName" class="w-full flex self-end justify-center items-center">
-        <atoms-button-action-next-step-user :label-button="authName" :pending="isPending" @next-step-user="handleSubmitForm" />
+        <atoms-button-action-next-step-user :label-button="isRedefinePassword ? 'Enviar email' : authName" :pending="isPending" @next-step-user="handleSubmitForm" />
       </div>
     </template>
     <template v-else-if="responseRegisterStatus.status === 'success'">
@@ -66,6 +66,7 @@ const propsUserLoginRegisterWrapper = defineProps<{
   authName: string,
 }>();
 
+const isRedefinePassword = ref(false);
 const responseRegisterStatus = reactive({
   status: "waiting" as StatusResponseRegisterUser,
   data: ""
@@ -85,8 +86,10 @@ function handleToggleTab (id: string) {
 function handleSubmitForm () {
   if (propsUserLoginRegisterWrapper.authName === "registrar") {
     requestRegisterUser();
-  } else if (propsUserLoginRegisterWrapper.authName === "logar") {
+  } else if (propsUserLoginRegisterWrapper.authName === "logar" && !isRedefinePassword.value) {
     requestLoginUser();
+  } else if (propsUserLoginRegisterWrapper.authName === "logar" && isRedefinePassword.value) {
+    handleSendEmailToResetPassword();
   }
 }
 
@@ -179,8 +182,39 @@ async function requestLoginUser () {
   }
 }
 
+async function handleSendEmailToResetPassword () {
+  try {
+    if (!(userLoginStore.isValidComputed.cpf)) {
+      handleCreateToast("error", "Preencha o CPF corretamente");
+      return;
+    }
+    isPending.value = true;
+    const { data: responseSendEmailToResetPassword, pending } = await useFetch<ResponseRegisterUser>(`/Identidade/recuperar-senha/${userLoginStore.user.cpf}`, {
+      baseURL,
+      method: "POST",
+      parseResponse: JSON.parse,
+      // eslint-disable-next-line require-await
+      async onResponseError ({ response }) {
+        onResponseErrorMessage.value = response._data.data[0];
+        throw new Error(response._data.data[0]);
+      }
+    });
+    isPending.value = pending.value;
+    handleCreateToast("success", responseSendEmailToResetPassword.value.data);
+    return;
+  } catch (error) {
+    if (error instanceof Error) {
+      handleCreateToast("error", onResponseErrorMessage.value);
+    }
+  }
+}
+
 function saveToUserLoggedStore (user: contentAcessToken) {
   currentUserLoggedStore.$patch({ user });
+}
+
+function handleIsRedefinePassword (value: boolean) {
+  isRedefinePassword.value = value;
 }
 
 function handleCreateToast (type: TypeToast, message: string) {
