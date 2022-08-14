@@ -7,8 +7,8 @@
         <!-- <img src="/bg-complement/suplemento.webp" class="drop-shadow-xl hidden lg:block" alt=""> -->
 
         <!-- Certos! -->
-        <!-- <img :src="produto.imagem" width="93" height="142" class="drop-shadow-xl block lg:hidden" alt="">
-        <img :src="produto.imagem" width="155" height="235" class="drop-shadow-xl hidden lg:block" alt=""> -->
+        <img :src="produto.imagens[0].urlImagemReduzida" width="93" height="142" class="drop-shadow-xl block lg:hidden" alt="">
+        <img :src="produto.imagens[0].urlImagemReduzida" width="155" height="235" class="drop-shadow-xl hidden lg:block" alt="">
       </div>
       <article class="relative z-30 -top-[15%] mt-1">
         <h4 class="text-base lg:text-xl text-dark-normal font-semibold mb-1 truncate">
@@ -122,8 +122,15 @@
 
 <script setup lang="ts">
 
+type ImagensCardProduct = {
+  nomeImagem: string,
+  urlImagemOriginal: string,
+  urlImagemReduzida: string,
+  urlImagemMaior: string,
+};
+
 type ProductCard = {
-  imagem: string,
+  imagens: ImagensCardProduct[],
   nome: string,
   nomeCategoria: string,
   nomeEfeito: string[],
@@ -133,7 +140,6 @@ type ProductCard = {
 const propsValue = defineProps<{
   produto: ProductCard
 }>();
-
 const classObject = computed(() => ({
   themeBgPill: propsValue.produto.nomeCategoria === "Vitaminas"
     ? "bg-[#CCE4CD]"
