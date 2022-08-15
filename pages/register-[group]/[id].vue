@@ -293,7 +293,7 @@ type Product = {
   altura:number,
   largura:number,
   categoriaId: string,
-  imagens: string[],
+  imagens: File[],
   efeitos: string[],
   informacaoNutricional: {
     cabecalho: string,
@@ -302,8 +302,7 @@ type Product = {
   }
 };
 
-const route = useRoute()
-;
+const route = useRoute();
 const isAdmin = ref(false);
 const postDone = ref<boolean>(false);
 
@@ -354,10 +353,20 @@ const removeComposto = (index: number) => {
   produto.informacaoNutricional.compostosNutricionais.splice(index, 1);
 };
 
-const getImage = async (e:Event) => {
+const getImage = (e:Event) => {
   const target = e.target as HTMLInputElement;
   const files = target.files;
   const arrFiles = Array.from(files as FileList);
+
+  // const formData = new FormData();
+  // arrFiles.forEach((file) => {
+  //   formData.append("imagem", file);
+  // });
+
+  // produto.imagens = [...produto.imagens, formData];
+
+  produto.imagens = [...produto.imagens, ...arrFiles];
+  /*
   const arrFiles64 = await Promise.all(arrFiles.map(async (file) => {
     return await getBase64(file as Blob);
   })) as string[];
@@ -366,29 +375,53 @@ const getImage = async (e:Event) => {
     const fileFormat = file.split(",");
     return fileFormat[1];
   }));
+  */
 };
 
-function getBase64 (file: Blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
+// function getBase64 (file: Blob) {
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onload = () => resolve(reader.result);
+//     reader.onerror = error => reject(error);
+//   });
+// }
 
 async function postProduto () {
   statusProgress.progress = "progress";
+  const produtoFormData = new FormData();
+  produtoFormData.append("nome", produto.nome);
+  produtoFormData.append("descricao", produto.descricao);
+  produtoFormData.append("composicao", produto.composicao);
+  produtoFormData.append("quantidadeDisponivel", produto.quantidadeDisponivel.toString());
+  produtoFormData.append("preco", produto.preco.toString());
+  produtoFormData.append("profundidade", produto.profundidade.toString());
+  produtoFormData.append("altura", produto.altura.toString());
+  produtoFormData.append("largura", produto.largura.toString());
+  produtoFormData.append("categoriaId", produto.categoriaId);
+  produto.imagens.forEach((image) => {
+    produtoFormData.append("imagens", image);
+  });
+  produto.efeitos.forEach((efeito, i) => {
+    produtoFormData.append(`efeitos[${i++}]`, efeito);
+  });
+  produtoFormData.append("informacaoNutricional.cabecalho", produto.informacaoNutricional.cabecalho);
+  produtoFormData.append("informacaoNutricional.legenda", produto.informacaoNutricional.legenda);
+  produto.informacaoNutricional.compostosNutricionais.forEach((composto, i) => {
+    produtoFormData.append(`informacaoNutricional.compostosNutricionais[${i}].composto`, composto.composto);
+    produtoFormData.append(`informacaoNutricional.compostosNutricionais[${i}].porcao`, composto.porcao);
+    produtoFormData.append(`informacaoNutricional.compostosNutricionais[${i}].valorDiario`, composto.valorDiario);
+    i++;
+  });
 
   try {
     await $fetch("/Catalogo/produto", {
       baseURL,
       headers: {
-        Accept: "application/json",
-        "Cache-Control": "no-cache"
+        "Content-Type": "multipart/form-data"
       },
       method: "POST",
-      body: produto
+      body: produtoFormData
     });
 
     postDone.value = true;
