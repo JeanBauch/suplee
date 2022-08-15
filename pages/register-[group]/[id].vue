@@ -417,9 +417,9 @@ async function postProduto () {
   try {
     await $fetch("/Catalogo/produto", {
       baseURL,
-      headers: {
-        "Content-Type": "multipart/form-data"
-      },
+      // headers: {
+      //   "Content-Type": "multipart/form-data"
+      // },
       method: "POST",
       body: produtoFormData
     });
