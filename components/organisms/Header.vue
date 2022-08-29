@@ -3,7 +3,7 @@
     <div class="absolute inset-0 block md:hidden w-full h-full z-0">
       <div class="bg-[url('/bg-complement/bg-header-vital.svg')] bg-center bg-contain bg-no-repeat absolute w-full h-full" />
     </div>
-    <div class="md:container mx-auto 2xl:px-20 py-8">
+    <div class="md:container mx-auto md:px-10 2xl:px-20 py-8">
       <div class="flex flex-1 justify-between items-center relative">
         <nuxt-link to="/" aria-label="Voltar para página inicial">
           <div class="text-5xl md:text-4xl font-semibold text-complement-background-normal md:text-primary-olivia-medium md:w-28 xl:w-36 absolute md:relative md:inset-0 move-logo transition-transform duration-500">
