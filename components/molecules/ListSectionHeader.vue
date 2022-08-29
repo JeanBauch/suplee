@@ -8,8 +8,5 @@
     <h3 class="lg:w-32 text-left lg:text-center">
       Produtos
     </h3>
-    <h3 class="lg:w-32 text-left lg:text-center">
-      Destaques
-    </h3>
   </div>
 </template>
