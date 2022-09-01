@@ -1,5 +1,5 @@
 <template>
-  <main class="md:container mx-auto px-4 sm:px-8 md:px-10 2xl:px-20 flex flex-col justify-start items-center" style="height: calc(100vh - 6.5rem)">
+  <main class="md:container mx-auto px-4 sm:px-8 md:px-10 2xl:px-20 flex flex-col justify-start items-center main-content-full-height pb-24 md:pb-0">
     <molecules-purchase-tabs-wrapper :list-of-steps="listOfSteps" @toggle-tab="handleToggleTab" />
 
     <organisms-purchase-flow-car-shopping v-if="selectTab === 1" />
