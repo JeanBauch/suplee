@@ -1,11 +1,11 @@
 <template>
-  <div class="flex shadow rounded-md">
-    <button class="flex justify-center items-center w-10 h-10 xl:w-12 xl:h-12 2xl:w-14 2xl:h-14 border border-secondary-green-gray-light rounded-tl-md rounded-bl-md" @click="decrementAmoutProduct">
-      <atoms-button-decrease-amount :class-color-current-catergory="classColorCurrentCatergory" />
+  <div :class="classObjectButtonAmoutProduct.container" class="flex items-center">
+    <button :class="classObjectButtonAmoutProduct.styleButtonQuantity" class="flex justify-center items-center rounded-tl-md rounded-bl-md" @click="decrementAmoutProduct">
+      <atoms-button-decrease-amount :class-color-current-catergory="classColorCurrentCatergory" small-icon />
     </button>
-    <input v-model.lazy="currentAmoutProduct" type="number" class="appearance-none m-0 text-2xl 2xl:text-3xl text-center font-semibold w-16 md:w-20 2xl:w-24 xl:h-12 2xl:h-14 px-1 bg-complement-background-white border-t border-b border-secondary-green-gray-light">
-    <button class="flex justify-center items-center w-10 h-10 xl:w-12 xl:h-12 2xl:w-14 2xl:h-14 border border-secondary-green-gray-light rounded-tr-md rounded-br-md" @click="incrementAmoutProduct">
-      <atoms-button-increase-amount :class-color-current-catergory="classColorCurrentCatergory" />
+    <input v-model.lazy="currentAmoutProduct" type="number" :class="classObjectButtonAmoutProduct.inputNumber" class="appearance-none m-0 text-center font-semibold px-1">
+    <button :class="classObjectButtonAmoutProduct.styleButtonQuantity" class="flex justify-center items-center rounded-tr-md rounded-br-md" @click="incrementAmoutProduct">
+      <atoms-button-increase-amount :class-color-current-catergory="classColorCurrentCatergory" small-icon />
     </button>
   </div>
 </template>
@@ -16,6 +16,7 @@ const emitModifyAmoutProduct = defineEmits(["modifyAmoutProduct", "showRemaining
 const propsPanelAmoutProduct = defineProps<{
   availableQuantity: number,
   classColorCurrentCatergory: string | false,
+  isListProduct?: boolean
 }>();
 
 const currentAmoutProduct = ref(1);
@@ -41,5 +42,15 @@ function decrementAmoutProduct () {
     currentAmoutProduct.value--;
   }
 }
+
+const classObjectButtonAmoutProduct = computed(() => ({
+  container: propsPanelAmoutProduct.isListProduct ? "gap-1 xl:gap-2" : "shadow rounded-md",
+  styleButtonQuantity: propsPanelAmoutProduct.isListProduct
+    ? "w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+    : "border border-secondary-green-gray-light w-10 h-10 xl:w-12 xl:h-12 2xl:w-14 2xl:h-14",
+  inputNumber: propsPanelAmoutProduct.isListProduct
+    ? "text-lg 2xl:text-xl w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 bg-secondary-green-gray-light bg-opacity-60 rounded-md"
+    : "text-2xl 2xl:text-3xl w-16 md:w-20 2xl:w-24 xl:h-12 2xl:h-14 bg-complement-background-white border-t border-b border-secondary-green-gray-light"
+}));
 
 </script>

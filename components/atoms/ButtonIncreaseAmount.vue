@@ -1,6 +1,6 @@
 <template>
   <div :class="classColorCurrentCatergory" class="relative">
-    <PlusIcon class="w-6 h-6 xl:h-8 xl:w-8 2xl:h-10 2xl:w-10 text-current relative z-10" />
+    <PlusIcon :class="smallIcon ? 'w-full h-full' : 'w-6 h-6 xl:h-8 xl:w-8 2xl:h-10 2xl:w-10 '" class="text-current relative z-10" />
   </div>
 </template>
 
@@ -9,6 +9,7 @@ import { PlusIcon } from "@heroicons/vue/solid";
 
 defineProps<{
   classColorCurrentCatergory: string | false,
+  smallIcon?: boolean
 }>();
 
 </script>
