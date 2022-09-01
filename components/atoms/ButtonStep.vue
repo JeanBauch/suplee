@@ -1,6 +1,6 @@
 <template>
-  <button class="flex flex-col md:flex-row gap-2 lg:gap-4 justify-center items-center">
-    <div :class="classObjectButtonStep.background" class="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 rounded-full flex justify-center items-center">
+  <button class="flex flex-col md:flex-row gap-2 lg:gap-4 justify-center items-center" @click="handleClickStep">
+    <div :class="classObjectButtonStep.background" class="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-14 xl:h-14 2xl:w-20 2xl:h-20 rounded-full flex justify-center items-center">
       <span v-if="status === 'done'">
         <CheckIcon class="w-6 h-6 xl:w-8 xl:h-8 2xl:h-10 2xl:w-10 text-complement-background-white relative z-10" />
       </span>
@@ -24,6 +24,8 @@ const propsButtonStep = defineProps<{
   step: number,
 }>();
 
+const emitClickToggleTab = defineEmits(["toggleTab"]);
+
 const classObjectButtonStep = computed(() => ({
   background: propsButtonStep.status === "current"
     ? "bg-primary-olivia-medium"
@@ -39,5 +41,9 @@ const classObjectButtonStep = computed(() => ({
       : propsButtonStep.status === "done" &&
         "text-primary-olivia-medium text-opacity-80"
 }));
+
+function handleClickStep () {
+  emitClickToggleTab("toggleTab", propsButtonStep.step);
+}
 
 </script>
