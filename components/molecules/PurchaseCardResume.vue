@@ -19,7 +19,7 @@
         </span>
       </div>
     </div>
-    <div class="flex justify-center flex-row-reverse md:flex-col gap-3 sm:gap-4 xl:gap-3 2xl:gap-4">
+    <div class="flex justify-center flex-row-reverse md:flex-col gap-3 sm:gap-4 xl:gap-3 2xl:gap-4 mt-4 md:mt-0">
       <button class="w-[55%] md:w-full flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-primary-olivia-dark rounded-md shadow-lg hover:bg-opacity-80 group transition-colors">
         <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-complement-background-white transition-colors">
           Prosseguir para o pagamento
