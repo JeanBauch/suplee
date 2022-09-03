@@ -44,9 +44,9 @@ function decrementAmoutProduct () {
 }
 
 const classObjectButtonAmoutProduct = computed(() => ({
-  container: propsPanelAmoutProduct.isListProduct ? "gap-1 xl:gap-2" : "shadow rounded-md",
+  container: propsPanelAmoutProduct.isListProduct ? "gap-3 md:gap-1 xl:gap-2" : "shadow rounded-md",
   styleButtonQuantity: propsPanelAmoutProduct.isListProduct
-    ? "w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+    ? "w-6 h-6 md:w-5 md:h-5 lg:w-6 lg:h-6"
     : "border border-secondary-green-gray-light w-10 h-10 xl:w-12 xl:h-12 2xl:w-14 2xl:h-14",
   inputNumber: propsPanelAmoutProduct.isListProduct
     ? "text-lg 2xl:text-xl w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 bg-secondary-green-gray-light bg-opacity-60 rounded-md"
