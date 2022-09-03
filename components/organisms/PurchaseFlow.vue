@@ -3,6 +3,7 @@
     <molecules-purchase-tabs-wrapper :list-of-steps="listOfSteps" @toggle-tab="handleToggleTab" />
 
     <organisms-purchase-flow-car-shopping v-if="selectTab === 1" />
+    <organisms-purchase-flow-login-user v-else-if="selectTab === 2" />
   </main>
 </template>
 

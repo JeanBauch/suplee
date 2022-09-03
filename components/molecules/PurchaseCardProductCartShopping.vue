@@ -13,9 +13,12 @@
           <strong class="font-semibold text-base text-dark-light">Valor:</strong>
           <strong class="font-semibold text-lg text-dark-normal">R$ 12,90</strong>
         </span>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
           <atoms-button-remove-item />
-          <molecules-modify-amout-product :available-quantity="30" :class-color-current-catergory="'text-dark-normal'" is-list-product />
+          <div class="flex flex-col gap-1">
+            <span class="text-center font-semibold text-sm text-primary-olivia-medium">Quantidade:</span>
+            <molecules-modify-amout-product :available-quantity="30" :class-color-current-catergory="'text-dark-normal'" is-list-product />
+          </div>
         </div>
       </div>
     </div>
