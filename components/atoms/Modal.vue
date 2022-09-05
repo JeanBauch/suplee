@@ -37,7 +37,6 @@ const isModalOpen = ref(false);
 watch(() => propsModal.show, (show) => {
   isModalOpen.value = show;
 });
-
 const slots = useSlots();
 function containSlot (title: string) {
   return slots[title] !== undefined;

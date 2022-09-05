@@ -14,8 +14,18 @@
             <molecules-purchase-card-product-cart-shopping />
           </div>
         </div>
-        <molecules-purchase-card-resume />
+        <molecules-purchase-card-resume @cart-shopping="handleClickNextStep('cartShopping')" />
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { StepsPurchase } from "~~/types/purchaseFlow";
+
+const emitEventOnClickNextStep = defineEmits(["cartShopping"]);
+
+function handleClickNextStep (stage: StepsPurchase) {
+  emitEventOnClickNextStep("cartShopping", stage);
+}
+</script>

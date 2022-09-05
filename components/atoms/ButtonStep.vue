@@ -5,7 +5,7 @@
         <CheckIcon class="w-6 h-6 xl:w-8 xl:h-8 2xl:h-10 2xl:w-10 text-complement-background-white relative z-10" />
       </span>
       <span v-else class="font-semibold text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[2.5rem] text-complement-background-white">
-        {{ step }}
+        {{ step + 1 }}
       </span>
     </div>
     <h3 :class="classObjectButtonStep.textColor" class="font-semibold text-xs sm:text-lg xl:text-xl">
