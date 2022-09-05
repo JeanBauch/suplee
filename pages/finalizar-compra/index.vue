@@ -16,9 +16,10 @@
 </template>
 
 <script setup lang="ts">
+import { TypeEventsToPushRoute } from "~~/types/pushRouteEvents";
 
-function scrollToSection (section: string) {
-  return section;
+function scrollToSection (section: TypeEventsToPushRoute) {
+  usePushToRouteOnEvents(section);
 }
 
 </script>

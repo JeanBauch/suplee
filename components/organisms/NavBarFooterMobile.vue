@@ -3,15 +3,16 @@
     <nav>
       <ul class="flex justify-between items-center text-primary-olivia-dark">
         <li @click="$emit('selectScrollSection', 'ViewListProduct')">
-          <ViewGridIcon class="h-10 w-10 text-current relative z-10" />
+          <ViewGridIcon v-if="isHome" class="h-10 w-10 text-current relative z-10" />
+          <HomeIcon v-else class="h-10 w-10 text-current relative z-10" />
         </li>
         <li @click="$emit('selectScrollSection', 'ViewTopPage')">
           <SearchIcon class="h-10 w-10 text-current relative z-10" />
         </li>
-        <li>
+        <li @click="$emit('selectScrollSection', 'NavigatePurchaseFlow')">
           <ShoppingCartIcon class="h-10 w-10 text-current relative z-10" />
         </li>
-        <li>
+        <li @click="$emit('selectScrollSection', 'NavigateProfileUser')">
           <UserIcon class="h-10 w-10 text-current relative z-10" />
         </li>
       </ul>
@@ -20,7 +21,12 @@
 </template>
 
 <script setup>
-import { ViewGridIcon, SearchIcon, ShoppingCartIcon, UserIcon } from "@heroicons/vue/outline";
+import { ViewGridIcon, HomeIcon, SearchIcon, ShoppingCartIcon, UserIcon } from "@heroicons/vue/outline";
 
 defineEmits(["selectScrollSection"]);
+const route = useRoute();
+const isHome = ref(true);
+
+isHome.value = route.name === "index";
+
 </script>

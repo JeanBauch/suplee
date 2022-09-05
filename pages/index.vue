@@ -319,7 +319,7 @@
           </div>
         </div>
       </section>
-      <AtomsModal :show="showModal">
+      <AtomsModal :show="showModal" is-fixed>
         <template #header-modal>
           <h3 class="text-2xl font-bold">
             {{ currentModalFilter }}
@@ -721,6 +721,8 @@ export default {
         scrollPageToTop();
       } else if (section === "ViewListProduct") {
         scrollPageToListProducts();
+      } else {
+        usePushToRouteOnEvents(section);
       }
     }
 

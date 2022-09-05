@@ -15,7 +15,7 @@
 
         <molecules-list-section-header />
 
-        <molecules-action-user-header :is-logged="isLogged" @user="pushToPageUser" />
+        <molecules-action-user-header :is-logged="isLogged" @user="pushToPageUser" @cart-shopping="pushToPurchaseFlow" />
       </div>
     </div>
     <molecules-search-product @search-product="searchProductName" />
@@ -26,11 +26,7 @@
 const emit = defineEmits(["searchProduct"]);
 
 const router = useRouter();
-const isLogged = ref(false);
-
-onMounted(() => {
-  isLogged.value = !!localStorage.getItem("accessToken");
-});
+const isLogged = ref(useVerifyUserLogged());
 
 function pushToPageUser () {
   if (isLogged.value) {
@@ -44,6 +40,10 @@ function pushToPageUser () {
       }
     });
   }
+}
+
+function pushToPurchaseFlow () {
+  router.push("finalizar-compra");
 }
 
 function searchProductName (productName) {
