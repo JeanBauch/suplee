@@ -11,7 +11,7 @@
     <organisms-user-redefine-password-wrapper
       :usuario-id="queryParamsRedefinePassword.usuarioId"
       :codigo-confirmacao="queryParamsRedefinePassword.codigoConfirmacao"
-      @success-redefine-password="handleLoginAfterActiveUser"
+      @success-redefine-password="handleLoginAfterRedefinePassword"
     />
   </div>
 </template>
@@ -27,7 +27,7 @@ const routeAuthRedefinePassword = useRoute();
 const routerAuthRedefinePassword = useRouter();
 const queryParamsRedefinePassword = routeAuthRedefinePassword.query as RedefinePasswordQuery;
 
-function handleLoginAfterActiveUser () {
+function handleLoginAfterRedefinePassword () {
   routerAuthRedefinePassword.push("/usuario/autenticacao/logar");
 }
 

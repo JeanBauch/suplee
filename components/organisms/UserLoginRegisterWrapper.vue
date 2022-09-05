@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col justify-between w-full max-w-[39rem] h-[50rem] lg:h-[46.875rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
+  <main class="flex flex-col justify-between min-w-[100vw] md:min-w-0 min-h-screen md:min-h-0 md:max-w-[39rem] md:h-[50rem] lg:h-[46.875rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
     <template v-if="responseRegisterStatus.status === 'waiting'">
       <div class="flex flex-col gap-4 md:gap-9">
         <div class="flex justify-center w-full relative">
@@ -18,7 +18,7 @@
           </atoms-content-tab>
         </molecules-tabs-wrapper>
       </div>
-      <div v-show="authName" class="w-full flex self-end justify-center items-center">
+      <div v-show="authName" class="w-full flex self-end justify-center items-center mt-6">
         <atoms-button-action-next-step-user :label-button="isRedefinePassword ? 'Enviar email' : authName" :pending="isPending" @next-step-user="handleSubmitForm" />
       </div>
     </template>
@@ -28,7 +28,7 @@
     <div class="hidden md:flex absolute bottom-14 left-2 md:-left-7 w-16 h-16 bg-[#FFF] justify-center items-center rounded-xl shadow">
       <img src="/icons/icon-heart.svg" width="36" height="36" class="w-9 h-9" alt="Icone de coração simbolizanção saúde">
     </div>
-    <div class="absolute top-14 right-2 md:-right-7 w-16 h-16 bg-[#FFF] flex justify-center items-center rounded-xl shadow">
+    <div class="absolute top-24 right-0 md:-right-7 w-16 h-16 bg-[#FFF] flex justify-center items-center rounded-xl shadow">
       <img src="/icons/icon-vital.svg" width="36" height="36" class="w-9 h-9" alt="Icone de coração simbolizanção saúde">
     </div>
     <atoms-custom-toast :show="createToast.show" :type="createToast.type" @is-show-toast="handleIsShowToast">

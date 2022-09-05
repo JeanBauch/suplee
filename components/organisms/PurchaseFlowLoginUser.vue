@@ -6,11 +6,6 @@
     </div>
 
     <atoms-modal :show="showModal">
-      <template #header-modal>
-        <h3 class="text-primary-olivia-dark font-semibold text-base lg:text-lg 2xl:text-xl">
-          Entre com sua conta Suplee
-        </h3>
-      </template>
       <template #btn-close-modal>
         <button class="close-btn p-3" @click="showModal = !showModal">
           <XIcon class="h-6 w-6 text-current relative z-10" />
