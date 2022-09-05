@@ -5,7 +5,7 @@
     <nav>
       <ul class="flex w-full justify-between">
         <li v-for="(step, index) in listOfSteps" :key="index">
-          <AtomsButtonStep :step="index+1" :title-step="step.stepTitle" :status="step.status" @toggle-tab="handleClickStep" />
+          <AtomsButtonStep :step="index" :title-step="step.stepTitle" :status="step.status" @toggle-tab="handleClickStep" />
         </li>
       </ul>
     </nav>
