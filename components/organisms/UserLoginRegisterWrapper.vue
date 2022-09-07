@@ -169,7 +169,8 @@ async function requestLoginUser () {
     if (responseLoginUser.value === null) {
       throw new Error("Usuário não encontrado");
     }
-    saveToUserLoggedStore(responseLoginUser.value.data);
+    const userContent = responseLoginUser.value.data;
+    saveToUserLoggedStore({ ...userContent, isLogged: true });
     localStorage.setItem("accessToken", responseLoginUser.value.data.accessToken);
     localStorage.setItem("userId", responseLoginUser.value.data.userToken.usuarioId);
     handleCreateToast("success", "sucesso!");

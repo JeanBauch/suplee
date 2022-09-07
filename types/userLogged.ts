@@ -8,5 +8,6 @@ type userToken = {
 export type contentAcessToken = {
   accessToken: string,
   expiresIn: number,
-  userToken: userToken
+  userToken: userToken,
+  isLogged: boolean
 }
