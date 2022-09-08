@@ -24,11 +24,11 @@
               <molecules-purchase-card-product-cart-shopping />
             </div>
             <div class="flex justify-between mt-6">
-              <button class="flex justify-center items-center gap-2 font-medium text-primary-lemon-dark text-base">
+              <button class="flex justify-center items-center gap-2 font-medium text-primary-lemon-dark text-base" @click="handleClickButtonsPushToPurchase(null)">
                 <p>Mais detalhes</p>
                 <ChevronRightIcon class="text-current w-4 h-4" />
               </button>
-              <button class="px-6 py-4 rounded-[0.625rem] bg-primary-lemon-dark">
+              <button class="px-6 py-4 rounded-[0.625rem] bg-primary-lemon-dark" @click="handleClickButtonsPushToPurchase('cartShopping')">
                 <h3 class="text-center text-complement-background-white font-medium text-base">
                   Finalizar carrinho
                 </h3>
@@ -52,15 +52,30 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ShoppingCartIcon, ChevronRightIcon } from "@heroicons/vue/outline";
+import { useStagesPurchase } from "~~/stores/useStagesPurchase";
+import { StepsPurchase } from "~~/types/purchaseFlow";
 
+const storeStagesPurchase = useStagesPurchase();
 const isOpenCarShopping = ref(false);
 const componentRef = ref();
+const router = useRouter();
 
 useClickOutside(componentRef, () => {
   if (isOpenCarShopping.value) { isOpenCarShopping.value = false; }
 });
+
+function handleClickButtonsPushToPurchase (stage: StepsPurchase | null) {
+  if (stage !== null) {
+    storeStagesPurchase.nextStep(stage);
+  } else {
+    storeStagesPurchase.resetStatus();
+    storeStagesPurchase.toggleSelectTab(0);
+  }
+  isOpenCarShopping.value = false;
+  router.push("finalizar-compra");
+}
 
 </script>
 

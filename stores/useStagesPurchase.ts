@@ -40,10 +40,21 @@ export const useStagesPurchase = defineStore("stages-purchase", () => {
     selectTab.value = tab;
   }
 
+  function resetStatus () {
+    listOfSteps.forEach((stage, index) => {
+      if (index === 0) {
+        stage.status = "current";
+        return;
+      }
+      stage.status = "disable";
+    });
+  }
+
   return {
     listOfSteps,
     selectTab,
     nextStep,
-    toggleSelectTab
+    toggleSelectTab,
+    resetStatus
   };
 });

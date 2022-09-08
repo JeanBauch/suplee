@@ -171,6 +171,8 @@ async function requestLoginUser () {
     }
     const userContent = responseLoginUser.value.data;
     saveToUserLoggedStore({ ...userContent, isLogged: true });
+    currentUserLoggedStore.actionUserLogged(true);
+    userLoginStore.resetState();
     localStorage.setItem("accessToken", responseLoginUser.value.data.accessToken);
     localStorage.setItem("userId", responseLoginUser.value.data.userToken.usuarioId);
     handleCreateToast("success", "sucesso!");

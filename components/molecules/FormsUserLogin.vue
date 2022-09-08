@@ -17,13 +17,13 @@ const isRedefinePassword = ref(false);
 function handleClickRedefinePassword () {
   emitRedefinePassword("redefinePassword", true);
   isRedefinePassword.value = true;
-  useLoginUserStore().user.cpf = "";
+  useLoginUserStore().resetState();
 }
 
 onUnmounted(() => {
   emitRedefinePassword("redefinePassword", false);
   isRedefinePassword.value = false;
-  useLoginUserStore().user.cpf = "";
+  useLoginUserStore().resetState();
 });
 
 </script>
