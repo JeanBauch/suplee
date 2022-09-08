@@ -426,6 +426,7 @@ async function postProduto () {
 
     postDone.value = true;
     statusProgress.progress = "done";
+    reseteInitialState();
   } catch (error) {
     if (error instanceof Error) {
       postDone.value = false;
@@ -434,6 +435,23 @@ async function postProduto () {
   }
 
   // .catch(error =>);
+}
+
+function reseteInitialState () {
+  produto.nome = "";
+  produto.descricao = "";
+  produto.composicao = "";
+  produto.quantidadeDisponivel = 0;
+  produto.preco = 0;
+  produto.profundidade = 0;
+  produto.altura = 0;
+  produto.largura = 0;
+  produto.categoriaId = "";
+  produto.imagens = [];
+  produto.efeitos = [];
+  produto.informacaoNutricional.cabecalho = "";
+  produto.informacaoNutricional.legenda = "";
+  produto.informacaoNutricional.compostosNutricionais = [];
 }
 
 if (route.params.group === "admins" && route.params.id === "123") {
