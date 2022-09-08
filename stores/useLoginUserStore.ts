@@ -55,12 +55,19 @@ export const useLoginUserStore = defineStore("user-login", () => {
     return (isValidComputed.value.email || isValidComputed.value.cpf) && isValidComputed.value.senha;
   }
 
+  function resetState () {
+    user.email = "";
+    user.cpf = "";
+    user.senha = "";
+  }
+
   return {
     user,
     isValidComputed,
     classValidateInputEmailCpf,
     classValidateInputPassword,
     validateAllFields,
-    createMaskCPF
+    createMaskCPF,
+    resetState
   };
 });

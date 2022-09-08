@@ -14,6 +14,10 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     isLogged: false
   });
 
+  function actionUserLogged (state: boolean) {
+    user.isLogged = state;
+  }
+
   function resetAtrr () {
     user.accessToken = "";
     user.expiresIn = 0;
@@ -28,6 +32,7 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
 
   return {
     user,
+    actionUserLogged,
     resetAtrr
   };
 });
