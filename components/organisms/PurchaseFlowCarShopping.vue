@@ -5,13 +5,10 @@
         <molecules-purchase-list-product-in-cart class="hidden sm:block" />
         <div class="sm:hidden px-5 py-7 rounded-[0.625rem] bg-complement-background-white shadow-green-perso">
           <div class="flex flex-col gap-3 overflow-auto" style="max-height: calc(100vh - 87.5px - 375px);">
-            <molecules-purchase-card-product-cart-shopping />
-            <div class="w-full h-[1px] rounded-full bg-complement-background-soft" />
-            <molecules-purchase-card-product-cart-shopping />
-            <div class="w-full h-[1px] rounded-full bg-complement-background-soft" />
-            <molecules-purchase-card-product-cart-shopping />
-            <div class="w-full h-[1px] rounded-full bg-complement-background-soft" />
-            <molecules-purchase-card-product-cart-shopping />
+            <div v-for="product in storeCart.cart.products" :key="product.id" class="flex flex-col gap-3">
+              <molecules-purchase-card-product-cart-shopping :id="product.id" />
+              <div class="w-full h-[1px] rounded-full bg-complement-background-soft" />
+            </div>
           </div>
         </div>
         <molecules-purchase-card-resume @cart-shopping="handleClickNextStep('cartShopping')" />
@@ -21,9 +18,11 @@
 </template>
 
 <script setup lang="ts">
+import { useCart } from "~~/stores/useCart";
 import { StepsPurchase } from "~~/types/purchaseFlow";
 
 const emitEventOnClickNextStep = defineEmits(["cartShopping"]);
+const storeCart = useCart();
 
 function handleClickNextStep (stage: StepsPurchase) {
   emitEventOnClickNextStep("cartShopping", stage);

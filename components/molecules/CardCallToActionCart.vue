@@ -99,7 +99,7 @@
     </div>
 
     <div class="pt-9 xl:pt-0 w-[80%] xl:w-full self-center">
-      <atoms-button-add-to-cart :class-color-current-catergory="classObject.themeCategory" />
+      <atoms-button-add-to-cart :class-color-current-catergory="classObject.themeCategory" @addProductToCart="handleReceiveEventToButtonAddProductOnCart" />
     </div>
   </div>
 </template>
@@ -113,6 +113,7 @@ const propsCardToActionCart = defineProps<{
   productIdentifer: ProductIdentifer,
   currentCategory: string,
 }>();
+const emitClickButtonAdd = defineEmits(["addProductToCart"]);
 
 const currentAmoutProduct = ref(1);
 const showRemainingAmount = ref(false);
@@ -182,6 +183,10 @@ function onClickInput (isFocus:boolean) {
 
 function handleInvalidInputCep () {
   setStatusShipping(false, true, false, false, "Número de caracteres incorreto!");
+}
+
+function handleReceiveEventToButtonAddProductOnCart () {
+  emitClickButtonAdd("addProductToCart", currentAmoutProduct.value);
 }
 
 </script>

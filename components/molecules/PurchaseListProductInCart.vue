@@ -18,52 +18,33 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-secondary-green-gray-light">
-        <tr>
+        <tr v-for="product in storeCart.cart.products" :key="product.id">
           <td scope="row" class="py-6 pl-4 pr-2 w-[40%] lg:w-[48%] xl:w-auto">
             <div class="flex items-center md:gap-3 lg:gap-4 xl:gap-8">
-              <img src="/bg-complement/item-example.svg" width="62" height="94" class="w-[31px] h-[47px] lg:w-[62px] lg:h-[94px]" alt="">
+              <img :src="product.image" width="62" height="94" class="w-[31px] h-[47px] lg:w-[62px] lg:h-[94px]" :alt="'Imagem do suplemento ' + product.name">
               <span class="flex flex-col md:gap-1 lg:gap-2">
-                <h4 class="font-semibold text-sm lg:text-base xl:text-lg text-dark-normal">Green Tea Long Jin</h4>
-                <p class="font-light text-xs text-secondary-green-gray-medium">Categoria</p>
+                <h4 class="font-semibold text-sm lg:text-base xl:text-lg text-dark-normal">{{ product.name }}</h4>
+                <p class="font-light text-xs text-secondary-green-gray-medium">{{ product.category.nome }}</p>
               </span>
             </div>
           </td>
           <td class="py-4">
             <div class="flex justify-center">
-              <molecules-modify-amout-product :available-quantity="30" :class-color-current-catergory="'text-dark-normal'" is-list-product />
+              <molecules-modify-amout-product
+                :available-quantity="product.availableQuantity"
+                :class-color-current-catergory="'text-dark-normal'"
+                is-list-product
+                :id-product-in-list-product="product.id"
+              />
             </div>
           </td>
           <td class="py-4">
             <span class="flex justify-center">
-              <p class="font-semibold md:text-sm lg:text-lg xl:text-xl text-dark-normal">R$ 12,30</p>
+              <p class="font-semibold md:text-sm lg:text-lg xl:text-xl text-dark-normal">{{ priceFormated(product.price, product.quantity) }}</p>
             </span>
           </td>
           <td class="py-4">
-            <atoms-button-remove-item @remove-item="handleClickButtonRemoveItem" />
-          </td>
-        </tr>
-        <tr>
-          <td scope="row" class="py-6 pl-4 pr-2 w-[40%] lg:w-[48%] xl:w-auto">
-            <div class="flex items-center md:gap-3 lg:gap-4 xl:gap-8">
-              <img src="/bg-complement/item-example.svg" width="62" height="94" class="w-[31px] h-[47px] lg:w-[62px] lg:h-[94px]" alt="">
-              <span class="flex flex-col md:gap-1 lg:gap-2">
-                <h4 class="font-semibold text-sm lg:text-base xl:text-lg text-dark-normal">Green Tea Long Jin</h4>
-                <p class="font-light text-xs text-secondary-green-gray-medium">Categoria</p>
-              </span>
-            </div>
-          </td>
-          <td class="py-4">
-            <div class="flex justify-center">
-              <molecules-modify-amout-product :available-quantity="30" :class-color-current-catergory="'text-dark-normal'" is-list-product />
-            </div>
-          </td>
-          <td class="py-4">
-            <span class="flex justify-center">
-              <p class="font-semibold md:text-sm lg:text-lg xl:text-xl text-dark-normal">R$ 12,30</p>
-            </span>
-          </td>
-          <td class="py-4">
-            <atoms-button-remove-item @remove-item="handleClickButtonRemoveItem" />
+            <atoms-button-remove-item @remove-item="handleClickButtonRemoveItem(product.id)" />
           </td>
         </tr>
       </tbody>
@@ -72,9 +53,16 @@
 </template>
 
 <script setup lang="ts">
+import { useCart } from "~~/stores/useCart";
 
-function handleClickButtonRemoveItem () {
-  // add to logic to remove item from cartShop
+const storeCart = useCart();
+
+function priceFormated (price: number, quantity: number) {
+  return (useAccountBRL(price * quantity)).value;
+}
+
+function handleClickButtonRemoveItem (id: string) {
+  storeCart.removeProductToCart(id);
 }
 
 </script>

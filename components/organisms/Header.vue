@@ -52,7 +52,7 @@ function pushToPageUser () {
 }
 
 function pushToPurchaseFlow () {
-  router.push("finalizar-compra");
+  router.push("/finalizar-compra");
 }
 
 function pushToEditProfile () {

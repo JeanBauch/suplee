@@ -16,11 +16,6 @@ type ItemNutritional = {
   legends: string,
 };
 
-type ImageProduct = {
-  id: string,
-  name: string,
-};
-
 type categoryProduct = {
   id: string,
   nome: string,
@@ -33,6 +28,13 @@ export type DescriptionProductDetails = {
   nutritionalInformation: NutritionalInformation,
 };
 
+export type ImagesProduct = {
+  nomeImagem: string,
+  urlImagemOriginal: string,
+  urlImagemReduzida: string,
+  urlImagemMaior: string
+};
+
 export type ProductActionCart = {
   price: number,
   availableQuantity: number,
@@ -42,6 +44,7 @@ export type ProductIdentifer = {
   id: string,
   name: string,
   category: categoryProduct,
+  images: Array<ImagesProduct>
 };
 
 export type Product = {
@@ -51,8 +54,18 @@ export type Product = {
   description: string,
   effects: Array<EffectsDetails>,
   id: string,
-  images: Array<ImageProduct>,
+  images: Array<ImagesProduct>,
   nutritionalInformation: Array<ItemNutritional>,
   price: number,
   availableQuantity: number,
 };
+
+export type ProductOnCard = {
+  id: string,
+  name: string,
+  category: categoryProduct,
+  price: number,
+  quantity: number,
+  availableQuantity: number,
+  image: string,
+}
