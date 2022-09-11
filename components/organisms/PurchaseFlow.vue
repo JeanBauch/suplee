@@ -11,28 +11,6 @@
 import { useStagesPurchase } from "~~/stores/useStagesPurchase";
 import { StepsPurchase } from "~~/types/purchaseFlow";
 
-// const listOfSteps = reactive<TabStepCarShopping[]>([
-//   {
-//     stepTitle: "Produtos",
-//     status: "current",
-//     cod: "cartShopping"
-//   },
-//   {
-//     stepTitle: "Identificação",
-//     status: "disable",
-//     cod: "identification"
-//   },
-//   {
-//     stepTitle: "Pagamento",
-//     status: "disable",
-//     cod: "payment"
-//   },
-//   {
-//     stepTitle: "Conclusão",
-//     status: "disable",
-//     cod: "conclusion"
-//   }
-// ]);
 const storeStagesPurchase = useStagesPurchase();
 const listOfSteps = storeStagesPurchase.listOfSteps;
 
@@ -43,7 +21,6 @@ function handleToggleTab (i: number) {
 }
 
 function nextStep (stage: StepsPurchase) {
-  // add logic
   storeStagesPurchase.nextStep(stage);
 }
 

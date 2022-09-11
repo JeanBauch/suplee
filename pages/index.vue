@@ -1,7 +1,6 @@
 <template>
   <div class="relative">
     <template v-if="!error">
-      <organisms-nav-bar-footer-mobile @select-scroll-section="scrollToSection" />
       <section class="bg-complement-background-soft relative z-0 min-h-screen overflow-hidden">
         <atoms-bg-hero />
         <organisms-header @search-product="searchProductName" />
@@ -808,7 +807,7 @@ export default {
       ]
     });
 
-    return { dynamic: ref(49), allProducts: listProducts, error, loaderProduct, loaderProductPagination, pending, showModal, currentModalFilter, currentCategorySelected, currentEffectSelected, currentProductNameToSearch, currentCountProductSearch: currentCountProductFound, toggleSelectedCategory, toggleSelectedEffect, toggleModalFilter, filterCategoryCallToAction, searchProductName, isCategorySelected, isEffectSelected, setBorderCurrentCategoryFilter, setBorderCurrentEffectFilter, removeFilter, scrollToSection, loadMoreProductsPagination };
+    return { allProducts: listProducts, error, loaderProduct, loaderProductPagination, pending, showModal, currentModalFilter, currentCategorySelected, currentEffectSelected, currentProductNameToSearch, currentCountProductSearch: currentCountProductFound, toggleSelectedCategory, toggleSelectedEffect, toggleModalFilter, filterCategoryCallToAction, searchProductName, isCategorySelected, isEffectSelected, setBorderCurrentCategoryFilter, setBorderCurrentEffectFilter, removeFilter, scrollToSection, loadMoreProductsPagination };
   },
   head: {
     title: "Suplee"

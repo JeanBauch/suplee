@@ -11,17 +11,19 @@
       >
         <transition>
           <main v-if="isOpenCarShopping" class="p-9 rounded-3xl bg-complement-background-white shadow-green-perso relative">
-            <h2 class="font-semibold text-dark-normal text-base lg:text-lg 2xl:text-xl">
-              Seu carrinho
-            </h2>
+            <div class="flex justify-between items-center">
+              <h2 class="font-semibold text-dark-normal text-base lg:text-lg 2xl:text-xl">
+                Seu carrinho
+              </h2>
+              <h4 v-if="cart.products.length > 0" class="font-semibold text-xs text-dark-light">
+                Valor total: <span class="text-base text-dark-normal">{{ totalPrice }}</span>
+              </h4>
+            </div>
             <div class="flex flex-col gap-3 overflow-auto mt-6 min-w-[400px]" style="max-height: calc(100vh - 6.5rem - 250px);">
-              <molecules-purchase-card-product-cart-shopping />
-              <div class="w-full h-[1px] p-[1px] rounded-full bg-complement-background-soft" />
-              <molecules-purchase-card-product-cart-shopping />
-              <div class="w-full h-[1px] p-[1px] rounded-full bg-complement-background-soft" />
-              <molecules-purchase-card-product-cart-shopping />
-              <div class="w-full h-[1px] p-[1px] rounded-full bg-complement-background-soft" />
-              <molecules-purchase-card-product-cart-shopping />
+              <span v-for="product in cart.products" :key="product.id" class="flex flex-col gap-3">
+                <molecules-purchase-card-product-cart-shopping :id="product.id" :key="product.id" />
+                <div class="w-full h-[1px] p-[1px] rounded-full bg-complement-background-soft" />
+              </span>
             </div>
             <div class="flex justify-between mt-6">
               <button class="flex justify-center items-center gap-2 font-medium text-primary-lemon-dark text-base" @click="handleClickButtonsPushToPurchase(null)">
@@ -42,7 +44,7 @@
             <span class="relative">
               <ShoppingCartIcon class="h-9 w-9 2xl:h-10 2xl:w-10 text-primary-olivia-dark relative z-10 stroke-[1px]" />
               <span class="absolute z-20 -top-1 -right-1 bg-primary-green-dark rounded-full w-4 h-4 2xl:w-5 2xl:h-5 flex justify-center items-center shadow-sm">
-                <p class="font-semibold text-complement-background-white text-sm">1</p>
+                <p class="font-semibold text-complement-background-white text-sm">{{ storeCart.totalQuantityItensOnProduct }}</p>
               </span>
             </span>
           </button>
@@ -54,10 +56,13 @@
 
 <script setup lang="ts">
 import { ShoppingCartIcon, ChevronRightIcon } from "@heroicons/vue/outline";
+import { useCart } from "~~/stores/useCart";
 import { useStagesPurchase } from "~~/stores/useStagesPurchase";
 import { StepsPurchase } from "~~/types/purchaseFlow";
 
 const storeStagesPurchase = useStagesPurchase();
+const storeCart = useCart();
+const cart = storeCart.cart;
 const isOpenCarShopping = ref(false);
 const componentRef = ref();
 const router = useRouter();
@@ -74,8 +79,12 @@ function handleClickButtonsPushToPurchase (stage: StepsPurchase | null) {
     storeStagesPurchase.toggleSelectTab(0);
   }
   isOpenCarShopping.value = false;
-  router.push("finalizar-compra");
+  router.push("/finalizar-compra");
 }
+
+const totalPrice = computed(() => {
+  return (useAccountBRL(storeCart.totalPrice)).value;
+});
 
 </script>
 

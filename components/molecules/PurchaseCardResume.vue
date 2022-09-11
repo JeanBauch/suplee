@@ -10,12 +10,12 @@
       <div class="flex flex-col gap-2 xl:gap-3 2xl:gap-4 w-full">
         <span class="flex justify-between font-semibold">
           <p class="text-sm 2xl:text-base text-dark-light">Itens no carrinho:</p>
-          <p class="text-base 2xl:text-lg text-dark-normal"><b>4</b></p>
+          <p class="text-base 2xl:text-lg text-dark-normal"><b>{{ storeCart.totalQuantityItensOnProduct }}</b></p>
         </span>
         <hr class="text-complement-background-gray">
         <span class="flex justify-between font-semibold">
           <p class="text-sm 2xl:text-base text-dark-light">Valor total:</p>
-          <p class="text-base 2xl:text-lg text-dark-normal"><b>R$48,90</b></p>
+          <p class="text-base 2xl:text-lg text-dark-normal"><b>{{ totalPrice }}</b></p>
         </span>
       </div>
     </div>
@@ -36,9 +36,16 @@
 </template>
 
 <script setup lang="ts">
+import { useCart } from "~~/stores/useCart";
 import { StepsPurchase } from "~~/types/purchaseFlow";
 
 const emitEventOnClickNextStep = defineEmits(["cartShopping"] as StepsPurchase[]);
+
+const storeCart = useCart();
+
+const totalPrice = computed(() => {
+  return (useAccountBRL(storeCart.totalPrice)).value;
+});
 
 function handleClickNextStep () {
   emitEventOnClickNextStep("cartShopping");

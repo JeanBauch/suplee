@@ -156,11 +156,6 @@ const classObject = computed(() => ({
 
 const accountBRL = useAccountBRL(propsValue.produto.preco);
 
-// computed(() => {
-//   const valor = propsValue.produto.preco.toFixed(2).toString();
-//   return "R$ " + valor.replace(".", ",");
-// });
-
 function classColorEffectName (effectName: string) {
   return effectName === "Imunidade"
     ? "text-primary-green-dark"
