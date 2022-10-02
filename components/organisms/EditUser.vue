@@ -43,39 +43,100 @@
         <div class="flex flex-col gap-6 w-full rounded-lg pt-2 px-6">
           <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-3">
             <div class="w-full">
-              <atoms-input-bottom-line :label="'CEP'" :input-key="'cep-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'CEP'"
+                :input-key="'cep-address'"
+                :store-field="'cep'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div class="md:col-span-2 w-full">
-              <atoms-input-bottom-line :label="'Destinatário'" :input-key="'name-remetende'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Destinatário'"
+                :input-key="'name-remetende'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Estado'" :input-key="'state-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Estado'"
+                :input-key="'state-address'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Cidade'" :input-key="'city-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Cidade'"
+                :input-key="'city-address'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Bairro'" :input-key="'district-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Bairro'"
+                :input-key="'district-address'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Número'" :input-key="'number-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Número'"
+                :input-key="'number-address'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Rua'" :input-key="'street-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Rua'"
+                :input-key="'street-address'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div class="hidden md:block" />
             <div>
-              <atoms-input-bottom-line :label="'Tel'" :input-key="'phone'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Tel'"
+                :input-key="'phone'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Local'" :input-key="'type-home'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Local'"
+                :input-key="'type-home'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
             <div>
-              <atoms-input-bottom-line :label="'Comp.'" :input-key="'complement-address'" :is-modified="true" small />
+              <atoms-input-bottom-line
+                :label="'Comp.'"
+                :input-key="'complement-address'"
+                :is-modified="true"
+                small
+                @modify-value-input="handleModifyValueInput"
+              />
             </div>
           </div>
           <div class="w-full flex justify-center items-center md:px-72">
-            <button class="px-20 py-1 bg-primary-green-dark rounded-md">
+            <button class="px-20 py-1 bg-primary-green-dark rounded-md" @click="addAddressToProfile">
               <p class="font-semibold text-complement-background-white">
                 Adicionar
               </p>
@@ -105,12 +166,58 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { useAddress } from "~~/stores/useAddress";
+import { useLoggedUser } from "~~/stores/useLoggedUser";
 
 const router = useRouter();
+const storeAddress = useAddress();
+const storeUserLogged = useLoggedUser();
 
 function pushToHome () {
   router.push("/");
+}
+
+function addAddressToProfile () {
+  if (storeAddress.allFieldFilled) {
+    storeUserLogged.user.userToken.address.push(storeAddress.address);
+  }
+}
+
+function handleModifyValueInput (value: string, inputKey: string) {
+  if (inputKey === "cep-address") {
+    storeAddress.address.cep = value;
+  }
+  if (inputKey === "name-remetende") {
+    storeAddress.address.recipient = value;
+  }
+  if (inputKey === "state-address") {
+    storeAddress.address.state = value;
+  }
+  if (inputKey === "city-address") {
+    storeAddress.address.city = value;
+  }
+  if (inputKey === "district-address") {
+    storeAddress.address.district = value;
+  }
+  if (inputKey === "number-address") {
+    storeAddress.address.number = value;
+  }
+  if (inputKey === "street-address") {
+    storeAddress.address.street = value;
+  }
+  if (inputKey === "phone") {
+    storeAddress.address.cellphone = value;
+  }
+  if (inputKey === "phone") {
+    storeAddress.address.district = value;
+  }
+  if (inputKey === "type-home") {
+    storeAddress.address.local = value;
+  }
+  if (inputKey === "complement-address") {
+    storeAddress.address.complement = value;
+  }
 }
 
 </script>

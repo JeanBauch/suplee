@@ -9,6 +9,7 @@
     </label>
     <input
       :id="propsInputButtomLine.inputKey"
+      v-model.lazy.trim="valueField"
       type="text"
       :name="propsInputButtomLine.inputKey"
       :class="[
@@ -18,7 +19,6 @@
         propsInputButtomLine.small ? 'mr-0' : 'mr-8',
       ]"
       class="bg-transparent outline-none ml-4 w-full"
-      :value="userComputed.value"
       :disabled="!propsInputButtomLine.isModified"
     >
     <PencilIcon v-if="(propsInputButtomLine.isModified && !small)" class="absolute right-0 h-6 w-6 text-primary-olivia-dark z-10" />
@@ -27,6 +27,9 @@
 
 <script setup lang="ts">
 import { PencilIcon } from "@heroicons/vue/outline";
+import { useLoggedUser } from "~~/stores/useLoggedUser";
+
+const emitModifyValueBottomLine = defineEmits(["modifyValueInput"]);
 
 const propsInputButtomLine = defineProps<{
   isModified: boolean;
@@ -35,7 +38,18 @@ const propsInputButtomLine = defineProps<{
   small?: boolean;
 }>();
 
-const userComputed = computed(() => ({
+const valueField = ref("");
+const storeUser = useLoggedUser();
+
+if (propsInputButtomLine.inputKey === "name-user") {
+  valueField.value = storeUser.user.userToken.nome;
+}
+
+watch(valueField, () => {
+  emitModifyValueBottomLine("modifyValueInput", valueField.value, propsInputButtomLine.inputKey);
+});
+
+/* const userComputed = computed(() => ({
   value: propsInputButtomLine.label === "Nome"
     ? "Jean Augusto Bauch"
     : propsInputButtomLine.label === "CPF"
@@ -45,6 +59,6 @@ const userComputed = computed(() => ({
         : propsInputButtomLine.label === "Celular"
           ? "11 99999-9999"
           : ""
-}));
+})); */
 
 </script>

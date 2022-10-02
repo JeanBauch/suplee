@@ -9,7 +9,8 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
       email: "",
       nome: "",
       tipoUsuario: "",
-      usuarioId: ""
+      usuarioId: "",
+      address: []
     },
     isLogged: false
   });
@@ -25,7 +26,8 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
       email: "",
       nome: "",
       tipoUsuario: "",
-      usuarioId: ""
+      usuarioId: "",
+      address: []
     };
     user.isLogged = false;
   }
