@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col gap-12 w-full max-w-[58.5rem] py-6 bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
+  <main class="flex flex-col gap-12 w-full max-w-[58.5rem] pt-6 bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative pb-24 md:pb-6">
     <section class="w-full flex flex-col justify-center items-center">
       <h1 class="font-semibold text-3xl text-primary-olivia-dark">
         Editar usuário
@@ -27,19 +27,23 @@
         </div>
       </div>
     </section>
-    <section class="w-full flex flex-col justify-center items-center relative bg-complement-background-soft">
+    <section v-if="storeUserLogged.userContainAddress" class="w-full flex flex-col justify-center items-center relative bg-complement-background-soft">
       <div class="self-end relative right-0 top-0 px-14 py-2 rounded-bl-full bg-primary-olivia-dark flex justify-center items-center">
         <h2 class="text-complement-background-white font-semibold text-lg">
-          Meus Endereços
+          Meus endereços
         </h2>
       </div>
-      <div class="flex flex-col gap-5 py-6 w-full px-12 md:px-24">
-        <atoms-list-address-user />
-        <atoms-list-address-user />
+      <div v-if="storeUserLogged.userContainAddress" class="flex flex-col gap-5 py-6 w-full px-12 md:px-24">
+        <atoms-list-address-user
+          v-for="addressItem, index in storeUserLogged.user.userToken.address"
+          :key="index"
+          :index-address="index"
+        />
+        <!-- <atoms-list-address-user :index-address="1" /> -->
       </div>
     </section>
     <section class="w-full flex justify-center items-center px-12 md:px-24">
-      <atoms-accordion :title-accordion="'+ Adicionar novo endereço'" class="w-full">
+      <atoms-accordion :title-accordion="'+ Adicionar meu endereço'" class="w-full">
         <div class="flex flex-col gap-6 w-full rounded-lg pt-2 px-6">
           <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-3">
             <div class="w-full">
@@ -117,13 +121,41 @@
               />
             </div>
             <div>
-              <atoms-input-bottom-line
+              <!-- <atoms-input-bottom-line
                 :label="'Local'"
                 :input-key="'type-home'"
                 :is-modified="true"
                 small
                 @modify-value-input="handleModifyValueInput"
-              />
+              /> -->
+              <fieldset>
+                <legend>Selecione o tipo de casa</legend>
+
+                <div>
+                  <input
+                    id="type-home"
+                    v-model="address.local"
+                    type="radio"
+                    name="type-homeFieldset"
+                    :value="0"
+                    class="accent-primary-olivia-dark"
+                    checked
+                  >
+                  <label for="type-home" class="pl-2">Casa</label>
+                </div>
+
+                <div>
+                  <input
+                    id="type-work"
+                    v-model="address.local"
+                    type="radio"
+                    name="type-homeFieldset"
+                    :value="1"
+                    class="accent-primary-olivia-dark"
+                  >
+                  <label for="type-work" class="pl-2">Trabalho</label>
+                </div>
+              </fieldset>
             </div>
             <div>
               <atoms-input-bottom-line
@@ -147,7 +179,10 @@
     </section>
     <section class="w-full flex justify-end items-center gap-5">
       <div class="w-full md:w-5/12 flex gap-8 px-12 md:px-0 md:mr-24">
-        <button class="border border-[#912f3c] rounded-md w-[80%] transition-all duration-300 group hover:bg-[#912f3c]" @click="pushToHome">
+        <button
+          class="border border-[#912f3c] rounded-md w-[80%] transition-all duration-300 group hover:bg-[#912f3c]"
+          @click="handleClickOnCancel"
+        >
           <h2 class="font-semibold text-xl text-[#912f3c] capitalize group-hover:text-complement-background-white">
             Cancelar
           </h2>
@@ -160,64 +195,112 @@
     <div class="hidden md:flex absolute bottom-14 left-2 md:-left-7 w-16 h-16 bg-[#FFF] justify-center items-center rounded-xl shadow">
       <img src="/icons/icon-heart.svg" width="36" height="36" class="w-9 h-9" alt="Icone de coração simbolizanção saúde">
     </div>
-    <div class="absolute top-2 right-2 md:-right-7 w-16 h-16 bg-[#FFF] flex justify-center items-center rounded-xl shadow">
+    <div class="hidden md:flex absolute top-28 right-2 md:-right-7 w-16 h-16 bg-[#FFF] justify-center items-center rounded-xl shadow">
       <img src="/icons/icon-vital.svg" width="36" height="36" class="w-9 h-9" alt="Icone de coração simbolizanção saúde">
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { useAddress } from "~~/stores/useAddress";
 import { useLoggedUser } from "~~/stores/useLoggedUser";
+import { Address } from "~~/types/userAddress";
 
-const router = useRouter();
-const storeAddress = useAddress();
+const emitterOnClickButton = defineEmits(["onClickButtonCancel"]);
+
 const storeUserLogged = useLoggedUser();
+const inputKeys = ["cep-address", "name-remetende", "state-address", "city-address", "district-address", "number-address", "street-address", "phone", "type-home", "complement-address"];
+const address = reactive<Address>({
+  cep: "",
+  recipient: "",
+  state: "",
+  city: "",
+  district: "",
+  number: "",
+  street: "",
+  cellphone: "",
+  local: 0,
+  complement: ""
+});
 
-function pushToHome () {
-  router.push("/");
+const allFieldFilled = computed(() => {
+  return address.cep && address.recipient && address.state &&
+    address.city && address.district && address.number && address.street &&
+      address.cellphone && address.complement;
+});
+
+function handleClickOnCancel () {
+  emitterOnClickButton("onClickButtonCancel");
 }
 
 function addAddressToProfile () {
-  if (storeAddress.allFieldFilled) {
-    storeUserLogged.user.userToken.address.push(storeAddress.address);
+  if (allFieldFilled.value) {
+    storeUserLogged.$patch((state) => {
+      if (!("address" in state.user.userToken)) {
+        state.user.userToken.address = [];
+      }
+      state.user.userToken.address = [
+        ...state.user.userToken.address,
+        {
+          cep: address.cep,
+          recipient: address.recipient,
+          state: address.state,
+          city: address.city,
+          district: address.district,
+          number: address.number,
+          street: address.street,
+          cellphone: address.cellphone,
+          local: address.local,
+          complement: address.complement
+        }
+      ];
+    });
+    cleanOnAddStore();
   }
 }
 
 function handleModifyValueInput (value: string, inputKey: string) {
   if (inputKey === "cep-address") {
-    storeAddress.address.cep = value;
+    address.cep = value;
   }
   if (inputKey === "name-remetende") {
-    storeAddress.address.recipient = value;
+    address.recipient = value;
   }
   if (inputKey === "state-address") {
-    storeAddress.address.state = value;
+    address.state = value;
   }
   if (inputKey === "city-address") {
-    storeAddress.address.city = value;
+    address.city = value;
   }
   if (inputKey === "district-address") {
-    storeAddress.address.district = value;
+    address.district = value;
   }
   if (inputKey === "number-address") {
-    storeAddress.address.number = value;
+    address.number = value;
   }
   if (inputKey === "street-address") {
-    storeAddress.address.street = value;
+    address.street = value;
   }
   if (inputKey === "phone") {
-    storeAddress.address.cellphone = value;
-  }
-  if (inputKey === "phone") {
-    storeAddress.address.district = value;
-  }
-  if (inputKey === "type-home") {
-    storeAddress.address.local = value;
+    address.cellphone = value;
   }
   if (inputKey === "complement-address") {
-    storeAddress.address.complement = value;
+    address.complement = value;
   }
+}
+
+function cleanOnAddStore () {
+  address.cep = "";
+  address.recipient = "";
+  address.state = "";
+  address.city = "";
+  address.district = "";
+  address.number = "";
+  address.street = "";
+  address.cellphone = "";
+  address.local = 0;
+  address.complement = "";
+
+  useCleanInputById(inputKeys);
 }
 
 </script>

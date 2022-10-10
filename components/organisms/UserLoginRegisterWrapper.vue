@@ -213,6 +213,7 @@ async function handleSendEmailToResetPassword () {
 }
 
 function saveToUserLoggedStore (user: contentAcessToken) {
+  user.userToken.address = [];
   currentUserLoggedStore.$patch({ user });
 }
 

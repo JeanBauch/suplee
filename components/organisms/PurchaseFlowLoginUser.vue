@@ -1,7 +1,11 @@
 <template>
   <div class="w-full h-full flex justify-center items-start mt-4 2xl:mt-7 relative">
     <div class="w-full h-full xl:max-h-[624px] 2xl:max-h-[636px] flex flex-1 pb-4 xl:pb-6 2xl:pb-9">
-      <molecules-purchase-sucess-login v-if="useLoggedUser().user.isLogged" />
+      <molecules-purchase-sucess-login
+        v-if="useLoggedUser().user.isLogged"
+        @on-click-button-edit-address="handleClickButtonEditAddress"
+        @identification="handleClickNextStep('identification')"
+      />
       <molecules-purchase-waiting-login v-else @on-click-button-auth="handleClickToLoginOrRegister" />
     </div>
 
@@ -12,7 +16,16 @@
         </button>
       </template>
       <template #content-modal-category>
-        <organisms-user-login-register-wrapper :auth-name="authName" @toggle-tab="toggleTab" @push-to-home="handleClickButtonLogin" />
+        <organisms-edit-user
+          v-if="authName === 'editUser'"
+          @on-click-button-cancel="() => showModal = false"
+        />
+        <organisms-user-login-register-wrapper
+          v-else
+          :auth-name="authName"
+          @toggle-tab="toggleTab"
+          @push-to-home="handleClickButtonLogin"
+        />
       </template>
     </atoms-modal>
   </div>
@@ -21,6 +34,9 @@
 <script setup lang="ts">
 import { XIcon } from "@heroicons/vue/solid";
 import { useLoggedUser } from "~~/stores/useLoggedUser";
+import { StepsPurchase } from "~~/types/purchaseFlow";
+
+const emitEventOnClickNextStep = defineEmits(["confirmAddress", "identification"]);
 
 const authName = ref("logar");
 const showModal = ref(false);
@@ -39,6 +55,11 @@ function handleClickToLoginOrRegister (id: string) {
   showModal.value = true;
 }
 
+function handleClickButtonEditAddress () {
+  authName.value = "editUser";
+  showModal.value = true;
+}
+
 function handleClickButtonLogin () {
   isLogged.value = getItemLocalStorage();
   if (isLogged.value) { showModal.value = false; }
@@ -46,6 +67,10 @@ function handleClickButtonLogin () {
 
 function getItemLocalStorage () {
   return !!localStorage.getItem("accessToken");
+}
+
+function handleClickNextStep (stage: StepsPurchase) {
+  emitEventOnClickNextStep("identification", stage);
 }
 
 </script>
