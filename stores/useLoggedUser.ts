@@ -15,8 +15,16 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     isLogged: false
   });
 
+  const userContainAddress = computed(() => {
+    return user.userToken.address.length > 0;
+  });
+
   function actionUserLogged (state: boolean) {
     user.isLogged = state;
+  }
+
+  function removeAddressToUser () {
+    user.userToken.address.pop();
   }
 
   function resetAtrr () {
@@ -34,7 +42,9 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
 
   return {
     user,
+    userContainAddress,
     actionUserLogged,
+    removeAddressToUser,
     resetAtrr
   };
 });

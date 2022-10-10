@@ -3,7 +3,9 @@
     <molecules-purchase-tabs-wrapper :list-of-steps="listOfSteps" @toggle-tab="handleToggleTab" />
 
     <organisms-purchase-flow-car-shopping v-if="storeStagesPurchase.selectTab === 0" @cart-shopping="nextStep" />
-    <organisms-purchase-flow-login-user v-else-if="storeStagesPurchase.selectTab === 1" />
+    <organisms-purchase-flow-login-user v-else-if="storeStagesPurchase.selectTab === 1" @identification="nextStep" />
+    <organisms-purchase-flow-payment v-else-if="storeStagesPurchase.selectTab === 2" @payment="nextStep" />
+    <organisms-purchase-flow-conclusion v-else-if="storeStagesPurchase.selectTab === 3" />
   </main>
 </template>
 

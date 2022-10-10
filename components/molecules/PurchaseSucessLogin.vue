@@ -46,13 +46,19 @@
         </div>
       </div>
       <div class="flex justify-center flex-row-reverse md:flex-col-reverse lg:flex-row-reverse gap-2 xl:gap-4 2xl:gap-6 mt-8">
-        <button class="w-[70%] md:w-full lg:w-[70%] flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-primary-olivia-dark rounded-md shadow-lg hover:bg-opacity-80 group transition-colors">
+        <button
+          class="w-[70%] md:w-full lg:w-[70%] flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-primary-olivia-dark rounded-md shadow-lg hover:bg-opacity-80 group transition-colors"
+          @click="handleClickNextStep"
+        >
           <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-complement-background-white transition-colors">
             Prosseguir para o pagamento
           </h4>
         </button>
 
-        <button class="w-[30%] md:w-full lg:w-[30%] flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-transparent rounded-md shadow hover:shadow-lg hover:bg-primary-olivia-medium group transition-all">
+        <button
+          class="w-[30%] md:w-full lg:w-[30%] flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-transparent rounded-md shadow hover:shadow-lg hover:bg-primary-olivia-medium group transition-all"
+          @click="() => emitterOnClickToEditAddress('onClickButtonEditAddress')"
+        >
           <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-primary-olivia-medium group-hover:text-complement-background-white group-hover:tracking-[0.075rem] transition-all">
             Editar
           </h4>
@@ -61,3 +67,13 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+
+const emitterOnClickToEditAddress = defineEmits(["onClickButtonEditAddress", "identification"]);
+
+function handleClickNextStep () {
+  emitterOnClickToEditAddress("identification");
+}
+
+</script>

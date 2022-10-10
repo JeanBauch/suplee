@@ -7,6 +7,6 @@ export type Address = {
   number: string,
   street: string,
   cellphone: string,
-  local: string,
+  local: 0 | 1,
   complement: string
 }

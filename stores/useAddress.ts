@@ -21,8 +21,22 @@ export const useAddress = defineStore("user-address", () => {
         address.cellphone && address.local && address.complement;
   });
 
+  function resetAtrr () {
+    address.cep = "";
+    address.recipient = "";
+    address.state = "";
+    address.city = "";
+    address.district = "";
+    address.number = "";
+    address.street = "";
+    address.cellphone = "";
+    address.local = "";
+    address.complement = "";
+  }
+
   return {
     address,
-    allFieldFilled
+    allFieldFilled,
+    resetAtrr
   };
 });

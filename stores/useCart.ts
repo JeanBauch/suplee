@@ -57,6 +57,10 @@ export const useCart = defineStore("cart-shopping", () => {
     return cart.products.indexOf(getProductInCartById(id)[0]);
   }
 
+  function cleanCart () {
+    cart.products = [];
+  }
+
   return {
     cart,
     totalPrice,
@@ -67,6 +71,7 @@ export const useCart = defineStore("cart-shopping", () => {
     removeProductToCart,
     getAmoutProductById,
     incrementAmoutProduct,
-    decrementAmoutProduct
+    decrementAmoutProduct,
+    cleanCart
   };
 });
