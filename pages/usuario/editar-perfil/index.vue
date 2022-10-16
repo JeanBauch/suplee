@@ -7,6 +7,16 @@
         <Meta name="description" content="Página dedicada ao usuário cadastrar ou logar com uma conta existente na Suplee!" />
       </Head>
     </Html>
-    <organisms-edit-user />
+    <organisms-edit-user @on-click-button-cancel="handlePushToHome" />
   </div>
 </template>
+
+<script setup lang="ts">
+
+const router = useRouter();
+
+function handlePushToHome () {
+  router.push("/");
+}
+
+</script>

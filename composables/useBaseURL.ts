@@ -11,3 +11,10 @@ export const useBaseFetch = (url:string, options = {}) => {
   return useLazyFetch(`${baseURL}${url}`, options);
   // $fetch(`${baseURL}${url}`, options);
 };
+
+export const useFetchWithBaseURL = async (url:string, options = {}) => {
+  const baseURL = useBaseURL();
+  const promiseData = await useFetch(`${baseURL}${url}`, options);
+  return promiseData;
+  // $fetch(`${baseURL}${url}`, options);
+};

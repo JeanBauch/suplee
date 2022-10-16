@@ -202,6 +202,7 @@
 </template>
 
 <script setup lang="ts">
+import { getAllInfoUser } from "~~/services/identification";
 import { useLoggedUser } from "~~/stores/useLoggedUser";
 import { Address } from "~~/types/userAddress";
 
@@ -301,6 +302,12 @@ function cleanOnAddStore () {
   address.complement = "";
 
   useCleanInputById(inputKeys);
+}
+
+getInfoUserOnMounted();
+async function getInfoUserOnMounted () {
+  const { data: userInfo } = await getAllInfoUser();
+  console.log(userInfo.value);
 }
 
 </script>
