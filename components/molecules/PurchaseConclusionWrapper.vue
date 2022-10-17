@@ -39,6 +39,7 @@
         </h3>
         <button
           class="w-full flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-primary-olivia-dark rounded-md shadow-lg hover:bg-opacity-80 group transition-colors"
+          @click="handleClickViewHistoric"
         >
           <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-complement-background-white transition-colors">
             Visualizar histórico de compras
@@ -48,3 +49,12 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+
+const routerHook = useRouter();
+
+function handleClickViewHistoric () {
+  routerHook.push("/historico-de-compras");
+}
+</script>

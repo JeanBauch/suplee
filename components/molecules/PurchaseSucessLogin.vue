@@ -18,30 +18,38 @@
         <h3 class="text-center font-bold text-xl lg:text-2xl text-primary-olivia-medium">
           Informações pessoais
         </h3>
-        <div class="flex flex-col gap-1 xl:gap-2 2xl:gap-6">
+        <div v-if="storeUserLogged.userContainAddress" class="flex flex-col gap-1 xl:gap-2 2xl:gap-6">
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Nome:</b>
-            <p class="text-dark-normal">Jean Augusto Bauch</p>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.nome }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">CPF:</b>
-            <p class="text-dark-normal">xxx.xxx.xxx-xx</p>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.cpf }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">CEP:</b>
-            <p class="text-dark-normal">yyyyy-yyy</p>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].cep }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Número:</b>
-            <p class="text-dark-normal">1366</p>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].numero }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Rua:</b>
-            <p class="text-dark-normal">Alameda Paraguai</p>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].rua }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Bairro:</b>
-            <p class="text-dark-normal">Alphaville</p>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].bairro }}</p>
+          </span>
+        </div>
+        <div v-else class="flex flex-col gap-2 xl:gap-4 2xl:gap-8">
+          <span class="flex justify-center font-semibold text-center text-base xl:text-lg 2xl:text-xl">
+            <p class="text-dark-normal">Você ainda não possui endereços de entrega cadastrado</p>
+          </span>
+          <span class="flex justify-center font-semibold text-center text-base xl:text-lg 2xl:text-xl">
+            <p class="text-dark-normal">Clique em <span class="text-primary-green-dark">EDITAR</span> para cadastrar um novo endereço</p>
           </span>
         </div>
       </div>
@@ -69,11 +77,14 @@
 </template>
 
 <script setup lang="ts">
+import { useLoggedUser } from "~~/stores/useLoggedUser";
 
 const emitterOnClickToEditAddress = defineEmits(["onClickButtonEditAddress", "identification"]);
 
 function handleClickNextStep () {
   emitterOnClickToEditAddress("identification");
 }
+
+const storeUserLogged = useLoggedUser();
 
 </script>

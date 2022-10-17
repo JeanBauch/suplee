@@ -43,6 +43,12 @@ const storeUser = useLoggedUser();
 
 if (propsInputButtomLine.inputKey === "name-user") {
   valueField.value = storeUser.user.userToken.nome;
+} else if (propsInputButtomLine.inputKey === "cpf-user") {
+  valueField.value = storeUser.user.userToken.cpf;
+} else if (propsInputButtomLine.inputKey === "email-user") {
+  valueField.value = storeUser.user.userToken.email;
+} else if (propsInputButtomLine.inputKey === "cellphone-user") {
+  valueField.value = storeUser.user.userToken.celular;
 }
 
 watch(valueField, () => {

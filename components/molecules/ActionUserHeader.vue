@@ -5,15 +5,16 @@
       @user="handleClickUserHeader('user')"
       @user-edit-profile="handleClickUserHeader('userEditProfile')"
       @logout="handleClickUserHeader('logout')"
+      @user-purchase-historic="handleClickUserHeader('userPurchaseHistoric')"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 
-type TypeEventsOnClick = "cartShopping" | "user" | "userEditProfile" | "logout";
+type TypeEventsOnClick = "cartShopping" | "user" | "userEditProfile" | "logout" | "userPurchaseHistoric";
 
-const emitClickActionsUserHeader = defineEmits(["user", "cartShopping", "userEditProfile", "logout"]);
+const emitClickActionsUserHeader = defineEmits(["user", "cartShopping", "userEditProfile", "logout", "userPurchaseHistoric"]);
 
 function handleClickUserHeader (event: TypeEventsOnClick) {
   emitClickActionsUserHeader(event);

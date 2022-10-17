@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col gap-12 w-full max-w-[58.5rem] pt-6 bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative pb-24 md:pb-6">
+  <main v-if="!isPending" class="flex flex-col gap-12 w-full max-w-[58.5rem] pt-6 bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative pb-24 md:pb-6">
     <section class="w-full flex flex-col justify-center items-center">
       <h1 class="font-semibold text-3xl text-primary-olivia-dark">
         Editar usuário
@@ -202,7 +202,7 @@
 </template>
 
 <script setup lang="ts">
-import { getAllInfoUser } from "~~/services/identification";
+import { getAllInfoUser, postAddressUser } from "~~/services/identification";
 import { useLoggedUser } from "~~/stores/useLoggedUser";
 import { Address } from "~~/types/userAddress";
 
@@ -222,6 +222,7 @@ const address = reactive<Address>({
   local: 0,
   complement: ""
 });
+const isPending = ref(true);
 
 const allFieldFilled = computed(() => {
   return address.cep && address.recipient && address.state &&
@@ -233,7 +234,7 @@ function handleClickOnCancel () {
   emitterOnClickButton("onClickButtonCancel");
 }
 
-function addAddressToProfile () {
+async function addAddressToProfile () {
   if (allFieldFilled.value) {
     storeUserLogged.$patch((state) => {
       if (!("address" in state.user.userToken)) {
@@ -243,18 +244,22 @@ function addAddressToProfile () {
         ...state.user.userToken.address,
         {
           cep: address.cep,
-          recipient: address.recipient,
-          state: address.state,
-          city: address.city,
-          district: address.district,
-          number: address.number,
-          street: address.street,
-          cellphone: address.cellphone,
-          local: address.local,
-          complement: address.complement
+          nomeDestinatario: address.recipient,
+          estado: address.state,
+          cidade: address.city,
+          bairro: address.district,
+          numero: address.number,
+          rua: address.street,
+          telefone: address.cellphone,
+          tipoLocal: address.local,
+          complemento: address.complement,
+          enderecoId: "",
+          informacaoAdicional: "",
+          enderecoPadrao: false
         }
       ];
     });
+    await postAddressUser(address);
     cleanOnAddStore();
   }
 }
@@ -306,8 +311,17 @@ function cleanOnAddStore () {
 
 getInfoUserOnMounted();
 async function getInfoUserOnMounted () {
+  isPending.value = true;
   const { data: userInfo } = await getAllInfoUser();
-  console.log(userInfo.value);
+  isPending.value = false;
+
+  storeUserLogged.setInfoUserAfterLogin(
+    userInfo.value.data.usuario.nome,
+    userInfo.value.data.usuario.email,
+    userInfo.value.data.usuario.cpf,
+    userInfo.value.data.usuario.celular,
+    userInfo.value.data.usuario.enderecos
+  );
 }
 
 </script>

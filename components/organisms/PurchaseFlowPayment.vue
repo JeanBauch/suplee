@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import { postPayment } from "~~/services/purchase";
 import { useCart } from "~~/stores/useCart";
 import { StepsPurchase } from "~~/types/purchaseFlow";
 import { TypeToast } from "~~/types/toast";
@@ -28,12 +29,13 @@ function handleIsShowToast (show: boolean) {
   createToast.show = show;
 }
 
-function handleClickFinishPayment (status: boolean, stage: StepsPurchase) {
+async function handleClickFinishPayment (status: boolean, stage: StepsPurchase) {
   if (status) {
     setConfigToast("Sucesso no pagamento!", "success");
     emitHandleClickFinishPayment("payment", stage);
     storeCart.cleanCart();
     localStorage.removeItem("products");
+    await postPayment(true);
   } else {
     setConfigToast("Erro no pagamento!", "error");
   }
