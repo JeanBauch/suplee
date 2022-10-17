@@ -43,6 +43,9 @@ import { useLoginUserStore } from "~~/stores/useLoginUserStore";
 import { useRegisterStore } from "~~/stores/useRegisterStore";
 import { contentAcessToken } from "~~/types/userLogged.js";
 import { TypeToast } from "~~/types/toast";
+import { getAllInfoUser } from "~~/services/identification";
+import { ProductOnCard, ProductsToSendRequest } from "~~/types/product";
+import { postRegisterCartShopping } from "~~/services/purchase";
 
 type StatusResponseRegisterUser = "waiting" | "success" | "error";
 
@@ -176,6 +179,8 @@ async function requestLoginUser () {
     localStorage.setItem("accessToken", responseLoginUser.value.data.accessToken);
     localStorage.setItem("userId", responseLoginUser.value.data.userToken.usuarioId);
     handleCreateToast("success", "sucesso!");
+    saveInfoUserToStore();
+    getCarShopping();
     emitToggleTabWrapper("pushToHome", "/");
     return;
   } catch (error) {
@@ -215,6 +220,34 @@ async function handleSendEmailToResetPassword () {
 function saveToUserLoggedStore (user: contentAcessToken) {
   user.userToken.address = [];
   currentUserLoggedStore.$patch({ user });
+}
+
+async function saveInfoUserToStore () {
+  const { data: userInfo } = await getAllInfoUser();
+  currentUserLoggedStore.setInfoUserAfterLogin(
+    userInfo.value.data.usuario.nome,
+    userInfo.value.data.usuario.email,
+    userInfo.value.data.usuario.cpf,
+    userInfo.value.data.usuario.celular,
+    userInfo.value.data.usuario.enderecos
+  );
+}
+
+async function getCarShopping () {
+  let cartShopping:ProductOnCard[] = [];
+  let cartShoppingSendToRequest:ProductsToSendRequest[] = [];
+
+  if (localStorage.getItem("products")) {
+    const products = localStorage.getItem("products");
+
+    if (products !== null) {
+      cartShopping = JSON.parse(products);
+      cartShoppingSendToRequest = cartShopping.map((item) => {
+        return { produtoId: item.id, nomeProduto: item.name, quantidade: item.quantity, valorUnitario: item.price };
+      });
+      await postRegisterCartShopping(cartShoppingSendToRequest);
+    }
+  }
 }
 
 function handleIsRedefinePassword (value: boolean) {

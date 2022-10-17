@@ -69,3 +69,15 @@ export type ProductOnCard = {
   availableQuantity: number,
   image: string,
 }
+
+export type ProductsToSendRequest = {
+  produtoId: string,
+  nomeProduto: string,
+  quantidade: number,
+  valorUnitario: number
+}
+
+export type UpdateQunatityProductRequest = {
+  produtoId: string,
+  quantidade: number
+}

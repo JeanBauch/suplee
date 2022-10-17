@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-primary-olivia-light md:bg-transparent transition-colors duration-700 relative rounded-b-[5.5rem] sm:rounded-b-[7rem] drop-shadow-2xl shadow-primary-olivia-dark">
+  <div class="w-full bg-primary-olivia-light md:bg-transparent transition-colors duration-700 relative rounded-b-[5.5rem] sm:rounded-b-[7rem] drop-shadow-2xl shadow-primary-olivia-dark z-50">
     <div class="absolute inset-0 block md:hidden w-full h-full z-0">
       <div class="bg-[url('/bg-complement/bg-header-vital.svg')] bg-center bg-contain bg-no-repeat absolute w-full h-full" />
     </div>
@@ -20,6 +20,7 @@
           @cart-shopping="pushToPurchaseFlow"
           @user-edit-profile="pushToEditProfile"
           @logout="logoutUser"
+          @user-purchase-historic="userPurchaseHistoric"
         />
       </div>
     </div>
@@ -63,6 +64,10 @@ function logoutUser () {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("userId");
   useLoggedUser().resetAtrr();
+}
+
+function userPurchaseHistoric () {
+  router.push("/historico-de-compras");
 }
 
 function searchProductName (productName) {

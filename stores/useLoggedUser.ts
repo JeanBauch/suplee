@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { AddressOnResponse } from "~~/types/userAddress";
 import { contentAcessToken } from "~~/types/userLogged.js";
 
 export const useLoggedUser = defineStore("current-user-logged", () => {
@@ -8,6 +9,8 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     userToken: {
       email: "",
       nome: "",
+      cpf: "",
+      celular: "",
       tipoUsuario: "",
       usuarioId: "",
       address: []
@@ -33,6 +36,8 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     user.userToken = {
       email: "",
       nome: "",
+      cpf: "",
+      celular: "",
       tipoUsuario: "",
       usuarioId: "",
       address: []
@@ -40,11 +45,24 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     user.isLogged = false;
   }
 
+  function setInfoUserAfterLogin (nome:string, email: string, cpf:string, celular:string, address: AddressOnResponse[]) {
+    user.userToken = {
+      nome,
+      email,
+      cpf,
+      celular,
+      address,
+      tipoUsuario: user.userToken.tipoUsuario,
+      usuarioId: user.userToken.usuarioId
+    };
+  }
+
   return {
     user,
     userContainAddress,
     actionUserLogged,
     removeAddressToUser,
-    resetAtrr
+    resetAtrr,
+    setInfoUserAfterLogin
   };
 });

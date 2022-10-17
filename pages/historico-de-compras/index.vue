@@ -6,7 +6,7 @@
       </Head>
     </Html>
 
-    <div class="w-screen min-h-screen bg-complement-background-soft">
+    <div class="w-screen min-h-screen h-full bg-complement-background-soft overflow-hidden">
       <organisms-header class="hidden md:block" />
       <organisms-purchase-historic />
     </div>

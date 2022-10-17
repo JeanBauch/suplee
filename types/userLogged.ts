@@ -1,11 +1,13 @@
-import { Address } from "./userAddress";
+import { AddressOnResponse } from "./userAddress";
 
 type userToken = {
   email: string,
   nome: string,
+  cpf: string,
+  celular: string,
   tipoUsuario: string,
   usuarioId: string,
-  address: Address[]
+  address: AddressOnResponse[]
 }
 
 export type contentAcessToken = {

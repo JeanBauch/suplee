@@ -11,7 +11,7 @@ export const useAddress = defineStore("user-address", () => {
     number: "",
     street: "",
     cellphone: "",
-    local: "",
+    local: 0,
     complement: ""
   });
 
@@ -30,7 +30,7 @@ export const useAddress = defineStore("user-address", () => {
     address.number = "";
     address.street = "";
     address.cellphone = "";
-    address.local = "";
+    address.local = 0;
     address.complement = "";
   }
 
