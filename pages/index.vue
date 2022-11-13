@@ -6,7 +6,7 @@
         <organisms-header @search-product="searchProductName" />
         <organisms-call-to-action-home-page @select-category-filter="filterCategoryCallToAction" @search-product="searchProductName" />
       </section>
-      <section class="bg-complement-background-normal min-h-screen">
+      <section id="sessaoDeSuplementos" class="bg-complement-background-normal min-h-screen">
         <div class="md:container mx-auto">
           <!-- Heading -->
           <div id="titleListProduct" class="flex items-start px-4 sm:px-8 lg:px-0 pt-8 pb-4 lg:border-none border-b border-secondary-green-gray-medium">
@@ -574,6 +574,17 @@ export default {
 
     const { pending, data: listProducts, error } = useLazyFetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos?pagina=1&quantidade=${amountProductRequest.value}`);
 
+    const routeWrapping = useRoute();
+    const isRouterShow = computed(() => ({
+      containHash: routeWrapping.hash === "#sessaoDeSuplementos"
+    }));
+
+    watch(isRouterShow, () => {
+      isRouterShow.value.containHash
+        ? scrollToSectionById("sessaoDeSuplementos")
+        : scrollPageToTop();
+    });
+
     watch(currentCategorySelected, async () => {
       if (currentCategorySelected.value === "") {
         return;
@@ -737,6 +748,11 @@ export default {
 
     function scrollPageToTop () {
       const element = document.querySelector("body");
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function scrollToSectionById (section) {
+      const element = document.getElementById(section);
       element.scrollIntoView({ behavior: "smooth" });
     }
 

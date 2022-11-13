@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { deleteAddressUser } from "~~/services/identification";
 import { AddressOnResponse } from "~~/types/userAddress";
 import { contentAcessToken } from "~~/types/userLogged.js";
 
@@ -26,8 +27,19 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     user.isLogged = state;
   }
 
-  function removeAddressToUser () {
-    user.userToken.address.pop();
+  async function removeAddressToUser (addressId: string) {
+    if (user.isLogged) {
+      await deleteAddressUser(addressId);
+    }
+    user.userToken.address.splice(getIndexOfById(addressId), 1);
+  }
+
+  function getAddressInProfileById (id: string) {
+    return user.userToken.address.filter(address => address.enderecoId === id);
+  }
+
+  function getIndexOfById (id: string) {
+    return user.userToken.address.indexOf(getAddressInProfileById(id)[0]);
   }
 
   function resetAtrr () {

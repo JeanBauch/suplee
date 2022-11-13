@@ -5,6 +5,19 @@ function getToken () {
   return token;
 }
 
+export const getInfoUserProfile = async () => {
+  return await useFetchWithBaseURL("/Identidade/recuperar-informacoes-usuario", {
+    headers: {
+      Authorization: getToken()
+    },
+    retry: 3
+  }).then((data) => {
+    return data;
+  }).catch((err) => {
+    return err;
+  });
+};
+
 export const getAllInfoUser = async () => {
   return await useFetchWithBaseURL("/Identidade/recuperar-usuario-completo", {
     headers: {
@@ -40,6 +53,19 @@ export const postAddressUser = async (payload: Address, infoAdicional?: string, 
       },
       method: "POST",
       body: bodyRequest
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+export const deleteAddressUser = async (addressId:string) => {
+  try {
+    return await useFetchWithBaseURL(`/Identidade/excluir-endereco/${addressId}`, {
+      headers: {
+        Authorization: getToken()
+      },
+      method: "DELETE"
     });
   } catch (err) {
     return err;

@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col justify-between w-full max-w-[39rem] h-[50rem] lg:h-[46.875rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
+  <main class="flex flex-col justify-between w-full max-w-[39rem] h-[50rem] lg:h-[48.75rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
     <!-- <div v-if="!isActiveUser" class="flex flex-col gap-10 justify-center items-center w-full h-full">
       <div>
         <h1 class="font-light text-primary-olivia-dark text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-center">

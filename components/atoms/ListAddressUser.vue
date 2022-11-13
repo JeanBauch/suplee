@@ -8,7 +8,7 @@
       {{ storeUserLogged.user.userToken.address[indexAddress].complemento }} - {{ storeUserLogged.user.userToken.address[propsListAddressUser.indexAddress].cidade }}/{{ storeUserLogged.user.userToken.address[propsListAddressUser.indexAddress].estado }} -
       {{ storeUserLogged.user.userToken.address[propsListAddressUser.indexAddress].cep }}
     </p>
-    <TrashIcon class="absolute right-0 h-6 w-6 text-[#912f3c] z-10 cursor-pointer" @click="storeUserLogged.removeAddressToUser" />
+    <TrashIcon class="absolute right-0 h-6 w-6 text-[#912f3c] z-10 cursor-pointer" @click="storeUserLogged.removeAddressToUser(storeUserLogged.user.userToken.address[propsListAddressUser.indexAddress].enderecoId)" />
   </div>
 </template>
 

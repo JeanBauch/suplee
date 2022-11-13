@@ -2,8 +2,8 @@
   <div class="md:hidden fixed z-50 bottom-0 left-0 w-full h-20 bg-complement-background-white rounded-t-3xl px-11 py-5">
     <nav>
       <ul class="flex justify-between items-center text-primary-olivia-dark">
-        <li @click="$emit('selectScrollSection', 'ViewListProduct')">
-          <ViewGridIcon v-if="isHome" class="h-10 w-10 text-current relative z-10" />
+        <li @click="$emit('selectScrollSection', valueOfEmitterSectionToScroll.section)">
+          <ViewGridIcon v-if="isRouterShow.isHome" class="h-10 w-10 text-current relative z-10" />
           <HomeIcon v-else class="h-10 w-10 text-current relative z-10" />
         </li>
         <li @click="$emit('selectScrollSection', 'ViewTopPage')">
@@ -30,10 +30,17 @@ import { ViewGridIcon, HomeIcon, SearchIcon, ShoppingCartIcon, UserIcon } from "
 import { useCart } from "~~/stores/useCart";
 
 defineEmits(["selectScrollSection"]);
-const route = useRoute();
-const isHome = ref(true);
 const storeCart = useCart();
+const routeWrapping = useRoute();
 
-isHome.value = route.name === "index";
+const isRouterShow = computed(() => ({
+  isHome: routeWrapping.name === "index"
+}));
+
+const valueOfEmitterSectionToScroll = computed(() => ({
+  section: isRouterShow.value.isHome
+    ? "ViewListProduct"
+    : "ViewTopPage"
+}));
 
 </script>
