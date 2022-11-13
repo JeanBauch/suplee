@@ -4,7 +4,7 @@ export const usePushToRouteOnEvents = (section: TypeEventsToPushRoute) => {
   const router = useRouter();
 
   if (section === "ViewListProduct") {
-    router.push("/");
+    router.push("/#sessaoDeSuplementos");
   } else if (section === "ViewTopPage") {
     router.push("/");
   } else if (section === "NavigatePurchaseFlow") {

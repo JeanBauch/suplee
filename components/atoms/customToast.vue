@@ -43,6 +43,7 @@ const classShowToast = computed(() => ({
   left: 0;
   right: 0;
   margin: auto;
+  z-index: 75;
 
   max-width: 400px;
   padding: 6px;

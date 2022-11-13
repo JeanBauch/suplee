@@ -26,11 +26,13 @@
         </h4>
       </button>
 
-      <button class="w-[45%] md:w-full flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-transparent rounded-md shadow hover:shadow-lg hover:bg-primary-olivia-medium group transition-all">
-        <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-primary-olivia-medium group-hover:text-complement-background-white group-hover:tracking-[0.075rem] transition-all">
-          Continuar comprando
-        </h4>
-      </button>
+      <a href="/#sessaoDeSuplementos" class="w-[45%] md:w-full">
+        <button class="w-full flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-transparent rounded-md shadow hover:shadow-lg hover:bg-primary-olivia-medium group transition-all">
+          <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-primary-olivia-medium group-hover:text-complement-background-white group-hover:tracking-[0.075rem] transition-all">
+            Continuar comprando
+          </h4>
+        </button>
+      </a>
     </div>
   </article>
 </template>

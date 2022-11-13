@@ -202,7 +202,7 @@
 </template>
 
 <script setup lang="ts">
-import { getAllInfoUser, postAddressUser } from "~~/services/identification";
+import { getInfoUserProfile, postAddressUser } from "~~/services/identification";
 import { useLoggedUser } from "~~/stores/useLoggedUser";
 import { Address } from "~~/types/userAddress";
 
@@ -312,15 +312,20 @@ function cleanOnAddStore () {
 getInfoUserOnMounted();
 async function getInfoUserOnMounted () {
   isPending.value = true;
-  const { data: userInfo } = await getAllInfoUser();
+  const { data: userInfo } = await getInfoUserProfile();
   isPending.value = false;
 
+  if (!userInfo.value) {
+    handleClickOnCancel();
+    return;
+  }
+
   storeUserLogged.setInfoUserAfterLogin(
-    userInfo.value.data.usuario.nome,
-    userInfo.value.data.usuario.email,
-    userInfo.value.data.usuario.cpf,
-    userInfo.value.data.usuario.celular,
-    userInfo.value.data.usuario.enderecos
+    userInfo.value.data.nome,
+    userInfo.value.data.email,
+    userInfo.value.data.cpf,
+    userInfo.value.data.celular,
+    userInfo.value.data.enderecos
   );
 }
 

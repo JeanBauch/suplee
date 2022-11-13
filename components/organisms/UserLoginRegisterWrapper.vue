@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col justify-between min-w-[100vw] md:min-w-0 min-h-screen md:min-h-0 md:max-w-[39rem] md:h-[50rem] lg:h-[46.875rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
+  <main class="flex flex-col justify-between min-w-[100vw] md:min-w-0 min-h-screen md:min-h-0 md:max-w-[39rem] md:h-[50rem] lg:h-[48.75rem] pt-6 pb-6 md:pb-10 px-9 md:px-[4.5rem] bg-complement-background-white rounded-[1.25rem] shadow-green-perso relative">
     <template v-if="responseRegisterStatus.status === 'waiting'">
       <div class="flex flex-col gap-4 md:gap-9">
         <div class="flex justify-center w-full relative">
@@ -18,8 +18,16 @@
           </atoms-content-tab>
         </molecules-tabs-wrapper>
       </div>
-      <div v-show="authName" class="w-full flex self-end justify-center items-center mt-6">
+      <div v-show="authName" class="w-full flex flex-col gap-6 lg:gap-2 self-end justify-center items-center mt-7">
         <atoms-button-action-next-step-user :label-button="isRedefinePassword ? 'Enviar email' : authName" :pending="isPending" @next-step-user="handleSubmitForm" />
+
+        <nuxt-link class="w-[80%]" to="/">
+          <button class="w-full flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border lg:border-none border-primary-olivia-dark bg-transparent rounded-md shadow lg:shadow-none hover:shadow-lg hover:bg-primary-olivia-medium group transition-all">
+            <h2 class="font-semibold text-lg sm:text-base text-primary-olivia-medium group-hover:text-complement-background-white group-hover:tracking-[0.075rem] transition-all">
+              Voltar para tela inicial
+            </h2>
+          </button>
+        </nuxt-link>
       </div>
     </template>
     <template v-else-if="responseRegisterStatus.status === 'success'">
@@ -181,6 +189,7 @@ async function requestLoginUser () {
     handleCreateToast("success", "sucesso!");
     saveInfoUserToStore();
     getCarShopping();
+    handleSetTimeoutExpiredToken(responseLoginUser.value.data.expiresIn);
     emitToggleTabWrapper("pushToHome", "/");
     return;
   } catch (error) {
@@ -264,4 +273,11 @@ function handleIsShowToast (show: boolean) {
   createToast.show = show;
 }
 
+function handleSetTimeoutExpiredToken (timeToExpireToken: number) {
+  setTimeout(function () {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
+    console.log("local storage limpo!");
+  }, (timeToExpireToken * 100));
+}
 </script>
