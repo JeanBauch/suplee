@@ -1,4 +1,4 @@
-import { Address } from "~~/types/userAddress";
+import { Address, EditAllInfoUser } from "~~/types/userAddress";
 
 function getToken () {
   const token = useGetTokenUserLogged().trim();
@@ -8,9 +8,10 @@ function getToken () {
 export const getInfoUserProfile = async () => {
   return await useFetchWithBaseURL("/Identidade/recuperar-informacoes-usuario", {
     headers: {
-      Authorization: getToken()
+      Authorization: getToken(),
+      "Cache-Control": "no-cache"
     },
-    retry: 3
+    initialCache: false
   }).then((data) => {
     return data;
   }).catch((err) => {
@@ -66,6 +67,36 @@ export const deleteAddressUser = async (addressId:string) => {
         Authorization: getToken()
       },
       method: "DELETE"
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+export const putSetNewAddressToDefault = async (addressId:string) => {
+  try {
+    return await useFetchWithBaseURL(`/Identidade/marcar-endereco-como-padrao/${addressId}`, {
+      headers: {
+        Authorization: getToken()
+      },
+      method: "PUT"
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+export const putEditUser = async (payload: EditAllInfoUser) => {
+  const bodyRequest = {} as EditAllInfoUser;
+  Object.assign(bodyRequest, payload);
+
+  try {
+    return await useFetchWithBaseURL("/Identidade/editar-usuario", {
+      headers: {
+        Authorization: getToken()
+      },
+      method: "PUT",
+      body: bodyRequest
     });
   } catch (err) {
     return err;

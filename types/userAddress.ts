@@ -26,3 +26,10 @@ export type AddressOnResponse = {
   informacaoAdicional: string,
   enderecoPadrao: boolean
 }
+
+export type EditAllInfoUser = {
+    usuarioId: string,
+    nome: string,
+    celular: string,
+    enderecos: AddressOnResponse[]
+}

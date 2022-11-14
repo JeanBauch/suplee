@@ -238,7 +238,9 @@ async function saveInfoUserToStore () {
     userInfo.value.data.usuario.email,
     userInfo.value.data.usuario.cpf,
     userInfo.value.data.usuario.celular,
-    userInfo.value.data.usuario.enderecos
+    userInfo.value.data.usuario.enderecos,
+    userInfo.value.data.usuario.tipo,
+    userInfo.value.data.usuario.usuarioId
   );
 }
 
@@ -277,7 +279,6 @@ function handleSetTimeoutExpiredToken (timeToExpireToken: number) {
   setTimeout(function () {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
-    console.log("local storage limpo!");
   }, (timeToExpireToken * 100));
 }
 </script>

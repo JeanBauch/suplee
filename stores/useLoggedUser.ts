@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { deleteAddressUser } from "~~/services/identification";
+import { deleteAddressUser, putSetNewAddressToDefault } from "~~/services/identification";
 import { AddressOnResponse } from "~~/types/userAddress";
 import { contentAcessToken } from "~~/types/userLogged.js";
 
@@ -57,16 +57,25 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     user.isLogged = false;
   }
 
-  function setInfoUserAfterLogin (nome:string, email: string, cpf:string, celular:string, address: AddressOnResponse[]) {
+  function setInfoUserAfterLogin (nome:string, email: string, cpf:string, celular:string, address: AddressOnResponse[], tipoUsuario: string, usuarioId: string) {
     user.userToken = {
       nome,
       email,
       cpf,
       celular,
       address,
-      tipoUsuario: user.userToken.tipoUsuario,
-      usuarioId: user.userToken.usuarioId
+      tipoUsuario,
+      usuarioId
     };
+  }
+
+  async function setAddressIsDefault (id: string) {
+    user.userToken.address.forEach((address) => {
+      address.enderecoPadrao = false;
+    });
+
+    user.userToken.address[getIndexOfById(id)].enderecoPadrao = true;
+    await putSetNewAddressToDefault(id);
   }
 
   return {
@@ -75,6 +84,7 @@ export const useLoggedUser = defineStore("current-user-logged", () => {
     actionUserLogged,
     removeAddressToUser,
     resetAtrr,
-    setInfoUserAfterLogin
+    setInfoUserAfterLogin,
+    setAddressIsDefault
   };
 });
