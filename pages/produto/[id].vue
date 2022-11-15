@@ -9,7 +9,7 @@
     <section class="w-screen min-h-screen bg-complement-background-soft overflow-hidden">
       <organisms-header class="hidden md:block" />
       <main v-if="!pending" class="md:container mx-auto px-8 md:px-0 2xl:px-20 flex justify-center items-center mb-8" style="height: calc(100% - 6.5rem)">
-        <div class="flex flex-1 flex-col justify-center">
+        <div class="flex flex-1 flex-col justify-center relative">
           <atoms-title-page :title-page="produto.nome" />
 
           <atoms-breadcrumb :current-category="produto.categoria.nome" :current-product="produto.nome">
@@ -31,8 +31,14 @@
               :product-details-info="{ description: produto.descricao, composition: produto.composicao, effects: produto.efeitos, nutritionalInformation: produto.informacaoNutricional }"
               :product-identifer="{ id: produto.id , name: produto.nome, category: produto.categoria, images: produto.imagens }"
               :product-action-cart="{ price: produto.preco, availableQuantity: produto.quantidadeDisponivel }"
+              @add-product-to-cart="handleAddProductToCartEmitToasty"
             />
           </div>
+
+          <!-- Toasty -->
+          <atoms-custom-toast :show="createToast.show" :type="createToast.type" @is-show-toast="handleIsShowToast">
+            <p>{{ createToast.message }}</p>
+          </atoms-custom-toast>
         </div>
       </main>
       <aside v-else>
@@ -44,6 +50,7 @@
 
 <script lang="ts">
 import { useBaseFetch } from "~~/composables/useBaseURL";
+import { TypeToast } from "~~/types/toast";
 // import { TypeEventsToPushRoute } from "~~/types/pushRouteEvents";
 
 export default {
@@ -51,7 +58,27 @@ export default {
     const route = useRoute();
     const { pending, data: produto } = useBaseFetch(`/Catalogo/${route.params.id}`);
 
-    return { pending, produto };
+    const createToast = reactive({
+      message: "",
+      type: "" as import("~~/types/toast").TypeToast,
+      show: false
+    });
+
+    function handleIsShowToast (show: boolean) {
+      createToast.show = show;
+    }
+
+    function setConfigToast (message: string, type:TypeToast) {
+      createToast.message = message;
+      createToast.type = type;
+    }
+
+    function handleAddProductToCartEmitToasty (message: string) {
+      handleIsShowToast(true);
+      setConfigToast(message, "success");
+    }
+
+    return { pending, produto, createToast, handleIsShowToast, handleAddProductToCartEmitToasty };
   },
   head: {
     title: "Produto"

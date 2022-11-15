@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <template v-if="!error">
-      <section class="bg-complement-background-soft relative z-0 min-h-screen overflow-hidden">
+      <section id="teste" class="bg-complement-background-soft relative z-0 min-h-screen overflow-hidden">
         <atoms-bg-hero />
         <organisms-header @search-product="searchProductName" />
         <organisms-call-to-action-home-page @select-category-filter="filterCategoryCallToAction" @search-product="searchProductName" />
