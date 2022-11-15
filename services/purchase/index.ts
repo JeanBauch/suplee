@@ -74,10 +74,16 @@ export const postPayment = async (payload:boolean) => {
   try {
     return await useFetchWithBaseURL("/Vendas/realizar-pagamento", {
       headers: {
-        Authorization: getToken()
+        Authorization: getToken(),
+        "Cache-Control": "no-cache"
       },
+      initialCache: false,
       method: "POST",
-      body: requestBody
+      body: requestBody,
+      onResponseError ({ response }) {
+        const errorMessage = response._data.data[0];
+        throw new Error(errorMessage);
+      }
     });
   } catch (err) {
     return err;

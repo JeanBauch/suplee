@@ -24,6 +24,8 @@ const propsProductSelected = defineProps<{
   productDetailsInfo: DescriptionProductDetails,
 }>();
 
+const emitClickButtonAdd = defineEmits(["addProductToCart"]);
+
 const product: ProductOnCard = {
   id: propsProductSelected.productIdentifer.id,
   name: propsProductSelected.productIdentifer.name,
@@ -50,6 +52,7 @@ function handleClickButtonAddProductOnCart (quantity: number) {
 
   localStorage.setItem("products", JSON.stringify(productArray));
   useCart().addProductToCart(product);
+  emitClickButtonAdd("addProductToCart", "Produto adicionado ao carrinho com sucesso!");
 }
 
 </script>

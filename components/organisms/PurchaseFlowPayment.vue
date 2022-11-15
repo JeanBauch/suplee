@@ -15,6 +15,15 @@ import { useCart } from "~~/stores/useCart";
 import { StepsPurchase } from "~~/types/purchaseFlow";
 import { TypeToast } from "~~/types/toast";
 
+type HandleErrorRequest = {
+  error : {
+    value: {
+      message: string,
+      stack: string
+    }
+  }
+}
+
 const emitHandleClickFinishPayment = defineEmits(["payment"]);
 
 const storeCart = useCart();
@@ -37,7 +46,13 @@ async function handleClickFinishPayment (status: boolean, stage: StepsPurchase) 
     localStorage.removeItem("products");
     await postPayment(true);
   } else {
-    setConfigToast("Erro no pagamento!", "error");
+    const { error } = await postPayment(false) as HandleErrorRequest;
+
+    let messageErrorDefault = "Erro no pagamento!";
+    if (error.value.message) {
+      messageErrorDefault = error.value.message;
+    }
+    setConfigToast(messageErrorDefault, "error");
   }
   handleIsShowToast(true);
 }

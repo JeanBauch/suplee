@@ -11,10 +11,9 @@
         class="w-full py-4 px-14 relative z-20 border rounded-lg mt-10 bg-transparent"
       >
       <div class="flex items-center absolute bottom-3 left-8">
-        <UserCircleIcon
-          :class="changeColorOnValidate.iconColor"
-          class="h-8 w-8 relative -left-4 z-[21] stroke-1"
-        />
+        <UserCircleIcon v-if="iconInput === 'UserCircleIcon'" :class="changeColorOnValidate.iconColor" class="h-8 w-8 relative -left-4 z-[21] stroke-1" />
+        <CalendarIcon v-else-if="iconInput === 'CalendarIcon'" :class="changeColorOnValidate.iconColor" class="h-8 w-8 relative -left-4 z-[21] stroke-1" />
+        <CreditCardIcon v-else :class="changeColorOnValidate.iconColor" class="h-8 w-8 relative -left-4 z-[21] stroke-1" />
         <label
           :for="id"
           class="transition-transform duration-300 text-xl font-normal text-secondary-green-gray-dark"
@@ -27,14 +26,16 @@
 </template>
 
 <script setup lang="ts">
-import { UserCircleIcon } from "@heroicons/vue/outline";
+import { UserCircleIcon, CreditCardIcon, CalendarIcon } from "@heroicons/vue/outline";
 
 type TypeInputPayment = "name" | "cardNumber" | "validate" | "cvv" | "cpf";
+type TypeIconInput = "UserCircleIcon" | "CreditCardIcon" | "CalendarIcon";
 
 const propsInput = defineProps<{
   id: string,
   label: string,
   typeInput: TypeInputPayment,
+  iconInput?: TypeIconInput
 }>();
 const emitValueField = defineEmits(["changeValueInput"]);
 

@@ -77,8 +77,10 @@ export const putSetNewAddressToDefault = async (addressId:string) => {
   try {
     return await useFetchWithBaseURL(`/Identidade/marcar-endereco-como-padrao/${addressId}`, {
       headers: {
-        Authorization: getToken()
+        Authorization: getToken(),
+        "Cache-Control": "no-cache"
       },
+      initialCache: false,
       method: "PUT"
     });
   } catch (err) {
