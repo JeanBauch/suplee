@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <template v-if="!error">
-      <section id="teste" class="bg-complement-background-soft relative z-0 min-h-screen overflow-hidden">
+      <section class="bg-complement-background-soft relative z-0 min-h-screen overflow-hidden">
         <atoms-bg-hero />
         <organisms-header @search-product="searchProductName" />
         <organisms-call-to-action-home-page @select-category-filter="filterCategoryCallToAction" @search-product="searchProductName" />
@@ -309,6 +309,12 @@
                   <organisms-card-product :produto="produto" />
                 </a>
               </div>
+              <div v-if="allProducts.produtos.length <= 0" class="flex flex-col gap-4 justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 lg:mt-0 relative">
+                <h3 class="w-full flex justify-center items-center text-lg lg:text-xl xl:text-3xl 2xl:text-4xl text-primary-olivia-medium font-semibold">
+                  Ainda não possuimos este produto!
+                </h3>
+                <img src="/illustration/emptyProduct.svg" width="838" height="476" class="h-auto aspect-[838/476]" alt="Ilustração para listagem de produto vazia">
+              </div>
               <div v-if="allProducts.produtos.length > 0" class="flex flex-col justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 lg:mt-0 relative">
                 <span>Visualizando {{ allProducts.produtos.length }} de {{ allProducts.quantidadeProdutosPeloFiltro }}</span>
                 <atoms-button-show-more-products @handle-click-see-more-product="loadMoreProductsPagination(allProducts.produtos.length === allProducts.quantidadeProdutosPeloFiltro)" />
@@ -563,7 +569,7 @@ export default {
     const currentEffectSelected = ref("");
     const currentProductNameToSearch = ref("");
     const currentCountProductFound = ref(0);
-    const currentPageNumber = ref(1);
+    const currentPageNumber = ref(0);
     const loaderProduct = ref(false);
     const loaderProductPagination = ref(false);
     const originalListProduct = reactive({
@@ -571,8 +577,9 @@ export default {
       modified: false
     });
     const amountProductRequest = ref(6);
+    const numberInitPage = ref(0);
 
-    const { pending, data: listProducts, error } = useLazyFetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos?pagina=1&quantidade=${amountProductRequest.value}`);
+    const { pending, data: listProducts, error } = useLazyFetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos?pagina=${numberInitPage.value}&quantidade=${amountProductRequest.value}`);
 
     const routeWrapping = useRoute();
     const isRouterShow = computed(() => ({
@@ -592,7 +599,7 @@ export default {
       loaderProduct.value = true;
       resetOriginalProductList();
       try {
-        const res = await fetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos/nome-categoria?nomeCategoria=${currentCategorySelected.value}&pagina=1&quantidade=${amountProductRequest.value}`);
+        const res = await fetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos/nome-categoria?nomeCategoria=${currentCategorySelected.value}&pagina=${numberInitPage.value}&quantidade=${amountProductRequest.value}`);
         listProducts.value = (await res.json());
         currentCountProductFound.value = listProducts.value.quantidadeProdutosPeloFiltro;
       } catch (error) {
@@ -607,7 +614,7 @@ export default {
       loaderProduct.value = true;
       resetOriginalProductList();
       try {
-        const res = await fetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos/nome-efeito?nomeEfeito=${currentEffectSelected.value}&pagina=1&quantidade=${amountProductRequest.value}`);
+        const res = await fetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos/nome-efeito?nomeEfeito=${currentEffectSelected.value}&pagina=${numberInitPage.value}&quantidade=${amountProductRequest.value}`);
         listProducts.value = (await res.json());
       } catch (error) {
       }
@@ -621,7 +628,7 @@ export default {
       loaderProduct.value = true;
       resetOriginalProductList();
       try {
-        const res = await fetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos/nome?nome=${currentProductNameToSearch.value}&pagina=1&quantidade=${amountProductRequest.value}`);
+        const res = await fetch(`https://supleeapiv1.herokuapp.com/api/Catalogo/produtos/nome?nome=${currentProductNameToSearch.value}&pagina=${numberInitPage.value}&quantidade=${amountProductRequest.value}`);
         listProducts.value = (await res.json());
         currentCountProductFound.value = listProducts.value.quantidadeProdutosPeloFiltro;
       } catch (error) {
@@ -630,7 +637,7 @@ export default {
     });
 
     watch(currentPageNumber, async () => {
-      if (currentPageNumber.value === 1) { return; }
+      if (currentPageNumber.value === numberInitPage.value) { return; }
       loaderProductPagination.value = true;
 
       if (currentCategorySelected.value !== "") {

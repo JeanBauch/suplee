@@ -24,7 +24,9 @@
                   is-list-product
                   :id-product-in-list-product="product.id"
                 /> -->
-                {{ produto.quantidade }}
+                <p class="font-semibold md:text-sm lg:text-lg xl:text-xl p-3 text-dark-normal rounded-md bg-secondary-green-gray-light bg-opacity-80">
+                  {{ produto.quantidade }}
+                </p>
               </div>
             </td>
             <td class="py-4">

@@ -30,7 +30,11 @@
                 <p>Mais detalhes</p>
                 <ChevronRightIcon class="text-current w-4 h-4" />
               </button>
-              <button class="px-6 py-4 rounded-[0.625rem] bg-primary-lemon-dark" @click="handleClickButtonsPushToPurchase('cartShopping')">
+              <button
+                class="px-6 py-4 rounded-[0.625rem] bg-primary-lemon-dark disabled:opacity-70 disabled:cursor-not-allowed"
+                :disabled="cart.products.length <= 0"
+                @click="handleClickButtonsPushToPurchase('cartShopping')"
+              >
                 <h3 class="text-center text-complement-background-white font-medium text-base">
                   Finalizar carrinho
                 </h3>

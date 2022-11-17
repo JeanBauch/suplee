@@ -9,6 +9,13 @@
               <molecules-purchase-card-product-cart-shopping :id="product.id" />
               <div class="w-full h-[1px] rounded-full bg-complement-background-soft" />
             </div>
+
+            <div v-if="storeCart.totalQuantityItensOnProduct === 0" class="w-full flex flex-col justify-center py-10 px-5 relative" style="height: calc(100% - 60px);">
+              <h3 class="font-semibold text-primary-olivia-medium text-lg">
+                Seu <strong>carrinho</strong> de compras<br>está <strong>vazio!</strong>
+              </h3>
+              <img src="/illustration/emptyCart.svg" width="670" height="364" alt="Ilustração de carrinho de compras vazia" class="h-auto aspect-[670/364]">
+            </div>
           </div>
         </div>
         <molecules-purchase-card-resume @cart-shopping="handleClickNextStep('cartShopping')" />

@@ -49,6 +49,12 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="storeCart.totalQuantityItensOnProduct === 0" class="w-full flex justify-end py-20 px-12 relative" style="height: calc(100% - 60px);">
+      <h3 class="font-semibold text-primary-olivia-medium sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl absolute top-16 left-12">
+        Seu <strong class="sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">carrinho</strong> de compras<br>está <strong class="sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">vazio!</strong>
+      </h3>
+      <img src="/illustration/emptyCart.svg" width="670" height="364" alt="Ilustração de carrinho de compras vazia" class="h-auto aspect-[670/364]">
+    </div>
   </div>
 </template>
 
