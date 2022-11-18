@@ -4,7 +4,7 @@
       Histórico de compras
     </h1>
     <div class="w-full">
-      <molecules-purchase-historic-list-product v-for="item in historicProducts" :key="item.codigo" class="block sm:mb-16 sm:rounded-md">
+      <molecules-purchase-historic-list-product v-for="item in historicProducts" :key="item.codigo" class="block mb-8 md:mb-16 rounded-md">
         <tbody class="divide-y divide-secondary-green-gray-light">
           <tr v-for="(produto, index) in item.produtos" :key="index">
             <td scope="row" class="py-6 pl-4 pr-2 w-[40%] lg:w-[48%] xl:w-auto">
