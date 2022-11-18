@@ -16,7 +16,7 @@
             <PencilAltIcon class="h-16 w-16 text-current relative z-10" />
           </button>
 
-          <h3 class="text-dark-normal text-xl">
+          <h3 class="text-dark-normal text-xl text-center">
             Editar meu perfil
           </h3>
         </li>
@@ -26,7 +26,7 @@
             <ShoppingBagIcon class="h-16 w-16 text-current relative z-10" />
           </button>
 
-          <h3 class="text-dark-normal text-xl">
+          <h3 class="text-dark-normal text-xl text-center">
             Histórico de compras
           </h3>
         </li>
