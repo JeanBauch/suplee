@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="absolute -bottom-80 -left-64 z-[1] hidden md:block select-none">
-      <img src="/bg-complement/hand-alt.webp" width="866" height="433" class="md:aspect-auto drop-shadow-2xl shadow-primary-green-dark" alt="Imagem de background - Mão">
+      <img src="/bg-complement/hand-alt.webp" width="866" height="433" class="hidden md:block aspect-auto drop-shadow-2xl shadow-primary-green-dark" alt="Imagem de background - Mão">
     </div>
   </aside>
 </template>
