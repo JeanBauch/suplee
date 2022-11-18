@@ -17,5 +17,11 @@ export const usePushToRouteOnEvents = (section: TypeEventsToPushRoute) => {
         id: "logar"
       }
     });
+  } else if (section === "NavigateToEditUser") {
+    router.push("/usuario/editar-perfil");
+  } else if (section === "NavigateToHistoricPurchase") {
+    router.push("/historico-de-compras");
+  } else if (section === "NavigateToMyProfile") {
+    router.push("/usuario/meu-perfil");
   }
 };
