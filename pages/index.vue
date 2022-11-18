@@ -324,6 +324,11 @@
           </div>
         </div>
       </section>
+      <footer class="flex justify-center items-center pb-24 lg:pb-8 w-full bg-complement-background-normal">
+        <p class="text-center">
+          Utilizamos cookies essenciais e tecnologias semelhantes de acordo com a nossa <a href="/politica_privacidade.pdf" target="_blank" class="underline cursor-pointer text-primary-green-dark">Política de Privacidade<br></a>e, ao continuar navegando, você concorda com estas condições.
+        </p>
+      </footer>
       <AtomsModal :show="showModal" is-fixed>
         <template #header-modal>
           <h3 class="text-2xl font-bold">
@@ -696,7 +701,7 @@ export default {
       currentCategorySelected.value = category;
       currentEffectSelected.value = "";
       showModal.value = false;
-      resetPaginationNumber(1);
+      resetPaginationNumber(numberInitPage.value);
       toggleProductNameToSearch("");
       scrollPageToListProducts();
     }
@@ -709,7 +714,7 @@ export default {
     function toggleSelectedEffect (effect) {
       currentEffectSelected.value = effect;
       currentCategorySelected.value = "";
-      resetPaginationNumber(1);
+      resetPaginationNumber(numberInitPage.value);
       toggleProductNameToSearch("");
       scrollPageToListProducts();
       showModal.value = false;
@@ -800,7 +805,7 @@ export default {
       currentCategorySelected.value = "";
       currentEffectSelected.value = "";
       currentProductNameToSearch.value = "";
-      resetPaginationNumber(1);
+      resetPaginationNumber(numberInitPage.value);
       scrollPageToListProducts();
     }
 
