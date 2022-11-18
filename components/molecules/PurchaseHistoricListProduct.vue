@@ -7,7 +7,12 @@
             Produtos
           </th>
           <th scope="col" class="w-[14.625rem] text-current py-3 lg:py-4 px-2 xl:px-0">
-            Quantidade
+            <span class="hidden md:block">
+              Quantidade
+            </span>
+            <span class="block md:hidden">
+              Qntd.
+            </span>
           </th>
           <th scope="col" class="w-[14.625rem] text-current py-3 lg:py-4 px-2 xl:px-0">
             Valor

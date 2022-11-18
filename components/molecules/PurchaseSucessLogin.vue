@@ -18,7 +18,7 @@
         <h3 class="text-center font-bold text-xl lg:text-2xl text-primary-olivia-medium">
           Informações pessoais
         </h3>
-        <div v-if="storeUserLogged.userContainAddress" class="flex flex-col gap-1 xl:gap-2 2xl:gap-6">
+        <div v-if="storeUserLogged.userContainAddress" class="flex flex-col gap-1 xl:gap-2 2xl:gap-5">
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Nome:</b>
             <p class="text-dark-normal">{{ storeUserLogged.user.userToken.nome }}</p>
@@ -28,16 +28,20 @@
             <p class="text-dark-normal">{{ storeUserLogged.user.userToken.cpf }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
+            <b class="text-dark-light">Local selecinado:</b>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].tipoLocal === 0 ? 'Casa' : 'Trabalho' }}</p>
+          </span>
+          <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">CEP:</b>
             <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].cep }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
-            <b class="text-dark-light">Número:</b>
-            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].numero }}</p>
-          </span>
-          <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Rua:</b>
             <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].rua }}</p>
+          </span>
+          <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
+            <b class="text-dark-light">Número:</b>
+            <p class="text-dark-normal">{{ storeUserLogged.user.userToken.address[0].numero }}</p>
           </span>
           <span class="flex justify-between font-semibold text-base xl:text-lg 2xl:text-xl">
             <b class="text-dark-light">Bairro:</b>
@@ -55,7 +59,8 @@
       </div>
       <div class="flex justify-center flex-row-reverse md:flex-col-reverse lg:flex-row-reverse gap-2 xl:gap-4 2xl:gap-6 mt-8">
         <button
-          class="w-[70%] md:w-full lg:w-[70%] flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-primary-olivia-dark rounded-md shadow-lg hover:bg-opacity-80 group transition-colors"
+          class="w-[70%] md:w-full lg:w-[70%] flex items-center justify-center py-4 px-2 xl:py-3 xl:px-7 2xl:py-4 2xl:px-9 border border-primary-olivia-dark bg-primary-olivia-dark rounded-md shadow-lg hover:bg-opacity-80 group transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          :disabled="!storeUserLogged.userContainAddress"
           @click="handleClickNextStep"
         >
           <h4 class="font-semibold text-xs sm:text-sm 2xl:text-base text-complement-background-white transition-colors">

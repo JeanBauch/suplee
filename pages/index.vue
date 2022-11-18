@@ -141,8 +141,8 @@
                 </div>
                 <nav>
                   <ul class="grid grid-cols-2 gap-2 py-4 mb-7 text-2xl font-light text-dark-normal">
-                    <div class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Imunidade')">
-                      <button class="bg-complement-background-soft shadow-xl rounded-full p-3">
+                    <li class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Imunidade')">
+                      <button id="ImunidadeButtonFilter" aria-label="Botão para filtrar efeitos de imunidade" class="bg-complement-background-soft shadow-xl rounded-full p-3">
                         <svg
                           :class="isEffectSelected('Imunidade') ? 'text-primary-green-dark' : 'text-dark-normal'"
                           class=" group-hover:text-primary-green-dark"
@@ -157,9 +157,9 @@
                         </svg>
                       </button>
                       <span :class="isEffectSelected('Imunidade') ? 'text-primary-green-dark' : 'text-dark-normal'" class="text-lg font-light group-hover:text-primary-green-dark">Imunidade</span>
-                    </div>
-                    <div class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Fortalecimento Muscular')">
-                      <button class="bg-complement-background-soft shadow-xl rounded-full p-3">
+                    </li>
+                    <li class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Fortalecimento Muscular')">
+                      <button id="FortMuscularButtonFilter" aria-label="Botão para filtrar efeitos de fortalecimento muscular" class="bg-complement-background-soft shadow-xl rounded-full p-3">
                         <svg
                           :class="isEffectSelected('Fortalecimento Muscular') ? 'text-primary-green-dark' : 'text-dark-normal'"
                           class="group-hover:text-primary-green-dark"
@@ -180,9 +180,9 @@
                         </svg>
                       </button>
                       <span :class="isEffectSelected('Fortalecimento Muscular') ? 'text-primary-green-dark' : 'text-dark-normal'" class="text-sm text-center font-light group-hover:text-primary-green-dark">Fortalecimento<br>muscular</span>
-                    </div>
-                    <div class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Memória')">
-                      <button class="bg-complement-background-soft shadow-xl rounded-full p-3">
+                    </li>
+                    <li class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Memória')">
+                      <button id="MemoriaButtonFilter" aria-label="Botão para filtrar efeitos de mémoria" class="bg-complement-background-soft shadow-xl rounded-full p-3">
                         <svg
                           :class="isEffectSelected('Memória') ? 'text-primary-green-dark' : 'text-dark-normal'"
                           class="group-hover:text-primary-green-dark"
@@ -204,9 +204,9 @@
                         </svg>
                       </button>
                       <span :class="isEffectSelected('Memória') ? 'text-primary-green-dark' : 'text-dark-normal'" class="text-lg font-light group-hover:text-primary-green-dark">Memória</span>
-                    </div>
-                    <div class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Fortificação Óssea')">
-                      <button class="bg-complement-background-soft shadow-xl rounded-full p-3">
+                    </li>
+                    <li class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Fortificação Óssea')">
+                      <button id="FortOsseaButtonFilter" aria-label="Botão para filtrar efeitos de Fortificação Óssea" class="bg-complement-background-soft shadow-xl rounded-full p-3">
                         <svg
                           :class="isEffectSelected('Fortificação Óssea') ? 'text-primary-green-dark' : 'text-dark-normal'"
                           class="group-hover:text-primary-green-dark"
@@ -230,9 +230,9 @@
                         </svg>
                       </button>
                       <span :class="isEffectSelected('Fortificação Óssea') ? 'text-primary-green-dark' : 'text-dark-normal'" class="text-sm text-center font-light group-hover:text-primary-green-dark">Fortificação<br>osséa</span>
-                    </div>
-                    <div class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Vitamina D')">
-                      <button class="bg-complement-background-soft shadow-xl rounded-full p-3">
+                    </li>
+                    <li class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Vitamina D')">
+                      <button id="VitDButtonFilter" aria-label="Botão para filtrar efeitos de Vitamina D" class="bg-complement-background-soft shadow-xl rounded-full p-3">
                         <svg
                           :class="isEffectSelected('Vitamina D') ? 'text-primary-green-dark' : 'text-dark-normal'"
                           class="group-hover:text-primary-green-dark"
@@ -273,9 +273,9 @@
                         </svg>
                       </button>
                       <span :class="isEffectSelected('Vitamina D') ? 'text-primary-green-dark' : 'text-dark-normal'" class="text-lg font-light group-hover:text-primary-green-dark">Vitamina D</span>
-                    </div>
-                    <div class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Relaxante')">
-                      <button class="bg-complement-background-soft shadow-xl rounded-full p-3">
+                    </li>
+                    <li class="flex flex-col gap-2 justify-start items-center cursor-pointer group" @click="toggleSelectedEffect('Relaxante')">
+                      <button id="RelaxanteButtonFilter" aria-label="Botão para filtrar efeitos de relaxamento" class="bg-complement-background-soft shadow-xl rounded-full p-3">
                         <svg
                           :class="isEffectSelected('Relaxante') ? 'text-primary-green-dark' : 'text-dark-normal'"
                           class="group-hover:text-primary-green-dark"
@@ -289,7 +289,7 @@
                         </svg>
                       </button>
                       <span :class="isEffectSelected('Relaxante') ? 'text-primary-green-dark' : 'text-dark-normal'" class="text-lg font-light group-hover:text-primary-green-dark">Relaxante</span>
-                    </div>
+                    </li>
                   </ul>
                 </nav>
               </div>
@@ -309,7 +309,7 @@
                   <organisms-card-product :produto="produto" />
                 </a>
               </div>
-              <div v-if="allProducts.produtos.length <= 0" class="flex flex-col gap-4 justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 lg:mt-0 relative">
+              <div v-if="allProducts.produtos.length <= 0" class="flex flex-col gap-4 justify-start items-center w-full col-span-2 md:col-span-3 lg:col-span-2 xl:col-span-3 mt-7 relative">
                 <h3 class="w-full flex justify-center items-center text-lg lg:text-xl xl:text-3xl 2xl:text-4xl text-primary-olivia-medium font-semibold">
                   Ainda não possuimos este produto!
                 </h3>

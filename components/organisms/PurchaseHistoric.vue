@@ -4,7 +4,7 @@
       Histórico de compras
     </h1>
     <div class="w-full">
-      <molecules-purchase-historic-list-product v-for="item in historicProducts" :key="item.codigo" class="hidden sm:block sm:mb-16 sm:rounded-md">
+      <molecules-purchase-historic-list-product v-for="item in historicProducts" :key="item.codigo" class="block sm:mb-16 sm:rounded-md">
         <tbody class="divide-y divide-secondary-green-gray-light">
           <tr v-for="(produto, index) in item.produtos" :key="index">
             <td scope="row" class="py-6 pl-4 pr-2 w-[40%] lg:w-[48%] xl:w-auto">
@@ -12,7 +12,7 @@
                 <img :src="produto.imagens[0].urlImagemReduzida" width="62" height="94" class="w-[31px] h-[47px] lg:w-[62px] lg:h-[94px]" :alt="'Imagem do suplemento ' + produto.imagens[0].nomeImagem">
                 <span class="flex flex-col md:gap-1 lg:gap-2">
                   <h4 class="font-semibold text-sm lg:text-base xl:text-lg text-dark-normal">{{ produto.nomeProduto }}</h4>
-                  <p class="font-light text-xs text-secondary-green-gray-medium">categoria</p>
+                  <!-- <p class="font-light text-xs text-secondary-green-gray-medium">categoria</p> -->
                 </span>
               </div>
             </td>
@@ -31,11 +31,11 @@
             </td>
             <td class="py-4">
               <span class="flex justify-center">
-                <p class="font-semibold md:text-sm lg:text-lg xl:text-xl text-dark-normal">{{ priceFormated(produto.valorUnitario, produto.quantidade) }}</p>
+                <p class="font-semibold text-sm lg:text-lg xl:text-xl text-dark-normal">{{ priceFormated(produto.valorUnitario, produto.quantidade) }}</p>
               </span>
             </td>
             <td class="py-4 text-center">
-              <p class="font-semibold md:text-sm lg:text-lg xl:text-xl text-dark-normal">
+              <p class="font-semibold text-sm lg:text-lg xl:text-xl text-dark-normal">
                 {{ dateFormated(item.dataCadastro) }}
               </p>
             </td>
@@ -43,14 +43,14 @@
         </tbody>
       </molecules-purchase-historic-list-product>
 
-      <div class="sm:hidden px-5 py-7 rounded-[0.625rem] bg-complement-background-white shadow-green-perso">
+      <!--<div class="sm:hidden px-5 py-7 rounded-[0.625rem] bg-complement-background-white shadow-green-perso">
         <div class="flex flex-col gap-3 overflow-auto" style="max-height: calc(100vh - 87.5px - 375px);">
-          <!-- <div v-for="product in storeCart.cart.products" :key="product.id" class="flex flex-col gap-3">
+          <div v-for="product in storeCart.cart.products" :key="product.id" class="flex flex-col gap-3">
             <molecules-purchase-card-product-cart-shopping :id="product.id" />
             <div class="w-full h-[1px] rounded-full bg-complement-background-soft" />
-          </div> -->
+          </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </main>
 </template>

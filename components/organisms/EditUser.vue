@@ -316,7 +316,7 @@ async function addAddressToProfile () {
           complemento: address.complement,
           enderecoId: "",
           informacaoAdicional: "",
-          enderecoPadrao: false
+          enderecoPadrao: !storeUserLogged.userContainAddress
         }
       ];
     });

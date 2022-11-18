@@ -17,8 +17,9 @@
             </p>
           </span>
         </li>
-        <li @click="$emit('selectScrollSection', 'NavigateProfileUser')">
-          <UserIcon class="h-10 w-10 text-current relative z-10" />
+        <li @click="$emit('selectScrollSection', isUserLogged.redirect)">
+          <UserIconSolid v-if="useLoggedUser().user.isLogged" class="h-10 w-10 text-current relative z-10" />
+          <UserIcon v-else class="h-10 w-10 text-current relative z-10" />
         </li>
       </ul>
     </nav>
@@ -27,7 +28,9 @@
 
 <script setup>
 import { ViewGridIcon, HomeIcon, SearchIcon, ShoppingCartIcon, UserIcon } from "@heroicons/vue/outline";
+import { UserIcon as UserIconSolid } from "@heroicons/vue/solid";
 import { useCart } from "~~/stores/useCart";
+import { useLoggedUser } from "~~/stores/useLoggedUser";
 
 defineEmits(["selectScrollSection"]);
 const storeCart = useCart();
@@ -35,6 +38,10 @@ const routeWrapping = useRoute();
 
 const isRouterShow = computed(() => ({
   isHome: routeWrapping.name === "index"
+}));
+
+const isUserLogged = computed(() => ({
+  redirect: useLoggedUser().user.isLogged ? "NavigateToMyProfile" : "NavigateProfileUser"
 }));
 
 const valueOfEmitterSectionToScroll = computed(() => ({
